@@ -1,12 +1,23 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { StarField } from '@/components/StarField';
+import { HeroSection } from '@/components/HeroSection';
+import { TarotSection } from '@/components/TarotSection';
+import { ZodiacSection } from '@/components/ZodiacSection';
+import { PastLifePortal } from '@/components/PastLifePortal';
+import { ServicesSection } from '@/components/ServicesSection';
+import { TestimonialsSection } from '@/components/TestimonialsSection';
+import { Footer } from '@/components/Footer';
 
 const Index = () => {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className="relative min-h-screen bg-background font-body overflow-x-hidden">
+      <StarField />
+      <HeroSection />
+      <TarotSection />
+      <ZodiacSection />
+      <PastLifePortal />
+      <ServicesSection />
+      <TestimonialsSection />
+      <Footer />
     </div>
   );
 };

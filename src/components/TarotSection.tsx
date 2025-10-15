@@ -3,13 +3,21 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Sparkles } from 'lucide-react';
 import tarotBackImage from '@/assets/tarot-back.jpg';
+import tarotStarImage from '@/assets/tarot-star.jpg';
+import tarotMoonImage from '@/assets/tarot-moon.jpg';
+import tarotSunImage from '@/assets/tarot-sun.jpg';
+import tarotLoversImage from '@/assets/tarot-lovers.jpg';
+import tarotMagicianImage from '@/assets/tarot-magician.jpg';
+import tarotPriestessImage from '@/assets/tarot-priestess.jpg';
+import tarotEmpressImage from '@/assets/tarot-empress.jpg';
+import tarotEmperorImage from '@/assets/tarot-emperor.jpg';
 
 interface TarotCard {
   id: number;
   name: string;
   meaning: string;
   guidance: string;
-  color: string;
+  image: string;
 }
 
 const tarotDeck: TarotCard[] = [
@@ -18,56 +26,56 @@ const tarotDeck: TarotCard[] = [
     name: "The Star", 
     meaning: "Hope, renewal, and spiritual insight guide your path forward.",
     guidance: "Trust in the universe's plan. Your dreams are aligning with divine timing.",
-    color: "from-blue-400 to-purple-500"
+    image: tarotStarImage
   },
   { 
     id: 2, 
     name: "The Moon", 
     meaning: "Intuition and dreams reveal hidden truths in the shadows.",
     guidance: "Pay attention to your subconscious messages. Trust your inner knowing.",
-    color: "from-indigo-400 to-blue-600"
+    image: tarotMoonImage
   },
   { 
     id: 3, 
     name: "The Sun", 
     meaning: "Joy, success, and clarity illuminate your journey ahead.",
     guidance: "Embrace positivity and let your light shine. Success is imminent.",
-    color: "from-yellow-400 to-orange-500"
+    image: tarotSunImage
   },
   { 
     id: 4, 
     name: "The Lovers", 
     meaning: "Harmony and meaningful connections shape your destiny.",
     guidance: "Important choices await. Follow your heart's true calling.",
-    color: "from-pink-400 to-rose-500"
+    image: tarotLoversImage
   },
   { 
     id: 5, 
     name: "The Magician", 
     meaning: "Manifestation power flows through your intentions.",
     guidance: "You have all the tools needed. Channel your will into reality.",
-    color: "from-purple-400 to-pink-500"
+    image: tarotMagicianImage
   },
   { 
     id: 6, 
     name: "The High Priestess", 
     meaning: "Deep wisdom and sacred knowledge await within.",
     guidance: "Look beyond the veil. Secret knowledge is being revealed to you.",
-    color: "from-violet-400 to-purple-600"
+    image: tarotPriestessImage
   },
   { 
     id: 7, 
     name: "The Empress", 
     meaning: "Abundance, creativity, and nurturing energy surround you.",
     guidance: "Embrace your creative power. Prosperity flows naturally.",
-    color: "from-green-400 to-emerald-500"
+    image: tarotEmpressImage
   },
   { 
     id: 8, 
     name: "The Emperor", 
     meaning: "Structure, authority, and leadership define your path.",
     guidance: "Take charge with confidence. Your leadership is needed now.",
-    color: "from-red-400 to-orange-600"
+    image: tarotEmperorImage
   },
 ];
 
@@ -168,7 +176,7 @@ export const TarotSection = () => {
                         <div className="absolute inset-0 bg-gradient-glow animate-pulse-glow" />
                       </div>
 
-                      {/* Card Front */}
+                      {/* Card Front - Real Tarot Card Image */}
                       <div
                         className="absolute inset-0 backface-hidden rounded-2xl overflow-hidden shadow-cosmic border-2 border-primary rotate-y-180"
                         style={{
@@ -176,9 +184,14 @@ export const TarotSection = () => {
                           transform: 'rotateY(180deg)',
                         }}
                       >
-                        <div className={`w-full h-full bg-gradient-to-br ${card.color} p-6 flex flex-col items-center justify-center`}>
-                          <Sparkles className="w-12 h-12 mb-4 text-white animate-pulse-glow" />
-                          <h3 className="font-heading text-2xl font-bold text-white text-center">
+                        <img
+                          src={card.image}
+                          alt={card.name}
+                          className="w-full h-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                        <div className="absolute bottom-0 left-0 right-0 p-4 bg-black/40 backdrop-blur-sm">
+                          <h3 className="font-heading text-xl font-bold text-white text-center">
                             {card.name}
                           </h3>
                         </div>
@@ -198,11 +211,15 @@ export const TarotSection = () => {
                 <Card className="w-full max-w-3xl p-8 md:p-12 bg-card/90 backdrop-blur-sm border-primary shadow-cosmic animate-scale-in">
                   <div className="space-y-6">
                     <div className="flex items-center gap-4">
-                      <div className={`w-16 h-16 rounded-full bg-gradient-to-br ${selectedCard.color} flex items-center justify-center shadow-glow animate-pulse-glow`}>
-                        <Sparkles className="w-8 h-8 text-white" />
+                      <div className="w-24 h-36 rounded-lg overflow-hidden shadow-glow">
+                        <img
+                          src={selectedCard.image}
+                          alt={selectedCard.name}
+                          className="w-full h-full object-cover"
+                        />
                       </div>
-                      <div>
-                        <h3 className="font-heading text-3xl font-bold text-foreground">
+                      <div className="flex-1">
+                        <h3 className="font-heading text-3xl font-bold text-foreground mb-2">
                           {selectedCard.name}
                         </h3>
                         <p className="font-body text-sm text-muted-foreground">Your Cosmic Card</p>
@@ -245,7 +262,6 @@ export const TarotSection = () => {
           )}
         </div>
       </div>
-
     </section>
   );
 };

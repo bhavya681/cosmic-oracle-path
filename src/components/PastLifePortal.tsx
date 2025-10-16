@@ -2,19 +2,44 @@ import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Clock, Sparkles } from 'lucide-react';
+import egyptImage from '@/assets/pastlife-egypt.jpg';
+import medievalImage from '@/assets/pastlife-medieval.jpg';
+import vedicImage from '@/assets/pastlife-vedic.jpg';
+import silkroadImage from '@/assets/pastlife-silkroad.jpg';
+import groveImage from '@/assets/pastlife-grove.jpg';
+import renaissanceImage from '@/assets/pastlife-renaissance.jpg';
 
 const pastLifeMessages = [
-  "You were a healer in ancient Egypt, channeling divine wisdom through temple ceremonies.",
-  "Your soul walked as a scholar in medieval Europe, preserving sacred knowledge through dark times.",
-  "You danced with the cosmos as a Vedic sage, teaching harmony between earth and sky.",
-  "Your spirit guided caravans across silk roads, connecting distant worlds through trade and wisdom.",
-  "You served as a guardian of sacred groves, protecting nature's mysteries with devotion.",
-  "Your essence shone as a court mystic in Renaissance Italy, advising rulers through astrology.",
+  {
+    message: "You were a healer in ancient Egypt, channeling divine wisdom through temple ceremonies.",
+    image: egyptImage
+  },
+  {
+    message: "Your soul walked as a scholar in medieval Europe, preserving sacred knowledge through dark times.",
+    image: medievalImage
+  },
+  {
+    message: "You danced with the cosmos as a Vedic sage, teaching harmony between earth and sky.",
+    image: vedicImage
+  },
+  {
+    message: "Your spirit guided caravans across silk roads, connecting distant worlds through trade and wisdom.",
+    image: silkroadImage
+  },
+  {
+    message: "You served as a guardian of sacred groves, protecting nature's mysteries with devotion.",
+    image: groveImage
+  },
+  {
+    message: "Your essence shone as a court mystic in Renaissance Italy, advising rulers through astrology.",
+    image: renaissanceImage
+  }
 ];
 
 export const PastLifePortal = () => {
   const [isExploring, setIsExploring] = useState(false);
   const [message, setMessage] = useState('');
+  const [image, setImage] = useState('');
   const [showMessage, setShowMessage] = useState(false);
   const [portalActive, setPortalActive] = useState(false);
 
@@ -31,8 +56,9 @@ export const PastLifePortal = () => {
     setShowMessage(false);
     
     setTimeout(() => {
-      const randomMessage = pastLifeMessages[Math.floor(Math.random() * pastLifeMessages.length)];
-      setMessage(randomMessage);
+      const randomLife = pastLifeMessages[Math.floor(Math.random() * pastLifeMessages.length)];
+      setMessage(randomLife.message);
+      setImage(randomLife.image);
       setShowMessage(true);
       setIsExploring(false);
     }, 3500);
@@ -176,18 +202,27 @@ export const PastLifePortal = () => {
 
             {showMessage && (
               <div className="space-y-8 animate-scale-in">
-                <div className="relative w-32 h-32 mx-auto">
-                  <div className="absolute inset-0 rounded-full bg-primary/20 animate-ping" />
-                  <div className="absolute inset-0 rounded-full bg-gradient-cosmic shadow-glow flex items-center justify-center">
-                    <Sparkles className="w-16 h-16 text-foreground animate-pulse-glow" />
+                <div className="relative">
+                  <div className="relative w-full aspect-video rounded-2xl overflow-hidden shadow-cosmic">
+                    <img 
+                      src={image} 
+                      alt="Past Life Vision" 
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent" />
+                    <div className="absolute top-4 right-4">
+                      <div className="w-16 h-16 rounded-full bg-gradient-cosmic shadow-glow flex items-center justify-center animate-pulse-glow">
+                        <Sparkles className="w-8 h-8 text-foreground" />
+                      </div>
+                    </div>
                   </div>
                 </div>
                 
                 <div className="space-y-6">
-                  <h3 className="font-heading text-2xl font-bold text-primary">
+                  <h3 className="font-heading text-3xl font-bold text-primary">
                     Your Past Life Revealed
                   </h3>
-                  <div className="p-8 bg-gradient-cosmic rounded-2xl shadow-cosmic">
+                  <div className="p-8 bg-gradient-cosmic rounded-2xl shadow-cosmic border border-primary/20">
                     <p className="font-body text-xl text-foreground leading-relaxed">
                       {message}
                     </p>

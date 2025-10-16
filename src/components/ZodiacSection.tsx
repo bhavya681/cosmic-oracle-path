@@ -5,8 +5,18 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Sparkles } from 'lucide-react';
 
 const zodiacSigns = [
-  'Aries', 'Taurus', 'Gemini', 'Cancer', 'Leo', 'Virgo',
-  'Libra', 'Scorpio', 'Sagittarius', 'Capricorn', 'Aquarius', 'Pisces'
+  { name: 'Aries', symbol: '♈', color: 'hsl(var(--primary))' },
+  { name: 'Taurus', symbol: '♉', color: 'hsl(var(--accent))' },
+  { name: 'Gemini', symbol: '♊', color: 'hsl(var(--secondary))' },
+  { name: 'Cancer', symbol: '♋', color: 'hsl(var(--primary))' },
+  { name: 'Leo', symbol: '♌', color: 'hsl(var(--accent))' },
+  { name: 'Virgo', symbol: '♍', color: 'hsl(var(--secondary))' },
+  { name: 'Libra', symbol: '♎', color: 'hsl(var(--primary))' },
+  { name: 'Scorpio', symbol: '♏', color: 'hsl(var(--accent))' },
+  { name: 'Sagittarius', symbol: '♐', color: 'hsl(var(--secondary))' },
+  { name: 'Capricorn', symbol: '♑', color: 'hsl(var(--primary))' },
+  { name: 'Aquarius', symbol: '♒', color: 'hsl(var(--accent))' },
+  { name: 'Pisces', symbol: '♓', color: 'hsl(var(--secondary))' }
 ];
 
 const predictions: Record<string, string> = {
@@ -60,8 +70,13 @@ export const ZodiacSection = () => {
                 </SelectTrigger>
                 <SelectContent className="bg-card border-border">
                   {zodiacSigns.map((sign) => (
-                    <SelectItem key={sign} value={sign} className="text-lg">
-                      {sign}
+                    <SelectItem key={sign.name} value={sign.name} className="text-lg">
+                      <span className="flex items-center gap-3">
+                        <span className="text-2xl animate-pulse-glow" style={{ color: sign.color }}>
+                          {sign.symbol}
+                        </span>
+                        {sign.name}
+                      </span>
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -80,13 +95,26 @@ export const ZodiacSection = () => {
 
             {showPrediction && (
               <div className="mt-8 p-8 bg-gradient-cosmic rounded-2xl animate-scale-in">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center animate-pulse-glow">
-                    <Sparkles className="w-6 h-6 text-primary-foreground" />
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="relative">
+                    <div className="w-20 h-20 rounded-full bg-gradient-cosmic flex items-center justify-center animate-pulse-glow shadow-glow">
+                      <span 
+                        className="text-5xl animate-rotate-slow" 
+                        style={{ color: zodiacSigns.find(z => z.name === selectedSign)?.color }}
+                      >
+                        {zodiacSigns.find(z => z.name === selectedSign)?.symbol}
+                      </span>
+                    </div>
+                    <div className="absolute inset-0 rounded-full border-4 border-primary/20 animate-ping" />
                   </div>
-                  <h3 className="font-heading text-2xl font-bold text-foreground">
-                    {selectedSign}
-                  </h3>
+                  <div>
+                    <h3 className="font-heading text-3xl font-bold text-foreground">
+                      {selectedSign}
+                    </h3>
+                    <p className="font-body text-sm text-muted-foreground italic">
+                      Cosmic guidance for your journey
+                    </p>
+                  </div>
                 </div>
                 <p className="font-body text-lg text-foreground/90 leading-relaxed">
                   {prediction}

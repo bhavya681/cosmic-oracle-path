@@ -18,64 +18,41 @@ interface CardReading {
 export const TarotSection = () => {
   const [spreadType, setSpreadType] = useState<SpreadType>('one');
   const [readings, setReadings] = useState<CardReading[]>([]);
-  const [flippedCards, setFlippedCards] = useState<number[]>([]);
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [selectedReading, setSelectedReading] = useState<CardReading | null>(null);
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
-
-  const getSpreadPositions = (type: SpreadType): string[] => {
-    switch (type) {
-      case 'one':
-        return ['Your Guidance'];
-      case 'three':
-        return ['Past', 'Present', 'Future'];
-      case 'celtic':
-        return [
-          'Present',
-          'Challenge',
-          'Past',
-          'Future',
-          'Above',
-          'Below',
-          'Advice',
-          'External',
-          'Hopes/Fears',
-          'Outcome'
-        ];
-      default:
-        return [];
-    }
-  };
+  const [isReading, setIsReading] = useState(false);
 
   const drawCards = () => {
-    const positions = getSpreadPositions(spreadType);
-    const cardCount = positions.length;
-    
+    // Always draw 4 cards for selection
     const shuffled = [...tarotDeck].sort(() => Math.random() - 0.5);
-    const drawnCards: CardReading[] = shuffled.slice(0, cardCount).map((card, index) => ({
+    const drawnCards: CardReading[] = shuffled.slice(0, 4).map((card) => ({
       card,
       isReversed: Math.random() > 0.5,
-      position: positions[index]
     }));
 
     setReadings(drawnCards);
-    setFlippedCards([]);
+    setSelectedIndex(null);
     setSelectedReading(null);
+    setIsReading(true);
   };
 
   const handleCardClick = (reading: CardReading, index: number) => {
-    if (!flippedCards.includes(index)) {
-      setFlippedCards([...flippedCards, index]);
+    if (selectedIndex === null) {
+      setSelectedIndex(index);
       setTimeout(() => {
         setSelectedReading(reading);
       }, 600);
     }
   };
 
-  const getGridClass = () => {
-    if (spreadType === 'one') return 'flex justify-center';
-    if (spreadType === 'three') return 'grid grid-cols-1 md:grid-cols-3 gap-8';
-    return 'grid grid-cols-2 md:grid-cols-5 gap-6';
+  const resetReading = () => {
+    setIsReading(false);
+    setReadings([]);
+    setSelectedIndex(null);
+    setSelectedReading(null);
   };
+
 
   return (
     <section id="tarot" className="py-24 px-4 relative overflow-hidden">
@@ -86,27 +63,16 @@ export const TarotSection = () => {
           <h2 className="font-heading text-4xl md:text-6xl font-bold mb-6 text-foreground">
             Sacred Tarot Readings
           </h2>
-          <p className="font-body text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
-            Unlock the wisdom of all 78 cards with guidance from the mystical oracle
+          <p className="font-body text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
+            {!isReading 
+              ? "Unlock the wisdom of all 78 cards with guidance from the mystical oracle" 
+              : "Choose the card that calls to your soul"
+            }
           </p>
-
-          {/* Spread Selector */}
-          <div className="flex justify-center">
-            <Select value={spreadType} onValueChange={(value) => setSpreadType(value as SpreadType)}>
-              <SelectTrigger className="w-64 bg-card border-primary/30 text-foreground">
-                <SelectValue placeholder="Choose your spread" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="one">Single Card Reading</SelectItem>
-                <SelectItem value="three">Three Card Spread</SelectItem>
-                <SelectItem value="celtic">Celtic Cross (10 Cards)</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
         </div>
 
         <div className="flex flex-col items-center gap-12">
-          {readings.length === 0 ? (
+          {!isReading ? (
             <div className="text-center space-y-8 animate-fade-in">
               <div className="relative w-64 h-96 mx-auto">
                 <div className="absolute inset-0 bg-gradient-cosmic rounded-3xl blur-xl animate-pulse-glow" />
@@ -127,82 +93,79 @@ export const TarotSection = () => {
             </div>
           ) : (
             <>
-              {/* Cards Layout */}
-              <div className={`w-full max-w-6xl ${getGridClass()}`}>
-                {readings.map((reading, index) => (
-                  <div
-                    key={index}
-                    className="relative perspective-1000 flex flex-col items-center"
-                    style={{ animationDelay: `${index * 0.1}s` }}
-                  >
-                    {/* Position Label */}
-                    {reading.position && (
-                      <div className="mb-4 text-center">
-                        <p className="font-heading text-lg font-semibold text-primary">
-                          {reading.position}
-                        </p>
-                      </div>
-                    )}
-
+              {/* 4 Cards to Choose From */}
+              <div className="w-full max-w-5xl">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+                  {readings.map((reading, index) => (
                     <div
-                      className={`relative w-48 aspect-[2/3] cursor-pointer transition-all duration-700 transform-style-3d ${
-                        flippedCards.includes(index) ? 'rotate-y-180' : ''
-                      } ${
-                        hoveredCard === index && !flippedCards.includes(index)
-                          ? 'scale-105 -translate-y-4'
-                          : ''
-                      }`}
-                      style={{
-                        transformStyle: 'preserve-3d',
-                        transform: flippedCards.includes(index) ? 'rotateY(180deg)' : 'rotateY(0deg)',
-                      }}
-                      onMouseEnter={() => !flippedCards.includes(index) && setHoveredCard(index)}
-                      onMouseLeave={() => setHoveredCard(null)}
-                      onClick={() => handleCardClick(reading, index)}
+                      key={index}
+                      className="relative perspective-1000 flex flex-col items-center animate-fade-in"
+                      style={{ animationDelay: `${index * 0.1}s` }}
                     >
-                      {/* Card Back */}
                       <div
-                        className="absolute inset-0 backface-hidden rounded-2xl overflow-hidden shadow-cosmic border-2 border-primary/30"
-                        style={{ backfaceVisibility: 'hidden' }}
-                      >
-                        <img
-                          src={tarotBackImage}
-                          alt="Tarot Back"
-                          className="w-full h-full object-cover"
-                        />
-                        <div className="absolute inset-0 bg-gradient-glow animate-pulse-glow" />
-                      </div>
-
-                      {/* Card Front */}
-                      <div
-                        className={`absolute inset-0 backface-hidden rounded-2xl overflow-hidden shadow-cosmic border-2 border-primary ${
-                          reading.isReversed ? 'rotate-180' : ''
+                        className={`relative w-full aspect-[2/3] cursor-pointer transition-all duration-700 transform-style-3d ${
+                          selectedIndex === index ? 'rotate-y-180' : ''
+                        } ${
+                          hoveredCard === index && selectedIndex === null
+                            ? 'scale-105 -translate-y-4'
+                            : ''
+                        } ${
+                          selectedIndex !== null && selectedIndex !== index
+                            ? 'opacity-30 scale-95'
+                            : ''
                         }`}
                         style={{
-                          backfaceVisibility: 'hidden',
-                          transform: 'rotateY(180deg)',
+                          transformStyle: 'preserve-3d',
+                          transform: selectedIndex === index ? 'rotateY(180deg)' : 'rotateY(0deg)',
                         }}
+                        onMouseEnter={() => selectedIndex === null && setHoveredCard(index)}
+                        onMouseLeave={() => setHoveredCard(null)}
+                        onClick={() => handleCardClick(reading, index)}
                       >
-                        <img
-                          src={reading.card.image}
-                          alt={reading.card.name}
-                          className="w-full h-full object-cover"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                        <div className="absolute bottom-0 left-0 right-0 p-4 bg-black/40 backdrop-blur-sm">
-                          <h3 className="font-heading text-lg font-bold text-white text-center">
-                            {reading.card.name}
-                            {reading.isReversed && <span className="text-primary ml-2">(Reversed)</span>}
-                          </h3>
+                        {/* Card Back */}
+                        <div
+                          className="absolute inset-0 backface-hidden rounded-2xl overflow-hidden shadow-cosmic border-2 border-primary/30"
+                          style={{ backfaceVisibility: 'hidden' }}
+                        >
+                          <img
+                            src={tarotBackImage}
+                            alt="Tarot Back"
+                            className="w-full h-full object-cover"
+                          />
+                          <div className="absolute inset-0 bg-gradient-glow animate-pulse-glow" />
+                        </div>
+
+                        {/* Card Front */}
+                        <div
+                          className={`absolute inset-0 backface-hidden rounded-2xl overflow-hidden shadow-cosmic border-2 border-primary ${
+                            reading.isReversed ? 'rotate-180' : ''
+                          }`}
+                          style={{
+                            backfaceVisibility: 'hidden',
+                            transform: 'rotateY(180deg)',
+                          }}
+                        >
+                          <img
+                            src={reading.card.image}
+                            alt={reading.card.name}
+                            className="w-full h-full object-cover"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                          <div className="absolute bottom-0 left-0 right-0 p-4 bg-black/40 backdrop-blur-sm">
+                            <h3 className="font-heading text-lg font-bold text-white text-center">
+                              {reading.card.name}
+                              {reading.isReversed && <span className="text-primary ml-2">(Reversed)</span>}
+                            </h3>
+                          </div>
                         </div>
                       </div>
-                    </div>
 
-                    {hoveredCard === index && !flippedCards.includes(index) && (
-                      <div className="absolute inset-0 bg-primary/20 rounded-2xl blur-xl animate-pulse-glow -z-10" />
-                    )}
-                  </div>
-                ))}
+                      {hoveredCard === index && selectedIndex === null && (
+                        <div className="absolute inset-0 bg-primary/20 rounded-2xl blur-xl animate-pulse-glow -z-10" />
+                      )}
+                    </div>
+                  ))}
+                </div>
               </div>
 
               {/* Oracle's Reading */}
@@ -258,15 +221,17 @@ export const TarotSection = () => {
                 </div>
               )}
 
-              {/* Draw Again Button */}
-              <Button
-                size="lg"
-                onClick={drawCards}
-                className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold px-12 py-6 rounded-full shadow-glow transition-all duration-500 hover:scale-105"
-              >
-                <Shuffle className="w-5 h-5 mr-2" />
-                Draw New Cards
-              </Button>
+              {/* Action Buttons */}
+              <div className="flex gap-4">
+                <Button
+                  size="lg"
+                  onClick={resetReading}
+                  className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold px-12 py-6 rounded-full shadow-glow transition-all duration-500 hover:scale-105"
+                >
+                  <Shuffle className="w-5 h-5 mr-2" />
+                  New Reading
+                </Button>
+              </div>
             </>
           )}
         </div>

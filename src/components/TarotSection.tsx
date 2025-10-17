@@ -1,167 +1,164 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { Sparkles } from 'lucide-react';
+import { Sparkles, Shuffle } from 'lucide-react';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { MysticalNarrator } from './MysticalNarrator';
+import { tarotDeck, type TarotCard } from '@/data/tarotDeck';
 import tarotBackImage from '@/assets/tarot-back.jpg';
-import tarotStarImage from '@/assets/tarot-star.jpg';
-import tarotMoonImage from '@/assets/tarot-moon.jpg';
-import tarotSunImage from '@/assets/tarot-sun.jpg';
-import tarotLoversImage from '@/assets/tarot-lovers.jpg';
-import tarotMagicianImage from '@/assets/tarot-magician.jpg';
-import tarotPriestessImage from '@/assets/tarot-priestess.jpg';
-import tarotEmpressImage from '@/assets/tarot-empress.jpg';
-import tarotEmperorImage from '@/assets/tarot-emperor.jpg';
 
-interface TarotCard {
-  id: number;
-  name: string;
-  meaning: string;
-  guidance: string;
-  image: string;
+type SpreadType = 'one' | 'three' | 'celtic';
+
+interface CardReading {
+  card: TarotCard;
+  isReversed: boolean;
+  position?: string;
 }
 
-const tarotDeck: TarotCard[] = [
-  { 
-    id: 1, 
-    name: "The Star", 
-    meaning: "Hope, renewal, and spiritual insight guide your path forward.",
-    guidance: "Trust in the universe's plan. Your dreams are aligning with divine timing.",
-    image: tarotStarImage
-  },
-  { 
-    id: 2, 
-    name: "The Moon", 
-    meaning: "Intuition and dreams reveal hidden truths in the shadows.",
-    guidance: "Pay attention to your subconscious messages. Trust your inner knowing.",
-    image: tarotMoonImage
-  },
-  { 
-    id: 3, 
-    name: "The Sun", 
-    meaning: "Joy, success, and clarity illuminate your journey ahead.",
-    guidance: "Embrace positivity and let your light shine. Success is imminent.",
-    image: tarotSunImage
-  },
-  { 
-    id: 4, 
-    name: "The Lovers", 
-    meaning: "Harmony and meaningful connections shape your destiny.",
-    guidance: "Important choices await. Follow your heart's true calling.",
-    image: tarotLoversImage
-  },
-  { 
-    id: 5, 
-    name: "The Magician", 
-    meaning: "Manifestation power flows through your intentions.",
-    guidance: "You have all the tools needed. Channel your will into reality.",
-    image: tarotMagicianImage
-  },
-  { 
-    id: 6, 
-    name: "The High Priestess", 
-    meaning: "Deep wisdom and sacred knowledge await within.",
-    guidance: "Look beyond the veil. Secret knowledge is being revealed to you.",
-    image: tarotPriestessImage
-  },
-  { 
-    id: 7, 
-    name: "The Empress", 
-    meaning: "Abundance, creativity, and nurturing energy surround you.",
-    guidance: "Embrace your creative power. Prosperity flows naturally.",
-    image: tarotEmpressImage
-  },
-  { 
-    id: 8, 
-    name: "The Emperor", 
-    meaning: "Structure, authority, and leadership define your path.",
-    guidance: "Take charge with confidence. Your leadership is needed now.",
-    image: tarotEmperorImage
-  },
-];
-
 export const TarotSection = () => {
-  const [displayCards, setDisplayCards] = useState<TarotCard[]>([]);
-  const [flippedCard, setFlippedCard] = useState<number | null>(null);
-  const [selectedCard, setSelectedCard] = useState<TarotCard | null>(null);
+  const [spreadType, setSpreadType] = useState<SpreadType>('one');
+  const [readings, setReadings] = useState<CardReading[]>([]);
+  const [flippedCards, setFlippedCards] = useState<number[]>([]);
+  const [selectedReading, setSelectedReading] = useState<CardReading | null>(null);
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
 
-  const shuffleCards = () => {
-    const shuffled = [...tarotDeck]
-      .sort(() => Math.random() - 0.5)
-      .slice(0, 4);
-    setDisplayCards(shuffled);
-    setFlippedCard(null);
-    setSelectedCard(null);
+  const getSpreadPositions = (type: SpreadType): string[] => {
+    switch (type) {
+      case 'one':
+        return ['Your Guidance'];
+      case 'three':
+        return ['Past', 'Present', 'Future'];
+      case 'celtic':
+        return [
+          'Present',
+          'Challenge',
+          'Past',
+          'Future',
+          'Above',
+          'Below',
+          'Advice',
+          'External',
+          'Hopes/Fears',
+          'Outcome'
+        ];
+      default:
+        return [];
+    }
   };
 
-  const handleCardClick = (card: TarotCard, index: number) => {
-    if (flippedCard === null) {
-      setFlippedCard(index);
+  const drawCards = () => {
+    const positions = getSpreadPositions(spreadType);
+    const cardCount = positions.length;
+    
+    const shuffled = [...tarotDeck].sort(() => Math.random() - 0.5);
+    const drawnCards: CardReading[] = shuffled.slice(0, cardCount).map((card, index) => ({
+      card,
+      isReversed: Math.random() > 0.5,
+      position: positions[index]
+    }));
+
+    setReadings(drawnCards);
+    setFlippedCards([]);
+    setSelectedReading(null);
+  };
+
+  const handleCardClick = (reading: CardReading, index: number) => {
+    if (!flippedCards.includes(index)) {
+      setFlippedCards([...flippedCards, index]);
       setTimeout(() => {
-        setSelectedCard(card);
+        setSelectedReading(reading);
       }, 600);
     }
   };
 
+  const getGridClass = () => {
+    if (spreadType === 'one') return 'flex justify-center';
+    if (spreadType === 'three') return 'grid grid-cols-1 md:grid-cols-3 gap-8';
+    return 'grid grid-cols-2 md:grid-cols-5 gap-6';
+  };
+
   return (
-    <section id="journey" className="py-24 px-4 relative overflow-hidden">
+    <section id="tarot" className="py-24 px-4 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-cosmic opacity-30 animate-pulse-glow" />
       
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="text-center mb-16 animate-fade-in">
           <h2 className="font-heading text-4xl md:text-6xl font-bold mb-6 text-foreground">
-            Your Cosmic Tarot Reading
+            Sacred Tarot Readings
           </h2>
-          <p className="font-body text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-            Choose one card from the mystical altar to reveal your cosmic guidance
+          <p className="font-body text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
+            Unlock the wisdom of all 78 cards with guidance from the mystical oracle
           </p>
+
+          {/* Spread Selector */}
+          <div className="flex justify-center">
+            <Select value={spreadType} onValueChange={(value) => setSpreadType(value as SpreadType)}>
+              <SelectTrigger className="w-64 bg-card border-primary/30 text-foreground">
+                <SelectValue placeholder="Choose your spread" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="one">Single Card Reading</SelectItem>
+                <SelectItem value="three">Three Card Spread</SelectItem>
+                <SelectItem value="celtic">Celtic Cross (10 Cards)</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
         </div>
 
         <div className="flex flex-col items-center gap-12">
-          {displayCards.length === 0 ? (
+          {readings.length === 0 ? (
             <div className="text-center space-y-8 animate-fade-in">
               <div className="relative w-64 h-96 mx-auto">
                 <div className="absolute inset-0 bg-gradient-cosmic rounded-3xl blur-xl animate-pulse-glow" />
                 <img 
                   src={tarotBackImage}
-                  alt="Mystical Tarot Deck"
+                  alt="Tarot Deck"
                   className="relative w-full h-full object-cover rounded-3xl shadow-cosmic animate-float"
                 />
               </div>
               <Button
                 size="lg"
-                onClick={shuffleCards}
+                onClick={drawCards}
                 className="group relative bg-secondary hover:bg-secondary/90 text-secondary-foreground font-semibold px-10 py-6 rounded-full shadow-glow transition-all duration-500 hover:scale-105"
               >
                 <Sparkles className="w-5 h-5 mr-2" />
-                Begin Your Reading
+                Begin Reading
               </Button>
             </div>
           ) : (
             <>
-              {/* Card Layout */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-8 w-full max-w-5xl">
-                {displayCards.map((card, index) => (
+              {/* Cards Layout */}
+              <div className={`w-full max-w-6xl ${getGridClass()}`}>
+                {readings.map((reading, index) => (
                   <div
-                    key={card.id}
-                    className="relative perspective-1000"
+                    key={index}
+                    className="relative perspective-1000 flex flex-col items-center"
                     style={{ animationDelay: `${index * 0.1}s` }}
                   >
+                    {/* Position Label */}
+                    {reading.position && (
+                      <div className="mb-4 text-center">
+                        <p className="font-heading text-lg font-semibold text-primary">
+                          {reading.position}
+                        </p>
+                      </div>
+                    )}
+
                     <div
-                      className={`relative w-full aspect-[2/3] cursor-pointer transition-all duration-700 transform-style-3d ${
-                        flippedCard === index ? 'rotate-y-180' : ''
+                      className={`relative w-48 aspect-[2/3] cursor-pointer transition-all duration-700 transform-style-3d ${
+                        flippedCards.includes(index) ? 'rotate-y-180' : ''
                       } ${
-                        hoveredCard === index && flippedCard === null
+                        hoveredCard === index && !flippedCards.includes(index)
                           ? 'scale-105 -translate-y-4'
                           : ''
                       }`}
                       style={{
                         transformStyle: 'preserve-3d',
-                        transform: flippedCard === index ? 'rotateY(180deg)' : 'rotateY(0deg)',
+                        transform: flippedCards.includes(index) ? 'rotateY(180deg)' : 'rotateY(0deg)',
                       }}
-                      onMouseEnter={() => flippedCard === null && setHoveredCard(index)}
+                      onMouseEnter={() => !flippedCards.includes(index) && setHoveredCard(index)}
                       onMouseLeave={() => setHoveredCard(null)}
-                      onClick={() => handleCardClick(card, index)}
+                      onClick={() => handleCardClick(reading, index)}
                     >
                       {/* Card Back */}
                       <div
@@ -170,92 +167,104 @@ export const TarotSection = () => {
                       >
                         <img
                           src={tarotBackImage}
-                          alt="Tarot Card Back"
+                          alt="Tarot Back"
                           className="w-full h-full object-cover"
                         />
                         <div className="absolute inset-0 bg-gradient-glow animate-pulse-glow" />
                       </div>
 
-                      {/* Card Front - Real Tarot Card Image */}
+                      {/* Card Front */}
                       <div
-                        className="absolute inset-0 backface-hidden rounded-2xl overflow-hidden shadow-cosmic border-2 border-primary rotate-y-180"
+                        className={`absolute inset-0 backface-hidden rounded-2xl overflow-hidden shadow-cosmic border-2 border-primary ${
+                          reading.isReversed ? 'rotate-180' : ''
+                        }`}
                         style={{
                           backfaceVisibility: 'hidden',
                           transform: 'rotateY(180deg)',
                         }}
                       >
                         <img
-                          src={card.image}
-                          alt={card.name}
+                          src={reading.card.image}
+                          alt={reading.card.name}
                           className="w-full h-full object-cover"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                         <div className="absolute bottom-0 left-0 right-0 p-4 bg-black/40 backdrop-blur-sm">
-                          <h3 className="font-heading text-xl font-bold text-white text-center">
-                            {card.name}
+                          <h3 className="font-heading text-lg font-bold text-white text-center">
+                            {reading.card.name}
+                            {reading.isReversed && <span className="text-primary ml-2">(Reversed)</span>}
                           </h3>
                         </div>
                       </div>
                     </div>
 
-                    {/* Floating Glow Effect */}
-                    {hoveredCard === index && flippedCard === null && (
+                    {hoveredCard === index && !flippedCards.includes(index) && (
                       <div className="absolute inset-0 bg-primary/20 rounded-2xl blur-xl animate-pulse-glow -z-10" />
                     )}
                   </div>
                 ))}
               </div>
 
-              {/* Prediction Panel */}
-              {selectedCard && (
-                <Card className="w-full max-w-3xl p-8 md:p-12 bg-card/90 backdrop-blur-sm border-primary shadow-cosmic animate-scale-in">
-                  <div className="space-y-6">
-                    <div className="flex items-center gap-4">
-                      <div className="w-24 h-36 rounded-lg overflow-hidden shadow-glow">
-                        <img
-                          src={selectedCard.image}
-                          alt={selectedCard.name}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                      <div className="flex-1">
+              {/* Oracle's Reading */}
+              {selectedReading && (
+                <div className="w-full animate-fade-in space-y-8">
+                  <MysticalNarrator 
+                    message={selectedReading.isReversed 
+                      ? selectedReading.card.narratorReversed 
+                      : selectedReading.card.narratorMessage
+                    }
+                    isReversed={selectedReading.isReversed}
+                  />
+
+                  <Card className="w-full max-w-3xl mx-auto p-8 md:p-12 bg-card/90 backdrop-blur-sm border-primary shadow-cosmic">
+                    <div className="space-y-6">
+                      <div className="text-center">
                         <h3 className="font-heading text-3xl font-bold text-foreground mb-2">
-                          {selectedCard.name}
+                          {selectedReading.card.name}
                         </h3>
-                        <p className="font-body text-sm text-muted-foreground">Your Cosmic Card</p>
-                      </div>
-                    </div>
-
-                    <div className="space-y-4">
-                      <div className="p-6 bg-gradient-cosmic rounded-xl">
-                        <h4 className="font-heading text-lg font-semibold text-foreground mb-2">
-                          Card Meaning
-                        </h4>
-                        <p className="font-body text-foreground/90 leading-relaxed">
-                          {selectedCard.meaning}
+                        <p className="text-sm text-muted-foreground">
+                          {selectedReading.card.arcana === 'major' ? 'Major Arcana' : `Minor Arcana - ${selectedReading.card.suit}`}
+                          {selectedReading.isReversed && <span className="text-primary ml-2">• Reversed</span>}
                         </p>
                       </div>
 
-                      <div className="p-6 bg-gradient-cosmic rounded-xl">
-                        <h4 className="font-heading text-lg font-semibold text-foreground mb-2">
-                          Divine Guidance
-                        </h4>
-                        <p className="font-body text-foreground/90 leading-relaxed">
-                          {selectedCard.guidance}
-                        </p>
+                      <div className="space-y-4">
+                        <div className="p-6 bg-gradient-cosmic rounded-xl">
+                          <h4 className="font-heading text-lg font-semibold text-foreground mb-2">
+                            Card Meaning
+                          </h4>
+                          <p className="font-body text-foreground/90 leading-relaxed">
+                            {selectedReading.isReversed 
+                              ? selectedReading.card.reversedMeaning 
+                              : selectedReading.card.uprightMeaning
+                            }
+                          </p>
+                        </div>
+
+                        <div className="p-6 bg-gradient-cosmic rounded-xl">
+                          <h4 className="font-heading text-lg font-semibold text-foreground mb-2">
+                            Divine Guidance
+                          </h4>
+                          <p className="font-body text-foreground/90 leading-relaxed">
+                            {selectedReading.isReversed 
+                              ? selectedReading.card.reversedGuidance 
+                              : selectedReading.card.uprightGuidance
+                            }
+                          </p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </Card>
+                  </Card>
+                </div>
               )}
 
               {/* Draw Again Button */}
               <Button
                 size="lg"
-                onClick={shuffleCards}
+                onClick={drawCards}
                 className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold px-12 py-6 rounded-full shadow-glow transition-all duration-500 hover:scale-105"
               >
-                <Sparkles className="w-5 h-5 mr-2" />
+                <Shuffle className="w-5 h-5 mr-2" />
                 Draw New Cards
               </Button>
             </>

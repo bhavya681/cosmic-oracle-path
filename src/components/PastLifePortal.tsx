@@ -203,13 +203,24 @@ export const PastLifePortal = () => {
             {showMessage && (
               <div className="space-y-8 animate-scale-in">
                 <div className="relative">
-                  <div className="relative w-full aspect-video rounded-2xl overflow-hidden shadow-cosmic">
+                  <div className="relative w-full aspect-video rounded-2xl overflow-hidden shadow-cosmic border-8 border-amber-900/30">
+                    {/* Vintage photo effects */}
                     <img 
                       src={image} 
                       alt="Past Life Vision" 
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover sepia-[0.6] contrast-[1.1] brightness-[0.9]"
+                      style={{ filter: 'sepia(0.6) contrast(1.1) brightness(0.9) grayscale(0.2)' }}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent" />
+                    {/* Old photo texture overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-amber-900/20 via-transparent to-amber-900/20 mix-blend-multiply" />
+                    <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZmlsdGVyIGlkPSJub2lzZSI+PGZlVHVyYnVsZW5jZSB0eXBlPSJmcmFjdGFsTm9pc2UiIGJhc2VGcmVxdWVuY3k9IjAuOSIgbnVtT2N0YXZlcz0iNCIgc3RpdGNoVGlsZXM9InN0aXRjaCIvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbHRlcj0idXJsKCNub2lzZSkiIG9wYWNpdHk9IjAuMzUiLz48L3N2Zz4=')] opacity-30 mix-blend-overlay" />
+                    {/* Vignette effect */}
+                    <div className="absolute inset-0 shadow-[inset_0_0_100px_40px_rgba(0,0,0,0.6)] rounded-2xl" />
+                    {/* Scratches and aging */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20" />
+                    {/* Faded corners */}
+                    <div className="absolute top-0 left-0 w-20 h-20 bg-amber-100/10 blur-xl" />
+                    <div className="absolute bottom-0 right-0 w-20 h-20 bg-amber-100/10 blur-xl" />
                     <div className="absolute top-4 right-4">
                       <div className="w-16 h-16 rounded-full bg-gradient-cosmic shadow-glow flex items-center justify-center animate-pulse-glow">
                         <Sparkles className="w-8 h-8 text-foreground" />

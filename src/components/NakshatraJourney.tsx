@@ -4,15 +4,33 @@ import { Button } from '@/components/ui/button';
 import { Star, Sparkles, Map } from 'lucide-react';
 
 const nakshatras = [
-  { name: 'Ashwini', symbol: '♈', deity: 'Ashwini Kumaras', wisdom: 'Speed and healing', color: 'from-red-500 to-orange-600' },
-  { name: 'Bharani', symbol: '♉', deity: 'Yama', wisdom: 'Transformation and growth', color: 'from-orange-500 to-yellow-600' },
-  { name: 'Krittika', symbol: '♊', deity: 'Agni', wisdom: 'Purification and light', color: 'from-yellow-500 to-amber-600' },
-  { name: 'Rohini', symbol: '♋', deity: 'Brahma', wisdom: 'Creation and beauty', color: 'from-pink-500 to-rose-600' },
-  { name: 'Mrigashira', symbol: '♌', deity: 'Soma', wisdom: 'Seeking and exploration', color: 'from-green-500 to-emerald-600' },
-  { name: 'Ardra', symbol: '♍', deity: 'Rudra', wisdom: 'Destruction and renewal', color: 'from-blue-500 to-cyan-600' },
-  { name: 'Punarvasu', symbol: '♎', deity: 'Aditi', wisdom: 'Return and restoration', color: 'from-cyan-500 to-teal-600' },
-  { name: 'Pushya', symbol: '♏', deity: 'Brihaspati', wisdom: 'Nourishment and growth', color: 'from-indigo-500 to-blue-600' },
-  { name: 'Ashlesha', symbol: '♐', deity: 'Nagas', wisdom: 'Wisdom and kundalini', color: 'from-purple-500 to-violet-600' },
+  { name: 'Ashwini', symbol: '🐎', deity: 'Ashwini Kumaras', wisdom: 'Swift healing and new beginnings flow to those born under the divine horsemen. Your power lies in rapid transformation and pioneering spirit.', color: 'from-red-500 to-orange-600' },
+  { name: 'Bharani', symbol: '🌺', deity: 'Yama', wisdom: 'The lord of dharma grants you the strength to nurture life and embrace necessary endings. Transformation is your sacred gift.', color: 'from-orange-500 to-yellow-600' },
+  { name: 'Krittika', symbol: '🔥', deity: 'Agni', wisdom: 'The fire of purification burns through illusion. Your sharp intellect cuts through darkness, bringing truth and clarity to all you touch.', color: 'from-yellow-500 to-amber-600' },
+  { name: 'Rohini', symbol: '🌹', deity: 'Brahma', wisdom: 'The creator blesses you with abundance, beauty, and growth. Your magnetic presence attracts prosperity and creative manifestation.', color: 'from-pink-500 to-rose-600' },
+  { name: 'Mrigashira', symbol: '🦌', deity: 'Soma', wisdom: 'The gentle seeker explores the forest of knowledge. Your curious nature and quest for understanding lead to divine discoveries.', color: 'from-green-500 to-emerald-600' },
+  { name: 'Ardra', symbol: '💧', deity: 'Rudra', wisdom: 'The storm god brings fierce transformation through tears of change. From destruction emerges renewal, from chaos comes clarity.', color: 'from-blue-500 to-cyan-600' },
+  { name: 'Punarvasu', symbol: '🏹', deity: 'Aditi', wisdom: 'The infinite mother grants you the power of return and restoration. No matter how far you wander, you always find your way home.', color: 'from-cyan-500 to-teal-600' },
+  { name: 'Pushya', symbol: '🌾', deity: 'Brihaspati', wisdom: 'The divine teacher nourishes your growth and wisdom. You are blessed with the ability to nurture and support others on their path.', color: 'from-indigo-500 to-blue-600' },
+  { name: 'Ashlesha', symbol: '🐍', deity: 'Nagas', wisdom: 'The serpent wisdom awakens kundalini power within. Your intuitive depth and hypnotic charm reveal hidden truths and ancient knowledge.', color: 'from-purple-500 to-violet-600' },
+  { name: 'Magha', symbol: '👑', deity: 'Pitris', wisdom: 'Your ancestors bless you with royal authority and leadership. Honor tradition while forging your legacy with dignity and grace.', color: 'from-amber-500 to-yellow-600' },
+  { name: 'Purva Phalguni', symbol: '💝', deity: 'Bhaga', wisdom: 'The god of fortune grants you joy, creativity, and loving relationships. Your life is blessed with pleasure and artistic expression.', color: 'from-pink-500 to-red-600' },
+  { name: 'Uttara Phalguni', symbol: '☀️', deity: 'Aryaman', wisdom: 'The sun of patronage illuminates your path with generosity and partnership. You build lasting unions and beneficial agreements.', color: 'from-orange-500 to-yellow-500' },
+  { name: 'Hasta', symbol: '✋', deity: 'Savitar', wisdom: 'The divine craftsman blesses your hands with skill and precision. Your dexterity manifests miracles through practical magic.', color: 'from-green-400 to-emerald-500' },
+  { name: 'Chitra', symbol: '💎', deity: 'Vishwakarma', wisdom: 'The cosmic architect gifts you with artistic brilliance and perfect form. You create beauty and structure from the raw materials of existence.', color: 'from-violet-500 to-purple-600' },
+  { name: 'Swati', symbol: '🌬️', deity: 'Vayu', wisdom: 'The wind god carries your independent spirit across all boundaries. Freedom and flexibility are your greatest strengths and tools.', color: 'from-cyan-400 to-blue-500' },
+  { name: 'Vishakha', symbol: '⚡', deity: 'Indra-Agni', wisdom: 'The combined power of thunder and fire grants you determined ambition. You achieve victory through focused intensity and unwavering purpose.', color: 'from-red-500 to-orange-700' },
+  { name: 'Anuradha', symbol: '🪷', deity: 'Mitra', wisdom: 'The god of friendship blesses you with devotion and loyalty. Your ability to form deep bonds creates lasting success and spiritual growth.', color: 'from-rose-500 to-pink-600' },
+  { name: 'Jyeshtha', symbol: '☂️', deity: 'Indra', wisdom: 'The king of gods crowns you with authority and protective power. You rise to prominence through courage and commanding presence.', color: 'from-red-600 to-crimson-700' },
+  { name: 'Mula', symbol: '🌿', deity: 'Nirriti', wisdom: 'The goddess of dissolution teaches transformation at the root level. You possess the power to break foundations and plant new seeds.', color: 'from-emerald-600 to-green-700' },
+  { name: 'Purva Ashadha', symbol: '🏆', deity: 'Apas', wisdom: 'The waters of invincibility flow through your spirit. Your unconquerable nature and purifying presence bring victory and renewal.', color: 'from-blue-500 to-indigo-600' },
+  { name: 'Uttara Ashadha', symbol: '⭐', deity: 'Vishvedevas', wisdom: 'The universal gods grant you lasting achievement and righteous victory. Your efforts create permanent positive change in the world.', color: 'from-yellow-500 to-gold-600' },
+  { name: 'Shravana', symbol: '👂', deity: 'Vishnu', wisdom: 'The preserver blesses you with the sacred art of listening. Through attentive awareness, you connect heaven and earth with divine understanding.', color: 'from-blue-600 to-cyan-700' },
+  { name: 'Dhanishtha', symbol: '🥁', deity: 'Vasus', wisdom: 'The eight elemental gods grant you rhythm, wealth, and universal connection. You harmonize material and spiritual abundance.', color: 'from-teal-500 to-emerald-600' },
+  { name: 'Shatabhisha', symbol: '⭕', deity: 'Varuna', wisdom: 'The lord of cosmic waters reveals hidden healing and mystical secrets. Your unconventional wisdom breaks through all limitations.', color: 'from-indigo-500 to-violet-600' },
+  { name: 'Purva Bhadrapada', symbol: '⚔️', deity: 'Aja Ekapada', wisdom: 'The one-footed goat carries you toward spiritual fire and transformation. Your intensity and determination burn away all obstacles.', color: 'from-purple-600 to-violet-700' },
+  { name: 'Uttara Bhadrapada', symbol: '🐉', deity: 'Ahir Budhnya', wisdom: 'The serpent of the deep grants you profound wisdom and kundalini awakening. You anchor cosmic consciousness into earthly form.', color: 'from-blue-700 to-indigo-800' },
+  { name: 'Revati', symbol: '🐠', deity: 'Pushan', wisdom: 'The nourisher guides your journey to completion and new horizons. You possess the gift of safe passage and protective guidance for all.', color: 'from-cyan-500 to-blue-600' },
 ];
 
 export const NakshatraJourney = () => {
@@ -75,7 +93,7 @@ export const NakshatraJourney = () => {
         </div>
 
         {!journeyActive && !selectedNakshatra && (
-          <div className="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {nakshatras.map((nakshatra, index) => (
               <Card
                 key={nakshatra.name}

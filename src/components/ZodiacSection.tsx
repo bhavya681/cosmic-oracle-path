@@ -54,21 +54,37 @@ export const ZodiacSection = () => {
             Zodiac Cosmic Guidance
           </h2>
           <p className="font-body text-lg md:text-xl text-muted-foreground">
-            Discover what the stars reveal about your path
+            Discover what the stars reveal about your
           </p>
         </div>
 
-        <Card className="p-8 md:p-12 bg-card/80 backdrop-blur-sm border-primary/30 shadow-cosmic">
-          <div className="space-y-8">
+        <Card className="p-8 md:p-12 bg-card/80 backdrop-blur-sm border-primary/30 shadow-cosmic relative overflow-hidden">
+          {/* Animated cosmic background */}
+          <div className="absolute inset-0 opacity-20">
+            <div className="absolute inset-0 bg-gradient-cosmic animate-pulse-glow" />
+            {[...Array(30)].map((_, i) => (
+              <div
+                key={i}
+                className="absolute w-1 h-1 bg-primary rounded-full animate-pulse"
+                style={{
+                  top: `${Math.random() * 100}%`,
+                  left: `${Math.random() * 100}%`,
+                  animationDelay: `${Math.random() * 2}s`,
+                }}
+              />
+            ))}
+          </div>
+          
+          <div className="space-y-8 relative z-10">
             <div className="space-y-4">
               <label className="font-body text-lg font-medium text-foreground block">
                 Select Your Zodiac Sign
               </label>
               <Select value={selectedSign} onValueChange={setSelectedSign}>
-                <SelectTrigger className="w-full h-14 text-lg bg-background/50 border-border">
+                <SelectTrigger className="w-full h-14 text-lg bg-background/50 border-border backdrop-blur-sm">
                   <SelectValue placeholder="Choose your sign..." />
                 </SelectTrigger>
-                <SelectContent className="bg-card border-border">
+                <SelectContent className="bg-card border-border backdrop-blur-xl">
                   {zodiacSigns.map((sign) => (
                     <SelectItem key={sign.name} value={sign.name} className="text-lg">
                       <span className="flex items-center gap-3">

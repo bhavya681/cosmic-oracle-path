@@ -24,8 +24,13 @@ export const TarotSection = () => {
   const [isReading, setIsReading] = useState(false);
 
   const drawCards = () => {
-    // Always draw 4 cards for selection
-    const shuffled = [...tarotDeck].sort(() => Math.random() - 0.5);
+    // Fisher-Yates shuffle for true randomization
+    const shuffled = [...tarotDeck];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    
     const drawnCards: CardReading[] = shuffled.slice(0, 4).map((card) => ({
       card,
       isReversed: Math.random() > 0.5,

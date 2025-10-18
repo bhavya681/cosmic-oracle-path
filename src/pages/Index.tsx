@@ -5,6 +5,9 @@ import { ZodiacSection } from '@/components/ZodiacSection';
 import { PastLifePortal } from '@/components/PastLifePortal';
 import { NakshatraJourney } from '@/components/NakshatraJourney';
 import { Palmistry } from '@/components/Palmistry';
+import { SpiritAnimalSummoner } from '@/components/SpiritAnimalSummoner';
+import { DreamOracle } from '@/components/DreamOracle';
+import { ElementalAlchemy } from '@/components/ElementalAlchemy';
 import { ServicesSection } from '@/components/ServicesSection';
 import { TestimonialsSection } from '@/components/TestimonialsSection';
 import { Footer } from '@/components/Footer';
@@ -19,6 +22,9 @@ const Index = () => {
       <PastLifePortal />
       <NakshatraJourney />
       <Palmistry />
+      <SpiritAnimalSummoner />
+      <DreamOracle />
+      <ElementalAlchemy />
       <ServicesSection />
       <TestimonialsSection />
       <Footer />

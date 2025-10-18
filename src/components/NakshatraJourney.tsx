@@ -258,8 +258,6 @@ export const NakshatraJourney = () => {
           }
         }
       `}</style>
-
-      <NakshatraCalculator />
     </section>
   );
 };

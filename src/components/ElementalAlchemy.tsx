@@ -20,10 +20,10 @@ interface Combination {
 }
 
 const elements: Element[] = [
-  { id: 'fire', name: 'Fire', icon: <Flame className="w-12 h-12" />, color: 'from-red-500 to-orange-600', glow: 'shadow-[0_0_30px_rgba(239,68,68,0.6)]' },
-  { id: 'water', name: 'Water', icon: <Droplets className="w-12 h-12" />, color: 'from-blue-500 to-cyan-600', glow: 'shadow-[0_0_30px_rgba(59,130,246,0.6)]' },
-  { id: 'air', name: 'Air', icon: <Wind className="w-12 h-12" />, color: 'from-cyan-400 to-teal-500', glow: 'shadow-[0_0_30px_rgba(34,211,238,0.6)]' },
-  { id: 'earth', name: 'Earth', icon: <Mountain className="w-12 h-12" />, color: 'from-amber-700 to-green-700', glow: 'shadow-[0_0_30px_rgba(217,119,6,0.6)]' },
+  { id: 'fire', name: 'Fire', icon: <Flame className="w-10 h-10 sm:w-12 sm:h-12" />, color: 'from-red-500 to-orange-600', glow: 'shadow-[0_0_20px_rgba(239,68,68,0.6)] sm:shadow-[0_0_30px_rgba(239,68,68,0.6)]' },
+  { id: 'water', name: 'Water', icon: <Droplets className="w-10 h-10 sm:w-12 sm:h-12" />, color: 'from-blue-500 to-cyan-600', glow: 'shadow-[0_0_20px_rgba(59,130,246,0.6)] sm:shadow-[0_0_30px_rgba(59,130,246,0.6)]' },
+  { id: 'air', name: 'Air', icon: <Wind className="w-10 h-10 sm:w-12 sm:h-12" />, color: 'from-cyan-400 to-teal-500', glow: 'shadow-[0_0_20px_rgba(34,211,238,0.6)] sm:shadow-[0_0_30px_rgba(34,211,238,0.6)]' },
+  { id: 'earth', name: 'Earth', icon: <Mountain className="w-10 h-10 sm:w-12 sm:h-12" />, color: 'from-amber-700 to-green-700', glow: 'shadow-[0_0_20px_rgba(217,119,6,0.6)] sm:shadow-[0_0_30px_rgba(217,119,6,0.6)]' },
 ];
 
 const combinations: Combination[] = [
@@ -47,10 +47,9 @@ export const ElementalAlchemy = () => {
 
   const handleElementClick = (elementId: string) => {
     if (selectedElements.length >= 2) return;
-    
     const newSelection = [...selectedElements, elementId];
     setSelectedElements(newSelection);
-    
+
     if (newSelection.length === 2) {
       performAlchemy(newSelection);
     }
@@ -82,10 +81,10 @@ export const ElementalAlchemy = () => {
   const alchemyLevel = Math.floor((discovered.size / combinations.length) * 100);
 
   return (
-    <section className="py-24 px-4 relative overflow-hidden bg-gradient-to-br from-gray-900 via-purple-900 to-black">
+    <section className="py-14 px-2 xs:px-4 relative overflow-hidden bg-gradient-to-br from-gray-900 via-purple-900 to-black">
       {/* Mystical particles */}
       <div className="absolute inset-0 pointer-events-none">
-        {[...Array(50)].map((_, i) => (
+        {[...Array(30)].map((_, i) => (
           <div
             key={i}
             className="absolute w-1 h-1 bg-yellow-400/40 rounded-full animate-float"
@@ -100,55 +99,54 @@ export const ElementalAlchemy = () => {
       </div>
 
       <div className="max-w-6xl mx-auto relative z-10">
-        <div className="text-center mb-16 animate-fade-in">
-          <h2 className="font-heading text-4xl md:text-6xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-purple-400 to-cyan-400">
+        <div className="text-center mb-8 sm:mb-16 animate-fade-in">
+          <h2 className="font-heading text-3xl xs:text-4xl md:text-6xl font-bold mb-2 xs:mb-6 text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-purple-400 to-cyan-400">
             ⚗️ Elemental Alchemy ⚗️
           </h2>
-          <p className="font-body text-lg md:text-xl text-white/90 max-w-2xl mx-auto">
+          <p className="font-body text-base xs:text-lg md:text-xl text-white/90 max-w-xl sm:max-w-2xl mx-auto">
             Combine the primal elements to unlock mystical transformations
           </p>
         </div>
 
         {/* Alchemy Progress */}
-        <Card className="p-6 bg-black/40 backdrop-blur-sm border-yellow-600/30 shadow-cosmic mb-12">
-          <div className="flex items-center justify-between mb-3">
-            <span className="text-yellow-400 font-semibold">Alchemist Level</span>
-            <span className="text-white font-bold">{discovered.size} / {combinations.length}</span>
+        <Card className="p-4 xs:p-6 bg-black/40 backdrop-blur-sm border-yellow-600/30 shadow-cosmic mb-6 xs:mb-12">
+          <div className="flex flex-col xs:flex-row xs:items-center xs:justify-between mb-2 xs:mb-3 gap-1 xs:gap-0">
+            <span className="text-yellow-400 font-semibold text-sm xs:text-base">Alchemist Level</span>
+            <span className="text-white font-bold text-base xs:text-lg">{discovered.size} / {combinations.length}</span>
           </div>
-          <div className="w-full h-3 bg-gray-800 rounded-full overflow-hidden">
-            <div 
+          <div className="w-full h-2 xs:h-3 bg-gray-800 rounded-full overflow-hidden">
+            <div
               className="h-full bg-gradient-to-r from-yellow-600 via-purple-600 to-cyan-600 transition-all duration-1000 rounded-full"
               style={{ width: `${alchemyLevel}%` }}
             />
           </div>
         </Card>
 
-        <div className="grid md:grid-cols-2 gap-12">
+        <div className="flex flex-col md:grid md:grid-cols-2 gap-8 xs:gap-12">
           {/* Elements Selection */}
-          <div className="space-y-8">
-            <h3 className="text-2xl font-bold text-white text-center mb-6">
+          <div className="space-y-6 xs:space-y-8">
+            <h3 className="text-xl xs:text-2xl font-bold text-white text-center mb-4 xs:mb-6">
               Select Elements
             </h3>
-            
-            <div className="grid grid-cols-2 gap-6">
+            <div className="grid grid-cols-2 gap-3 xs:gap-6">
               {elements.map((element) => (
                 <button
                   key={element.id}
                   onClick={() => handleElementClick(element.id)}
                   disabled={selectedElements.length >= 2}
-                  className={`group relative p-8 bg-gradient-to-br ${element.color} rounded-2xl border-2 border-white/20 transition-all duration-300 ${
+                  className={`group relative p-4 xs:p-8 bg-gradient-to-br ${element.color} rounded-xl xs:rounded-2xl border-2 border-white/20 transition-all duration-300 ${
                     selectedElements.includes(element.id)
                       ? `${element.glow} scale-95`
                       : 'hover:scale-105 hover:border-white/40'
                   } disabled:opacity-50 disabled:cursor-not-allowed`}
                 >
-                  <div className="text-white flex flex-col items-center gap-3">
+                  <div className="text-white flex flex-col items-center gap-2 xs:gap-3">
                     {element.icon}
-                    <span className="font-bold text-xl">{element.name}</span>
+                    <span className="font-bold text-base xs:text-xl">{element.name}</span>
                   </div>
                   
                   {selectedElements.includes(element.id) && (
-                    <div className="absolute -top-2 -right-2 w-8 h-8 bg-yellow-400 rounded-full flex items-center justify-center text-black font-bold animate-bounce">
+                    <div className="absolute -top-2 -right-2 w-6 h-6 xs:w-8 xs:h-8 bg-yellow-400 rounded-full flex items-center justify-center text-black font-bold animate-bounce text-xs xs:text-base">
                       {selectedElements.indexOf(element.id) + 1}
                     </div>
                   )}
@@ -159,7 +157,8 @@ export const ElementalAlchemy = () => {
             {selectedElements.length > 0 && (
               <Button
                 onClick={reset}
-                className="w-full bg-gray-800 hover:bg-gray-700 text-white"
+                className="w-full bg-gray-800 hover:bg-gray-700 text-white mt-2"
+                size="sm"
               >
                 Reset
               </Button>
@@ -167,12 +166,11 @@ export const ElementalAlchemy = () => {
           </div>
 
           {/* Alchemy Result */}
-          <div className="space-y-8">
-            <h3 className="text-2xl font-bold text-white text-center mb-6">
+          <div className="space-y-6 xs:space-y-8">
+            <h3 className="text-xl xs:text-2xl font-bold text-white text-center mb-4 xs:mb-6">
               Transmutation Chamber
             </h3>
-
-            <Card className="p-8 bg-black/60 backdrop-blur-md border-yellow-600/30 shadow-cosmic min-h-[400px] flex items-center justify-center relative overflow-hidden">
+            <Card className="p-4 xs:p-8 bg-black/60 backdrop-blur-md border-yellow-600/30 shadow-cosmic min-h-[220px] xs:min-h-[400px] flex items-center justify-center relative overflow-hidden">
               {isAnimating && (
                 <div className="absolute inset-0 flex items-center justify-center">
                   {/* Alchemy animation */}
@@ -180,26 +178,26 @@ export const ElementalAlchemy = () => {
                     {[...Array(3)].map((_, i) => (
                       <div
                         key={i}
-                        className="absolute inset-0 w-32 h-32 border-4 border-yellow-400/30 rounded-full animate-spin"
+                        className="absolute inset-0 w-16 h-16 xs:w-32 xs:h-32 border-2 xs:border-4 border-yellow-400/30 rounded-full animate-spin"
                         style={{
                           animationDuration: `${(i + 1) * 1}s`,
                           animationDirection: i % 2 === 0 ? 'normal' : 'reverse',
-                          margin: `${i * 12}px`
+                          margin: `${i * 8}px`
                         }}
                       />
                     ))}
-                    <Sparkles className="w-20 h-20 text-yellow-400 animate-pulse relative z-10" />
+                    <Sparkles className="w-12 h-12 xs:w-20 xs:h-20 text-yellow-400 animate-pulse relative z-10" />
                   </div>
-                  <p className="absolute bottom-8 text-white text-xl font-semibold animate-pulse">
+                  <p className="absolute bottom-4 xs:bottom-8 text-white text-lg xs:text-xl font-semibold animate-pulse">
                     Transmuting...
                   </p>
                 </div>
               )}
 
               {!result && !isAnimating && (
-                <div className="text-center space-y-4 text-white/60">
-                  <Sparkles className="w-16 h-16 mx-auto opacity-50" />
-                  <p className="text-lg">
+                <div className="text-center space-y-2 xs:space-y-4 text-white/60">
+                  <Sparkles className="w-10 h-10 xs:w-16 xs:h-16 mx-auto opacity-50" />
+                  <p className="text-base xs:text-lg">
                     {selectedElements.length === 0
                       ? 'Choose two elements to begin'
                       : 'Select one more element'}
@@ -208,25 +206,22 @@ export const ElementalAlchemy = () => {
               )}
 
               {result && !isAnimating && (
-                <div className="space-y-6 animate-scale-in text-center w-full">
-                  <div className={`text-8xl mb-4 animate-float`}>
+                <div className="space-y-4 xs:space-y-6 animate-scale-in text-center w-full">
+                  <div className={`text-6xl xs:text-8xl mb-2 xs:mb-4 animate-float`}>
                     {result.symbol}
                   </div>
-                  
-                  <div className={`px-6 py-3 bg-gradient-to-r ${result.color} rounded-full inline-block`}>
-                    <h4 className="text-3xl font-bold text-white">
+                  <div className={`px-4 xs:px-6 py-2 xs:py-3 bg-gradient-to-r ${result.color} rounded-full inline-block`}>
+                    <h4 className="text-2xl xs:text-3xl font-bold text-white">
                       {result.result}
                     </h4>
                   </div>
-
-                  <div className="p-6 bg-black/40 rounded-xl border border-yellow-600/20">
-                    <p className="text-white/90 text-lg leading-relaxed italic">
+                  <div className="p-4 xs:p-6 bg-black/40 rounded-xl border border-yellow-600/20">
+                    <p className="text-white/90 text-base xs:text-lg leading-relaxed italic">
                       "{result.meaning}"
                     </p>
                   </div>
-
                   {discovered.has(result.result) && (
-                    <div className="flex items-center justify-center gap-2 text-yellow-400 text-sm">
+                    <div className="flex items-center justify-center gap-2 text-yellow-400 text-xs xs:text-sm">
                       <Sparkles className="w-4 h-4" />
                       <span>Previously discovered</span>
                     </div>
@@ -239,20 +234,20 @@ export const ElementalAlchemy = () => {
 
         {/* Discovered Combinations */}
         {discovered.size > 0 && (
-          <Card className="mt-12 p-8 bg-black/40 backdrop-blur-sm border-yellow-600/30 shadow-cosmic">
-            <h3 className="text-2xl font-bold text-yellow-400 mb-6 text-center">
+          <Card className="mt-8 xs:mt-12 p-4 xs:p-8 bg-black/40 backdrop-blur-sm border-yellow-600/30 shadow-cosmic">
+            <h3 className="text-xl xs:text-2xl font-bold text-yellow-400 mb-4 xs:mb-6 text-center">
               📚 Discovered Transmutations
             </h3>
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+            <div className="grid grid-cols-2 xs:grid-cols-3 md:grid-cols-5 gap-2 xs:gap-4">
               {Array.from(discovered).map((item) => {
                 const combo = combinations.find(c => c.result === item);
                 return combo ? (
                   <div
                     key={item}
-                    className="p-4 bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl border border-yellow-600/20 text-center"
+                    className="p-2 xs:p-4 bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl border border-yellow-600/20 text-center"
                   >
-                    <div className="text-4xl mb-2">{combo.symbol}</div>
-                    <p className="text-white text-sm font-semibold">{combo.result}</p>
+                    <div className="text-2xl xs:text-4xl mb-1 xs:mb-2">{combo.symbol}</div>
+                    <p className="text-white text-xs xs:text-sm font-semibold">{combo.result}</p>
                   </div>
                 ) : null;
               })}

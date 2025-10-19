@@ -22,11 +22,11 @@ const Index = () => {
       <PastLifePortal />
       <NakshatraJourney />
       <Palmistry />
-      {/* <SpiritAnimalSummoner /> */}
-      {/* <DreamOracle />
-      <ElementalAlchemy /> */}
-      {/* <ServicesSection /> */}
-      {/* <TestimonialsSection /> */}
+       <SpiritAnimalSummoner /> 
+      <DreamOracle />
+      <ElementalAlchemy />
+       <ServicesSection /> 
+       <TestimonialsSection /> 
       <Footer />
     </div>
   );

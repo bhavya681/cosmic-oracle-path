@@ -11,27 +11,51 @@ import renaissanceImage from '@/assets/pastlife-renaissance.jpg';
 
 const pastLifeMessages = [
   {
-    message: "You were a healer in ancient Egypt, channeling divine wisdom through temple ceremonies.",
+    message: "You were a high priestess in ancient Egypt, channeling divine wisdom through sacred temple ceremonies and guiding pharaohs with celestial knowledge.",
     image: egyptImage
   },
   {
-    message: "Your soul walked as a scholar in medieval Europe, preserving sacred knowledge through dark times.",
+    message: "Your soul walked as a scholar-monk in medieval Europe, preserving sacred texts and ancient wisdom through the darkest ages of humanity.",
     image: medievalImage
   },
   {
-    message: "You danced with the cosmos as a Vedic sage, teaching harmony between earth and sky.",
+    message: "You danced with the cosmos as a Vedic sage in ancient India, teaching the sacred balance between earth and sky to devoted disciples.",
     image: vedicImage
   },
   {
-    message: "Your spirit guided caravans across silk roads, connecting distant worlds through trade and wisdom.",
+    message: "Your spirit guided merchant caravans across the Silk Road, connecting distant civilizations through trade, wisdom, and mystical understanding.",
     image: silkroadImage
   },
   {
-    message: "You served as a guardian of sacred groves, protecting nature's mysteries with devotion.",
+    message: "You served as a druidic guardian of sacred groves in Celtic lands, protecting nature's mysteries and communing with forest spirits.",
     image: groveImage
   },
   {
-    message: "Your essence shone as a court mystic in Renaissance Italy, advising rulers through astrology.",
+    message: "Your essence shone as a court astrologer in Renaissance Italy, advising nobles through celestial divination and alchemical practices.",
+    image: renaissanceImage
+  },
+  {
+    message: "You were a temple oracle in ancient Greece, receiving visions from Apollo and delivering prophecies that shaped empires.",
+    image: egyptImage
+  },
+  {
+    message: "Your soul manifested as a Mayan astronomer-priest, reading cosmic cycles and predicting celestial events with supernatural precision.",
+    image: medievalImage
+  },
+  {
+    message: "You lived as a shamanic healer in Siberian tribes, journeying between worlds to retrieve lost souls and commune with animal spirits.",
+    image: vedicImage
+  },
+  {
+    message: "Your spirit incarnated as a Sufi mystic in Persia, whirling in divine ecstasy and writing poetry that unlocked the gates of heaven.",
+    image: silkroadImage
+  },
+  {
+    message: "You walked as a Buddhist monk in ancient Tibet, mastering meditation and unlocking the secrets of consciousness in mountain monasteries.",
+    image: groveImage
+  },
+  {
+    message: "Your essence burned bright as an alchemist in medieval Prague, transmuting elements and seeking the philosopher's stone in hidden laboratories.",
     image: renaissanceImage
   }
 ];
@@ -204,23 +228,80 @@ export const PastLifePortal = () => {
               <div className="space-y-8 animate-scale-in">
                 <div className="relative">
                   <div className="relative w-full aspect-video rounded-2xl overflow-hidden shadow-cosmic border-8 border-amber-900/30">
-                    {/* Vintage photo effects */}
+                    {/* Main vintage image */}
                     <img 
                       src={image} 
                       alt="Past Life Vision" 
                       className="w-full h-full object-cover sepia-[0.6] contrast-[1.1] brightness-[0.9]"
                       style={{ filter: 'sepia(0.6) contrast(1.1) brightness(0.9) grayscale(0.2)' }}
                     />
+                    
+                    {/* Ghostly double exposure overlay */}
+                    <div className="absolute inset-0 opacity-30">
+                      <img 
+                        src={image} 
+                        alt="Spirit Echo" 
+                        className="w-full h-full object-cover animate-pulse"
+                        style={{ 
+                          filter: 'blur(3px) brightness(1.5) contrast(0.8)',
+                          mixBlendMode: 'screen'
+                        }}
+                      />
+                    </div>
+
+                    {/* Ethereal light rays */}
+                    <div className="absolute inset-0 pointer-events-none">
+                      {[...Array(6)].map((_, i) => (
+                        <div
+                          key={i}
+                          className="absolute h-full w-px bg-gradient-to-b from-transparent via-amber-300/40 to-transparent animate-pulse"
+                          style={{
+                            left: `${20 + i * 15}%`,
+                            animationDelay: `${i * 0.3}s`,
+                            animationDuration: '3s'
+                          }}
+                        />
+                      ))}
+                    </div>
+
+                    {/* Floating spirit orbs */}
+                    <div className="absolute inset-0 pointer-events-none">
+                      {[...Array(8)].map((_, i) => (
+                        <div
+                          key={`orb-${i}`}
+                          className="absolute w-3 h-3 rounded-full bg-amber-200/60 blur-sm"
+                          style={{
+                            top: `${Math.random() * 80 + 10}%`,
+                            left: `${Math.random() * 80 + 10}%`,
+                            animation: `float ${3 + Math.random() * 2}s ease-in-out infinite`,
+                            animationDelay: `${i * 0.4}s`
+                          }}
+                        />
+                      ))}
+                    </div>
+
+                    {/* Mystical ripple effect */}
+                    <div className="absolute inset-0 opacity-20">
+                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_transparent_0%,_rgba(139,69,19,0.3)_100%)] animate-pulse" 
+                        style={{ animationDuration: '4s' }} 
+                      />
+                    </div>
+                    
                     {/* Old photo texture overlay */}
                     <div className="absolute inset-0 bg-gradient-to-br from-amber-900/20 via-transparent to-amber-900/20 mix-blend-multiply" />
                     <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZmlsdGVyIGlkPSJub2lzZSI+PGZlVHVyYnVsZW5jZSB0eXBlPSJmcmFjdGFsTm9pc2UiIGJhc2VGcmVxdWVuY3k9IjAuOSIgbnVtT2N0YXZlcz0iNCIgc3RpdGNoVGlsZXM9InN0aXRjaCIvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbHRlcj0idXJsKCNub2lzZSkiIG9wYWNpdHk9IjAuMzUiLz48L3N2Zz4=')] opacity-30 mix-blend-overlay" />
-                    {/* Vignette effect */}
+                    
+                    {/* Deep vignette effect */}
                     <div className="absolute inset-0 shadow-[inset_0_0_100px_40px_rgba(0,0,0,0.6)] rounded-2xl" />
+                    
                     {/* Scratches and aging */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20" />
-                    {/* Faded corners */}
-                    <div className="absolute top-0 left-0 w-20 h-20 bg-amber-100/10 blur-xl" />
-                    <div className="absolute bottom-0 right-0 w-20 h-20 bg-amber-100/10 blur-xl" />
+                    
+                    {/* Faded corners with glow */}
+                    <div className="absolute top-0 left-0 w-20 h-20 bg-amber-100/10 blur-xl animate-pulse" />
+                    <div className="absolute bottom-0 right-0 w-20 h-20 bg-amber-100/10 blur-xl animate-pulse" />
+                    
+                    {/* Mystical sparkle badge */}
                     <div className="absolute top-4 right-4">
                       <div className="w-16 h-16 rounded-full bg-gradient-cosmic shadow-glow flex items-center justify-center animate-pulse-glow">
                         <Sparkles className="w-8 h-8 text-foreground" />
@@ -259,6 +340,17 @@ export const PastLifePortal = () => {
       </div>
 
       <style>{`
+        @keyframes float {
+          0%, 100% {
+            transform: translateY(0px) translateX(0px);
+            opacity: 0.6;
+          }
+          50% {
+            transform: translateY(-20px) translateX(10px);
+            opacity: 1;
+          }
+        }
+
         @keyframes spiral-in {
           0% {
             transform: scale(2) rotate(0deg);

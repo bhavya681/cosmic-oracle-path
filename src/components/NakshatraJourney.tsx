@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Star, Sparkles, Map } from 'lucide-react';
+import { NakshatraCalculator } from './NakshatraCalculator';
 
 const nakshatras = [
   { name: 'Ashwini', symbol: '🐎', deity: 'Ashwini Kumaras', wisdom: 'Swift healing and new beginnings flow to those born under the divine horsemen. Your power lies in rapid transformation and pioneering spirit.', color: 'from-red-500 to-orange-600' },
@@ -88,8 +89,13 @@ export const NakshatraJourney = () => {
             <Map className="w-10 h-10 text-accent animate-pulse" />
           </h2>
           <p className="text-muted-foreground text-lg">
-            Explore your birth star and journey through your cosmic neighborhood
+            Explore the 27 sacred birth stars and journey through the cosmic zodiac
           </p>
+        </div>
+
+        {/* Nakshatra Calculator */}
+        <div className="mb-16">
+          <NakshatraCalculator />
         </div>
 
         {!journeyActive && !selectedNakshatra && (

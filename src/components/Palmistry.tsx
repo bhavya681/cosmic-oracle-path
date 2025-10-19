@@ -54,7 +54,27 @@ export const Palmistry = () => {
 
   return (
     <section className="py-24 px-4 relative overflow-hidden">
+      {/* Mystical background effects */}
       <div className="absolute inset-0 bg-gradient-cosmic opacity-20 animate-pulse-glow" />
+      
+      {/* Floating mystical symbols */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        {[...Array(12)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute text-primary/10 animate-float"
+            style={{
+              top: `${Math.random() * 100}%`,
+              left: `${Math.random() * 100}%`,
+              fontSize: `${Math.random() * 30 + 20}px`,
+              animationDelay: `${i * 0.5}s`,
+              animationDuration: `${Math.random() * 5 + 5}s`
+            }}
+          >
+            ✋
+          </div>
+        ))}
+      </div>
       
       <div className="max-w-6xl mx-auto relative z-10">
         <div className="text-center mb-16 animate-fade-in">
@@ -64,28 +84,79 @@ export const Palmistry = () => {
             <Sparkles className="w-12 h-12 text-accent animate-pulse" />
           </h2>
           <p className="font-body text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-            Discover the ancient wisdom written in the lines of your palm
+            ✨ Unveil the cosmic secrets written in your palm's ancient lines ✨
           </p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-12 items-start">
-          {/* Palm Diagram */}
-          <Card className="p-8 bg-card/90 backdrop-blur-sm border-primary/30 shadow-cosmic">
-            <div className="relative aspect-[3/4] bg-gradient-to-br from-amber-100 to-orange-200 rounded-3xl overflow-hidden shadow-inner">
-              {/* Palm Shape */}
+          {/* Enhanced Palm Diagram */}
+          <Card className="p-8 bg-card/90 backdrop-blur-sm border-primary/30 shadow-cosmic relative overflow-hidden">
+            {/* Mystical glow effect */}
+            <div className="absolute inset-0 bg-gradient-cosmic opacity-10 animate-pulse-glow pointer-events-none" />
+            
+            <div className="relative aspect-[3/4] bg-gradient-to-br from-amber-50 via-orange-100 to-amber-200 rounded-3xl overflow-hidden shadow-[inset_0_4px_12px_rgba(0,0,0,0.15)] border-2 border-amber-300/30">
+              {/* Ambient cosmic glow */}
+              <div className="absolute inset-0 bg-gradient-radial from-amber-200/40 via-transparent to-transparent opacity-60" />
+              
+              {/* Palm Shape with realistic details */}
               <div className="absolute inset-0">
-                <svg viewBox="0 0 300 400" className="w-full h-full">
+                <svg viewBox="0 0 300 400" className="w-full h-full drop-shadow-lg">
+                  {/* Thumb with shading */}
+                  <defs>
+                    <radialGradient id="palmGradient" cx="50%" cy="50%">
+                      <stop offset="0%" stopColor="#f9dcc4" />
+                      <stop offset="50%" stopColor="#f4d4b0" />
+                      <stop offset="100%" stopColor="#e8c5a0" />
+                    </radialGradient>
+                    <filter id="palmShadow">
+                      <feGaussianBlur in="SourceAlpha" stdDeviation="2"/>
+                      <feOffset dx="1" dy="2" result="offsetblur"/>
+                      <feComponentTransfer>
+                        <feFuncA type="linear" slope="0.3"/>
+                      </feComponentTransfer>
+                      <feMerge>
+                        <feMergeNode/>
+                        <feMergeNode in="SourceGraphic"/>
+                      </feMerge>
+                    </filter>
+                  </defs>
+                  
                   {/* Thumb */}
-                  <ellipse cx="60" cy="280" rx="35" ry="80" fill="#f4d4b0" stroke="#d4a574" strokeWidth="2" />
+                  <ellipse cx="60" cy="280" rx="35" ry="80" fill="url(#palmGradient)" stroke="#c4a07a" strokeWidth="2.5" filter="url(#palmShadow)" />
                   
-                  {/* Palm */}
-                  <ellipse cx="180" cy="250" rx="110" ry="140" fill="#f4d4b0" stroke="#d4a574" strokeWidth="2" />
+                  {/* Palm base */}
+                  <ellipse cx="180" cy="250" rx="110" ry="140" fill="url(#palmGradient)" stroke="#c4a07a" strokeWidth="2.5" filter="url(#palmShadow)" />
                   
-                  {/* Fingers */}
-                  <rect x="100" y="30" width="30" height="120" rx="15" fill="#f4d4b0" stroke="#d4a574" strokeWidth="2" />
-                  <rect x="145" y="20" width="30" height="130" rx="15" fill="#f4d4b0" stroke="#d4a574" strokeWidth="2" />
-                  <rect x="190" y="30" width="30" height="125" rx="15" fill="#f4d4b0" stroke="#d4a574" strokeWidth="2" />
-                  <rect x="235" y="50" width="28" height="110" rx="14" fill="#f4d4b0" stroke="#d4a574" strokeWidth="2" />
+                  {/* Fingers with realistic joints */}
+                  <rect x="100" y="30" width="30" height="120" rx="15" fill="url(#palmGradient)" stroke="#c4a07a" strokeWidth="2.5" filter="url(#palmShadow)" />
+                  <circle cx="115" cy="80" r="3" fill="#d4a574" opacity="0.5" />
+                  <circle cx="115" cy="110" r="3" fill="#d4a574" opacity="0.5" />
+                  
+                  <rect x="145" y="20" width="30" height="130" rx="15" fill="url(#palmGradient)" stroke="#c4a07a" strokeWidth="2.5" filter="url(#palmShadow)" />
+                  <circle cx="160" cy="70" r="3" fill="#d4a574" opacity="0.5" />
+                  <circle cx="160" cy="105" r="3" fill="#d4a574" opacity="0.5" />
+                  
+                  <rect x="190" y="30" width="30" height="125" rx="15" fill="url(#palmGradient)" stroke="#c4a07a" strokeWidth="2.5" filter="url(#palmShadow)" />
+                  <circle cx="205" cy="80" r="3" fill="#d4a574" opacity="0.5" />
+                  <circle cx="205" cy="112" r="3" fill="#d4a574" opacity="0.5" />
+                  
+                  <rect x="235" y="50" width="28" height="110" rx="14" fill="url(#palmGradient)" stroke="#c4a07a" strokeWidth="2.5" filter="url(#palmShadow)" />
+                  <circle cx="249" cy="95" r="2.5" fill="#d4a574" opacity="0.5" />
+                  <circle cx="249" cy="120" r="2.5" fill="#d4a574" opacity="0.5" />
+                  
+                  {/* Palm texture details */}
+                  {[...Array(15)].map((_, i) => (
+                    <line
+                      key={`texture-${i}`}
+                      x1={120 + Math.random() * 120}
+                      y1={180 + Math.random() * 80}
+                      x2={125 + Math.random() * 115}
+                      y2={185 + Math.random() * 75}
+                      stroke="#d4a574"
+                      strokeWidth="0.5"
+                      opacity="0.2"
+                    />
+                  ))}
                 </svg>
               </div>
 
@@ -120,10 +191,17 @@ export const Palmistry = () => {
               ))}
             </div>
 
-            <div className="mt-6 text-center">
-              <p className="text-sm text-muted-foreground italic">
-                Hover or tap on the palm lines to reveal their secrets
+            <div className="mt-6 text-center space-y-2">
+              <p className="text-sm text-muted-foreground italic flex items-center justify-center gap-2">
+                <Sparkles className="w-4 h-4 text-primary" />
+                Hover or tap on the mystical palm lines to reveal cosmic secrets
+                <Sparkles className="w-4 h-4 text-accent" />
               </p>
+              {selectedLine && (
+                <p className="text-xs text-primary font-semibold animate-pulse">
+                  ✨ {selectedLine.name} Activated ✨
+                </p>
+              )}
             </div>
           </Card>
 

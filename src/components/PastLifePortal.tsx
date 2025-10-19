@@ -9,56 +9,80 @@ import silkroadImage from '@/assets/pastlife-silkroad.jpg';
 import groveImage from '@/assets/pastlife-grove.jpg';
 import renaissanceImage from '@/assets/pastlife-renaissance.jpg';
 
-const pastLifeMessages = [
+const pastLifeArchetypes = [
   {
-    message: "You were a high priestess in ancient Egypt, channeling divine wisdom through sacred temple ceremonies and guiding pharaohs with celestial knowledge.",
-    image: egyptImage
+    id: 'egypt',
+    image: egyptImage,
+    getMessage: ({ name }: { name?: string; dob?: string }) =>
+      `In a former life, ${
+        name ? name : 'you'
+      } were a revered high priestess in ancient Egypt, orchestrating sacred rites beneath the gaze of the Sphinx and guiding Pharaohs through spiritual wisdom.`
   },
   {
-    message: "Your soul walked as a scholar-monk in medieval Europe, preserving sacred texts and ancient wisdom through the darkest ages of humanity.",
-    image: medievalImage
+    id: 'medieval',
+    image: medievalImage,
+    getMessage: ({ name, dob }: { name?: string; dob?: string }) =>
+      `As a medieval monk, ${
+        name ? name : 'you'
+      } dedicated ${
+        dob ? `many decades ${dob?.split('-')[0] ? 'in the shadows of ' + dob.split('-')[0] : ''}` : 'years'
+      } preserving forgotten scriptures within cold stone libraries.`
   },
   {
-    message: "You danced with the cosmos as a Vedic sage in ancient India, teaching the sacred balance between earth and sky to devoted disciples.",
-    image: vedicImage
+    id: 'vedic',
+    image: vedicImage,
+    getMessage: ({ name }: { name?: string; dob?: string }) =>
+      `Long ago, ${
+        name ? name : 'your soul'
+      } was a Vedic sage in ancient India, meditating by sacred rivers and passing on cosmic knowledge to earnest disciples.`
   },
   {
-    message: "Your spirit guided merchant caravans across the Silk Road, connecting distant civilizations through trade, wisdom, and mystical understanding.",
-    image: silkroadImage
+    id: 'silkroad',
+    image: silkroadImage,
+    getMessage: ({ dob }: { name?: string; dob?: string }) =>
+      `Born under the celestial alignments of ${dob ? dob : 'a forgotten age'}, you were a merchant on the Silk Road, connecting worlds through trade and hidden wisdom.`
   },
   {
-    message: "You served as a druidic guardian of sacred groves in Celtic lands, protecting nature's mysteries and communing with forest spirits.",
-    image: groveImage
+    id: 'grove',
+    image: groveImage,
+    getMessage: ({ name }: { name?: string; dob?: string }) =>
+      `${name ? name + ',' : 'You'} protector of Celtic groves, spoke in secret with forest spirits, weaving the mysteries of nature into the fate of tribes.`
   },
   {
-    message: "Your essence shone as a court astrologer in Renaissance Italy, advising nobles through celestial divination and alchemical practices.",
-    image: renaissanceImage
-  },
-  {
-    message: "You were a temple oracle in ancient Greece, receiving visions from Apollo and delivering prophecies that shaped empires.",
-    image: egyptImage
-  },
-  {
-    message: "Your soul manifested as a Mayan astronomer-priest, reading cosmic cycles and predicting celestial events with supernatural precision.",
-    image: medievalImage
-  },
-  {
-    message: "You lived as a shamanic healer in Siberian tribes, journeying between worlds to retrieve lost souls and commune with animal spirits.",
-    image: vedicImage
-  },
-  {
-    message: "Your spirit incarnated as a Sufi mystic in Persia, whirling in divine ecstasy and writing poetry that unlocked the gates of heaven.",
-    image: silkroadImage
-  },
-  {
-    message: "You walked as a Buddhist monk in ancient Tibet, mastering meditation and unlocking the secrets of consciousness in mountain monasteries.",
-    image: groveImage
-  },
-  {
-    message: "Your essence burned bright as an alchemist in medieval Prague, transmuting elements and seeking the philosopher's stone in hidden laboratories.",
-    image: renaissanceImage
+    id: 'renaissance',
+    image: renaissanceImage,
+    getMessage: ({ name, dob }: { name?: string; dob?: string }) =>
+      `Your essence, ${name ? name : 'reborn'}, gleamed in Renaissance Italy as a court astrologer, revealing royal destinies shaped by stars${
+        dob ? ` — notably during the year ${dob.split('-')[0]}` : ''
+      }.`
   }
 ];
+
+function getBirthNumber(dob?: string) {
+  // Simple numerology: sum all digits to a single digit
+  if (!dob) return 1;
+  const digits = dob.replace(/\D/g, '').split('').map(Number);
+  let sum = digits.reduce((a, b) => a + b, 0);
+  while (sum > 9) {
+    sum = sum
+      .toString()
+      .split('')
+      .map(Number)
+      .reduce((a, b) => a + b, 0);
+  }
+  return sum || 1;
+}
+
+function selectPastLife(name: string, dob: string) {
+  const archetypeIndex = (() => {
+    // Add a bit of pseudo-random with name and birth number
+    let hash = 0;
+    for (let i = 0; i < name.length; i++) hash += name.charCodeAt(i);
+    hash += getBirthNumber(dob) * 23;
+    return hash % pastLifeArchetypes.length;
+  })();
+  return pastLifeArchetypes[archetypeIndex];
+}
 
 export const PastLifePortal = () => {
   const [isExploring, setIsExploring] = useState(false);
@@ -66,6 +90,13 @@ export const PastLifePortal = () => {
   const [image, setImage] = useState('');
   const [showMessage, setShowMessage] = useState(false);
   const [portalActive, setPortalActive] = useState(false);
+
+  // Input state
+  const [userName, setUserName] = useState('');
+  const [userDOB, setUserDOB] = useState('');
+
+  // Validation
+  const validInput = userName.trim().length > 0 && /^\d{4}-\d{2}-\d{2}$/.test(userDOB);
 
   useEffect(() => {
     if (isExploring) {
@@ -78,11 +109,11 @@ export const PastLifePortal = () => {
   const explorePastLife = () => {
     setIsExploring(true);
     setShowMessage(false);
-    
+
     setTimeout(() => {
-      const randomLife = pastLifeMessages[Math.floor(Math.random() * pastLifeMessages.length)];
-      setMessage(randomLife.message);
-      setImage(randomLife.image);
+      const chosen = selectPastLife(userName.trim(), userDOB);
+      setMessage(chosen.getMessage({ name: userName.trim(), dob: userDOB }));
+      setImage(chosen.image);
       setShowMessage(true);
       setIsExploring(false);
     }, 3500);
@@ -162,16 +193,45 @@ export const PastLifePortal = () => {
 
         <Card className="p-8 md:p-12 bg-card/80 backdrop-blur-sm border-primary/30 shadow-cosmic">
           <div className="text-center space-y-8">
+
+            {/* Input name and dob before exploration */}
             {!showMessage && !isExploring && (
-              <div className="space-y-6 animate-fade-in">
-                <div className="relative w-32 h-32 mx-auto">
+              <div className="space-y-8 animate-fade-in">
+                <div>
+                  <div className="mb-6">
+                    <div className="mb-2 text-left text-lg font-medium text-foreground/90">Your Name</div>
+                    <input
+                      type="text"
+                      placeholder="Enter your name"
+                      className="w-full px-4 py-2 rounded-md border border-primary/20 bg-background/70 text-foreground/80 focus:outline-none focus:ring focus:ring-primary/40 transition"
+                      value={userName}
+                      onChange={e => setUserName(e.target.value)}
+                      disabled={isExploring}
+                      maxLength={32}
+                      autoCorrect="off"
+                      autoCapitalize="words"
+                    />
+                  </div>
+                  <div>
+                    <div className="mb-2 text-left text-lg font-medium text-foreground/90">Date of Birth</div>
+                    <input
+                      type="date"
+                      className="w-full px-4 py-2 rounded-md border border-primary/20 bg-background/70 text-foreground/80 focus:outline-none focus:ring focus:ring-primary/40 transition"
+                      value={userDOB}
+                      onChange={e => setUserDOB(e.target.value)}
+                      disabled={isExploring}
+                      max={new Date().toISOString().slice(0, 10)}
+                    />
+                  </div>
+                </div>
+                <div className="relative w-32 h-32 mx-auto mt-4">
                   <div className="absolute inset-0 rounded-full bg-gradient-cosmic animate-rotate-slow" />
                   <div className="absolute inset-2 rounded-full bg-card flex items-center justify-center">
                     <Clock className="w-16 h-16 text-primary" />
                   </div>
                 </div>
                 <p className="font-body text-lg text-foreground/80">
-                  Close your eyes, take a deep breath, and when you're ready...
+                  Please enter your name and date of birth to channel your unique past life vision.
                 </p>
               </div>
             )}
@@ -183,7 +243,7 @@ export const PastLifePortal = () => {
                   <div className="absolute inset-0 rounded-full border-4 border-primary/30 animate-spin" style={{ animationDuration: '3s' }} />
                   <div className="absolute inset-2 rounded-full border-4 border-accent/30 animate-spin" style={{ animationDuration: '2s', animationDirection: 'reverse' }} />
                   <div className="absolute inset-4 rounded-full border-4 border-secondary/30 animate-spin" style={{ animationDuration: '1.5s' }} />
-                  
+
                   {/* Center portal */}
                   <div className="absolute inset-8 rounded-full bg-gradient-cosmic flex items-center justify-center animate-pulse-glow shadow-glow">
                     <Clock className="w-12 h-12 text-foreground animate-pulse" />
@@ -235,14 +295,14 @@ export const PastLifePortal = () => {
                       className="w-full h-full object-cover sepia-[0.6] contrast-[1.1] brightness-[0.9]"
                       style={{ filter: 'sepia(0.6) contrast(1.1) brightness(0.9) grayscale(0.2)' }}
                     />
-                    
+
                     {/* Ghostly double exposure overlay */}
                     <div className="absolute inset-0 opacity-30">
                       <img 
                         src={image} 
                         alt="Spirit Echo" 
                         className="w-full h-full object-cover animate-pulse"
-                        style={{ 
+                        style={{
                           filter: 'blur(3px) brightness(1.5) contrast(0.8)',
                           mixBlendMode: 'screen'
                         }}
@@ -286,21 +346,21 @@ export const PastLifePortal = () => {
                         style={{ animationDuration: '4s' }} 
                       />
                     </div>
-                    
+
                     {/* Old photo texture overlay */}
                     <div className="absolute inset-0 bg-gradient-to-br from-amber-900/20 via-transparent to-amber-900/20 mix-blend-multiply" />
                     <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZmlsdGVyIGlkPSJub2lzZSI+PGZlVHVyYnVsZW5jZSB0eXBlPSJmcmFjdGFsTm9pc2UiIGJhc2VGcmVxdWVuY3k9IjAuOSIgbnVtT2N0YXZlcz0iNCIgc3RpdGNoVGlsZXM9InN0aXRjaCIvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbHRlcj0idXJsKCNub2lzZSkiIG9wYWNpdHk9IjAuMzUiLz48L3N2Zz4=')] opacity-30 mix-blend-overlay" />
-                    
+
                     {/* Deep vignette effect */}
                     <div className="absolute inset-0 shadow-[inset_0_0_100px_40px_rgba(0,0,0,0.6)] rounded-2xl" />
-                    
+
                     {/* Scratches and aging */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20" />
-                    
+
                     {/* Faded corners with glow */}
                     <div className="absolute top-0 left-0 w-20 h-20 bg-amber-100/10 blur-xl animate-pulse" />
                     <div className="absolute bottom-0 right-0 w-20 h-20 bg-amber-100/10 blur-xl animate-pulse" />
-                    
+
                     {/* Mystical sparkle badge */}
                     <div className="absolute top-4 right-4">
                       <div className="w-16 h-16 rounded-full bg-gradient-cosmic shadow-glow flex items-center justify-center animate-pulse-glow">
@@ -309,10 +369,12 @@ export const PastLifePortal = () => {
                     </div>
                   </div>
                 </div>
-                
+
                 <div className="space-y-6">
                   <h3 className="font-heading text-3xl font-bold text-primary">
-                    Your Past Life Revealed
+                    {userName
+                      ? `${userName}'s Past Life`
+                      : 'Your Past Life Revealed'}
                   </h3>
                   <div className="p-8 bg-gradient-cosmic rounded-2xl shadow-cosmic border border-primary/20">
                     <p className="font-body text-xl text-foreground leading-relaxed">
@@ -320,7 +382,7 @@ export const PastLifePortal = () => {
                     </p>
                   </div>
                   <p className="font-body text-sm text-muted-foreground italic">
-                    ✨ This knowledge has been waiting for you across lifetimes
+                    ✨ This knowledge has been waiting for you across lifetimes{userDOB ? ` since ${userDOB}` : ''}.
                   </p>
                 </div>
               </div>
@@ -329,12 +391,22 @@ export const PastLifePortal = () => {
             <Button
               size="lg"
               onClick={explorePastLife}
-              disabled={isExploring}
+              disabled={isExploring || (!showMessage && !validInput)}
               className="bg-secondary hover:bg-secondary/90 text-secondary-foreground font-semibold px-12 py-6 rounded-full shadow-glow transition-all duration-500 hover:scale-105"
             >
               <Clock className="w-5 h-5 mr-2" />
-              {isExploring ? 'Traveling...' : showMessage ? 'Explore Another Life' : 'Begin Time Travel'}
+              {isExploring
+                ? 'Traveling...'
+                : showMessage
+                  ? 'Explore Another Life'
+                  : 'Begin Time Travel'}
             </Button>
+            {/* Basic input validation hint */}
+            {!showMessage && !isExploring && !validInput && (
+              <div className="text-sm text-red-600 animate-fade-in">
+                Please enter your name and select a valid date of birth (YYYY-MM-DD).
+              </div>
+            )}
           </div>
         </Card>
       </div>

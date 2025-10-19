@@ -15,6 +15,27 @@ interface CardReading {
   position?: string;
 }
 
+// Helper function for better shuffling randomness
+function cryptoShuffle<T>(array: T[]): T[] {
+  const result = [...array];
+  if (window.crypto && window.crypto.getRandomValues) {
+    for (let i = result.length - 1; i > 0; i--) {
+      // Window.crypto doesn't guarantee uniformity, but it's much better than Math.random
+      const randomArray = new Uint32Array(1);
+      window.crypto.getRandomValues(randomArray);
+      const j = randomArray[0] % (i + 1);
+      [result[i], result[j]] = [result[j], result[i]];
+    }
+  } else {
+    // Fallback to classic Fisher-Yates using Math.random if crypto not available
+    for (let i = result.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [result[i], result[j]] = [result[j], result[i]];
+    }
+  }
+  return result;
+}
+
 export const TarotSection = () => {
   const [spreadType, setSpreadType] = useState<SpreadType>('one');
   const [readings, setReadings] = useState<CardReading[]>([]);
@@ -24,16 +45,22 @@ export const TarotSection = () => {
   const [isReading, setIsReading] = useState(false);
 
   const drawCards = () => {
-    // Fisher-Yates shuffle for true randomization
-    const shuffled = [...tarotDeck];
-    for (let i = shuffled.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-    }
-    
+    // Use cryptographically-random shuffle for much better card randomness and variety
+    const shuffled = cryptoShuffle(tarotDeck);
+
+    // Always draw 4 UNIQUE cards (never repeat)
     const drawnCards: CardReading[] = shuffled.slice(0, 4).map((card) => ({
       card,
-      isReversed: Math.random() > 0.5,
+      // Use crypto-randomness for reversed too (for more entropy)
+      isReversed: (() => {
+        if (window.crypto && window.crypto.getRandomValues) {
+          const arr = new Uint8Array(1);
+          window.crypto.getRandomValues(arr);
+          return arr[0] % 2 === 0;
+        } else {
+          return Math.random() > 0.5;
+        }
+      })(),
     }));
 
     setReadings(drawnCards);

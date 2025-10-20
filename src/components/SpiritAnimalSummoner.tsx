@@ -3,17 +3,28 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Sparkles, Moon, Sun } from 'lucide-react';
 
-const animalGIFs: Record<string, string> = {
-  Wolf:    'https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=facearea&w=400&h=600&facepad=3',
-  Eagle:   'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=facearea&w=400&h=600&facepad=3',
-  Butterfly: 'https://images.unsplash.com/photo-1465101178521-c1a9136a3b99?auto=format&fit=facearea&w=400&h=600&facepad=3',
-  Owl:     'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?auto=format&fit=facearea&w=400&h=600&facepad=3',
-  Bear:    'https://images.unsplash.com/photo-1518717758536-85ae29035b6d?auto=format&fit=facearea&w=400&h=600&facepad=3',
-  Dolphin: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=facearea&w=400&h=600&facepad=3',
-  Fox:     'https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=facearea&w=400&h=600&facepad=3',
-  Deer:    'https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?auto=format&fit=facearea&w=400&h=600&facepad=3',
-  Dragon:  'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=facearea&w=400&h=600&facepad=3',
-  Phoenix: 'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=facearea&w=400&h=600&facepad=3',
+import spiritWolf from '@/assets/spirit-wolf.jpg';
+import spiritEagle from '@/assets/spirit-eagle.jpg';
+import spiritButterfly from '@/assets/spirit-butterfly.jpg';
+import spiritOwl from '@/assets/spirit-owl.jpg';
+import spiritBear from '@/assets/spirit-bear.jpg';
+import spiritDolphin from '@/assets/spirit-dolphin.jpg';
+import spiritFox from '@/assets/spirit-fox.jpg';
+import spiritDeer from '@/assets/spirit-deer.jpg';
+import spiritDragon from '@/assets/spirit-dragon.jpg';
+import spiritPhoenix from '@/assets/spirit-phoenix.jpg';
+
+const animalImages: Record<string, string> = {
+  Wolf: spiritWolf,
+  Eagle: spiritEagle,
+  Butterfly: spiritButterfly,
+  Owl: spiritOwl,
+  Bear: spiritBear,
+  Dolphin: spiritDolphin,
+  Fox: spiritFox,
+  Deer: spiritDeer,
+  Dragon: spiritDragon,
+  Phoenix: spiritPhoenix,
 };
 
 const spiritAnimals = [
@@ -260,15 +271,15 @@ export const SpiritAnimalSummoner = () => {
                   flex items-center justify-center
                 `}>
                   <Card className={`aspect-[2/3] bg-gradient-to-br ${animal.color} border-white/20 shadow-2xl ring-2 ring-fuchsia-200/30 flex items-center justify-center relative overflow-hidden`}>
-                    <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="absolute inset-0 flex items-center justify-center p-2">
                       <img
-                        src={animalGIFs[animal.name] || ''}
+                        src={animalImages[animal.name] || ''}
                         alt={animal.name + ' Spirit'}
-                        className="w-20 h-28 sm:w-28 sm:h-40 object-cover rounded-xl shadow-lg border-4 border-white/20 opacity-95 animate-float-once"
+                        className="w-full h-full object-cover rounded-xl shadow-lg opacity-95 animate-float-once"
                       />
                       <ShineEffect />
                     </div>
-                    <div className="absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-20 text-shadow-lg drop-shadow-xl">
+                    <div className="absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-20 text-shadow-lg drop-shadow-xl bg-black/40 px-3 py-1 rounded-full backdrop-blur-sm">
                       <p className="text-white text-sm sm:text-lg md:text-xl font-bold drop-shadow-xl">{animal.name}</p>
                     </div>
                   </Card>
@@ -286,6 +297,13 @@ export const SpiritAnimalSummoner = () => {
                     100% { opacity: 1; transform: scale(1) translateY(0);}
                   }
                   .animate-spin-very-slow { animation: spin 16s linear infinite; }
+                  .animate-gentle-zoom {
+                    animation: gentleZoom 8s ease-in-out infinite;
+                  }
+                  @keyframes gentleZoom {
+                    0%, 100% { transform: scale(1); }
+                    50% { transform: scale(1.05); }
+                  }
                   `}
                 </style>
               </div>
@@ -336,7 +354,7 @@ export const SpiritAnimalSummoner = () => {
               <div className="relative z-10 flex flex-col md:flex-row items-center justify-center gap-6 sm:gap-12 md:gap-20">
                 <div className="relative w-28 h-28 sm:w-40 sm:h-40 md:w-60 md:h-60 flex items-center justify-center rounded-full shadow-xl border-4 border-fuchsia-200 overflow-hidden bg-black/20 shadow-fuchsia-500/30 animate-pop-bounce">
                   <img
-                    src={animalGIFs[selectedAnimal.name] || ''}
+                    src={animalImages[selectedAnimal.name] || ''}
                     alt={selectedAnimal.name}
                     className="object-cover w-full h-full"
                   />

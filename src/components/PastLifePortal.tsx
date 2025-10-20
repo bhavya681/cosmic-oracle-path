@@ -16,17 +16,17 @@ const pastLifeArchetypes = [
     getMessage: ({ name }: { name?: string; dob?: string }) =>
       `In a former life, ${
         name ? name : 'you'
-      } were a revered high priestess in ancient Egypt, orchestrating sacred rites beneath the gaze of the Sphinx and guiding Pharaohs through spiritual wisdom.`
+      } were a revered high priestess in ancient Egypt, orchestrating sacred rites beneath the gaze of the Sphinx and guiding Pharaohs through spiritual wisdom. You channeled the divine energies of Ra and Thoth, deciphering celestial omens.`
   },
   {
     id: 'medieval',
     image: medievalImage,
     getMessage: ({ name, dob }: { name?: string; dob?: string }) =>
-      `As a medieval monk, ${
+      `As a medieval monk in 12th century Europe, ${
         name ? name : 'you'
       } dedicated ${
-        dob ? `many decades ${dob?.split('-')[0] ? 'in the shadows of ' + dob.split('-')[0] : ''}` : 'years'
-      } preserving forgotten scriptures within cold stone libraries.`
+        dob ? `years in the shadows of monastery walls` : 'decades'
+      } preserving forbidden scriptures and illuminated manuscripts. Your quill recorded alchemical secrets and prophetic visions by candlelight.`
   },
   {
     id: 'vedic',
@@ -34,27 +34,63 @@ const pastLifeArchetypes = [
     getMessage: ({ name }: { name?: string; dob?: string }) =>
       `Long ago, ${
         name ? name : 'your soul'
-      } was a Vedic sage in ancient India, meditating by sacred rivers and passing on cosmic knowledge to earnest disciples.`
+      } was a Vedic sage in ancient India, meditating by the sacred Ganges and passing cosmic knowledge to earnest disciples. You mastered the Upanishads and could commune with celestial beings through deep samadhi.`
   },
   {
     id: 'silkroad',
     image: silkroadImage,
-    getMessage: ({ dob }: { name?: string; dob?: string }) =>
-      `Born under the celestial alignments of ${dob ? dob : 'a forgotten age'}, you were a merchant on the Silk Road, connecting worlds through trade and hidden wisdom.`
+    getMessage: ({ name, dob }: { name?: string; dob?: string }) =>
+      `Born under auspicious stars ${dob ? `in the year ${dob.split('-')[0]}` : 'of a forgotten age'}, ${name ? name : 'you'} traveled the Silk Road as a mystical merchant, connecting East and West. You traded not just silk and spices, but sacred teachings, amulets, and esoteric wisdom from distant lands.`
   },
   {
     id: 'grove',
     image: groveImage,
     getMessage: ({ name }: { name?: string; dob?: string }) =>
-      `${name ? name + ',' : 'You'} protector of Celtic groves, spoke in secret with forest spirits, weaving the mysteries of nature into the fate of tribes.`
+      `${name ? name + ',' : 'You'} guardian of the sacred Celtic groves, spoke the ancient tongue of trees and summoned the spirits of the forest. As a Druid elder, you performed moon rituals, read the Ogham stones, and guided your tribe through visions of the Otherworld.`
   },
   {
     id: 'renaissance',
     image: renaissanceImage,
     getMessage: ({ name, dob }: { name?: string; dob?: string }) =>
-      `Your essence, ${name ? name : 'reborn'}, gleamed in Renaissance Italy as a court astrologer, revealing royal destinies shaped by stars${
-        dob ? ` — notably during the year ${dob.split('-')[0]}` : ''
-      }.`
+      `Your essence, ${name ? name : 'reborn'}, gleamed in Renaissance Florence as a court astrologer and philosopher. You cast horoscopes for the Medici family, revealing royal destinies shaped by planetary alignments${
+        dob ? ` — notably during the transformative year ${dob.split('-')[0]}` : ''
+      }. Your work merged Hermetic philosophy with celestial mechanics.`
+  },
+  {
+    id: 'atlantis',
+    image: groveImage, // Using grove as placeholder
+    getMessage: ({ name }: { name?: string; dob?: string }) =>
+      `Before the great deluge, ${name ? name : 'your soul'} dwelled in the crystal temples of Atlantis. You were a keeper of the sacred crystals, channeling their power to heal and communicate across vast distances. You witnessed the final days of the most advanced civilization ever to grace the Earth.`
+  },
+  {
+    id: 'mayan',
+    image: egyptImage, // Using egypt as placeholder
+    getMessage: ({ name, dob }: { name?: string; dob?: string }) =>
+      `${name ? name : 'You'} served as a Mayan astronomer-priest in ancient Mesoamerica, calculating the movements of Venus and predicting solar eclipses with perfect accuracy. You performed sacred rituals atop pyramid temples${dob ? ` in cycles aligned with your birth energies from ${dob}` : ''}, reading the Tzolk'in calendar and prophesying the ages to come.`
+  },
+  {
+    id: 'samurai',
+    image: medievalImage, // Using medieval as placeholder
+    getMessage: ({ name }: { name?: string; dob?: string }) =>
+      `In feudal Japan, ${name ? name : 'you'} walked the path of Bushido as a master samurai. Beyond the sword, you practiced Zen meditation and calligraphy, seeking spiritual enlightenment through discipline. Your honor was unshakeable, your spirit as sharp as your blade.`
+  },
+  {
+    id: 'persian',
+    image: silkroadImage, // Using silkroad as placeholder
+    getMessage: ({ name, dob }: { name?: string; dob?: string }) =>
+      `${name ? name : 'Your soul'} flourished in ancient Persia as a Zoroastrian fire keeper and mystic poet. You tended the eternal flames in sacred temples, studied the Avesta, and composed verses that bridged earth and heaven${dob ? `, guided by the stars present at your birth in ${dob.split('-')[0]}` : ''}.`
+  },
+  {
+    id: 'norse',
+    image: medievalImage, // Using medieval as placeholder  
+    getMessage: ({ name }: { name?: string; dob?: string }) =>
+      `${name ? name : 'You'} were a Nordic völva, a seer who communed with the gods of Asgard. You read the runes, entered trance states to walk between worlds, and prophesied the fates of warriors and kings. Your wisdom was sought before every battle and voyage.`
+  },
+  {
+    id: 'tibetan',
+    image: vedicImage, // Using vedic as placeholder
+    getMessage: ({ name, dob }: { name?: string; dob?: string }) =>
+      `High in the Himalayan mountains, ${name ? name : 'you'} were a Tibetan lama mastering the ancient teachings of tantra and dzogchen. You practiced tummo meditation, generating inner heat, and achieved profound realizations${dob ? ` in the auspicious cycles marked by ${dob}` : ''}. Your consciousness could travel to the pure lands of the Buddhas.`
   }
 ];
 

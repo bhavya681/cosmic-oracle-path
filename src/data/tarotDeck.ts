@@ -1,11 +1,90 @@
-import tarotStarImage from '@/assets/tarot-star.jpg';
-import tarotMoonImage from '@/assets/tarot-moon.jpg';
-import tarotSunImage from '@/assets/tarot-sun.jpg';
-import tarotLoversImage from '@/assets/tarot-lovers.jpg';
+// Major Arcana Imports
+import tarotFoolImage from '@/assets/tarot-fool.jpg';
 import tarotMagicianImage from '@/assets/tarot-magician.jpg';
 import tarotPriestessImage from '@/assets/tarot-priestess.jpg';
 import tarotEmpressImage from '@/assets/tarot-empress.jpg';
 import tarotEmperorImage from '@/assets/tarot-emperor.jpg';
+import tarotHierophantImage from '@/assets/tarot-hierophant.jpg';
+import tarotLoversImage from '@/assets/tarot-lovers.jpg';
+import tarotChariotImage from '@/assets/tarot-chariot.jpg';
+import tarotStrengthImage from '@/assets/tarot-strength.jpg';
+import tarotHermitImage from '@/assets/tarot-hermit.jpg';
+import tarotWheelImage from '@/assets/tarot-wheel.jpg';
+import tarotJusticeImage from '@/assets/tarot-justice.jpg';
+import tarotHangedManImage from '@/assets/tarot-hangedman.jpg';
+import tarotDeathImage from '@/assets/tarot-death.jpg';
+import tarotTemperanceImage from '@/assets/tarot-temperance.jpg';
+import tarotDevilImage from '@/assets/tarot-devil.jpg';
+import tarotTowerImage from '@/assets/tarot-tower.jpg';
+import tarotStarImage from '@/assets/tarot-star.jpg';
+import tarotMoonImage from '@/assets/tarot-moon.jpg';
+import tarotSunImage from '@/assets/tarot-sun.jpg';
+import tarotJudgementImage from '@/assets/tarot-judgement.jpg';
+import tarotWorldImage from '@/assets/tarot-world.jpg';
+
+// Wands Suit Imports
+import tarotWandsAceImage from '@/assets/tarot-wands-ace.jpg';
+import tarotWands2Image from '@/assets/tarot-wands-2.jpg';
+import tarotWands3Image from '@/assets/tarot-wands-3.jpg';
+import tarotWands4Image from '@/assets/tarot-wands-4.jpg';
+import tarotWands5Image from '@/assets/tarot-wands-5.jpg';
+import tarotWands6Image from '@/assets/tarot-wands-6.jpg';
+import tarotWands7Image from '@/assets/tarot-wands-7.jpg';
+import tarotWands8Image from '@/assets/tarot-wands-8.jpg';
+import tarotWands9Image from '@/assets/tarot-wands-9.jpg';
+import tarotWands10Image from '@/assets/tarot-wands-10.jpg';
+import tarotWandsPageImage from '@/assets/tarot-wands-page.jpg';
+import tarotWandsKnightImage from '@/assets/tarot-wands-knight.jpg';
+import tarotWandsQueenImage from '@/assets/tarot-wands-queen.jpg';
+import tarotWandsKingImage from '@/assets/tarot-wands-king.jpg';
+
+// Cups Suit Imports
+import tarotCupsAceImage from '@/assets/tarot-cups-ace.jpg';
+import tarotCups2Image from '@/assets/tarot-cups-2.jpg';
+import tarotCups3Image from '@/assets/tarot-cups-3.jpg';
+import tarotCups4Image from '@/assets/tarot-cups-4.jpg';
+import tarotCups5Image from '@/assets/tarot-cups-5.jpg';
+import tarotCups6Image from '@/assets/tarot-cups-6.jpg';
+import tarotCups7Image from '@/assets/tarot-cups-7.jpg';
+import tarotCups8Image from '@/assets/tarot-cups-8.jpg';
+import tarotCups9Image from '@/assets/tarot-cups-9.jpg';
+import tarotCups10Image from '@/assets/tarot-cups-10.jpg';
+import tarotCupsPageImage from '@/assets/tarot-cups-page.jpg';
+import tarotCupsKnightImage from '@/assets/tarot-cups-knight.jpg';
+import tarotCupsQueenImage from '@/assets/tarot-cups-queen.jpg';
+import tarotCupsKingImage from '@/assets/tarot-cups-king.jpg';
+
+// Swords Suit Imports
+import tarotSwordsAceImage from '@/assets/tarot-swords-ace.jpg';
+import tarotSwords2Image from '@/assets/tarot-swords-2.jpg';
+import tarotSwords3Image from '@/assets/tarot-swords-3.jpg';
+import tarotSwords4Image from '@/assets/tarot-swords-4.jpg';
+import tarotSwords5Image from '@/assets/tarot-swords-5.jpg';
+import tarotSwords6Image from '@/assets/tarot-swords-6.jpg';
+import tarotSwords7Image from '@/assets/tarot-swords-7.jpg';
+import tarotSwords8Image from '@/assets/tarot-swords-8.jpg';
+import tarotSwords9Image from '@/assets/tarot-swords-9.jpg';
+import tarotSwords10Image from '@/assets/tarot-swords-10.jpg';
+import tarotSwordsPageImage from '@/assets/tarot-swords-page.jpg';
+import tarotSwordsKnightImage from '@/assets/tarot-swords-knight.jpg';
+import tarotSwordsQueenImage from '@/assets/tarot-swords-queen.jpg';
+import tarotSwordsKingImage from '@/assets/tarot-swords-king.jpg';
+
+// Pentacles Suit Imports
+import tarotPentaclesAceImage from '@/assets/tarot-pentacles-ace.jpg';
+import tarotPentacles2Image from '@/assets/tarot-pentacles-2.jpg';
+import tarotPentacles3Image from '@/assets/tarot-pentacles-3.jpg';
+import tarotPentacles4Image from '@/assets/tarot-pentacles-4.jpg';
+import tarotPentacles5Image from '@/assets/tarot-pentacles-5.jpg';
+import tarotPentacles6Image from '@/assets/tarot-pentacles-6.jpg';
+import tarotPentacles7Image from '@/assets/tarot-pentacles-7.jpg';
+import tarotPentacles8Image from '@/assets/tarot-pentacles-8.jpg';
+import tarotPentacles9Image from '@/assets/tarot-pentacles-9.jpg';
+import tarotPentacles10Image from '@/assets/tarot-pentacles-10.jpg';
+import tarotPentaclesPageImage from '@/assets/tarot-pentacles-page.jpg';
+import tarotPentaclesKnightImage from '@/assets/tarot-pentacles-knight.jpg';
+import tarotPentaclesQueenImage from '@/assets/tarot-pentacles-queen.jpg';
+import tarotPentaclesKingImage from '@/assets/tarot-pentacles-king.jpg';
 
 export interface TarotCard {
   id: number;
@@ -33,7 +112,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "Pause before leaping. Consider consequences before taking that next step.",
     narratorMessage: "Ah, dear seeker... I see the universe has blessed you with infinite possibilities. Like a soul standing at the edge of eternity, you're ready to leap into the unknown. Trust your journey.",
     narratorReversed: "My child, I sense hesitation in your spirit. The cosmos whispers caution - not all who wander are ready to be lost. Ground yourself before you fly.",
-    image: tarotMagicianImage
+    image: tarotFoolImage
   },
   {
     id: 1,
@@ -93,7 +172,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "Break free from limiting beliefs. Your path is uniquely yours.",
     narratorMessage: "Sacred seeker, the ancient mysteries call to you through timeless traditions. I see you standing at the threshold of great teachings, ready to become both student and master.",
     narratorReversed: "Free spirit, the old ways no longer serve your highest path. I witness your rebellion against dogma - this is your sacred revolution. Trust your own divinity.",
-    image: tarotPriestessImage
+    image: tarotHierophantImage
   },
   {
     id: 6,
@@ -117,7 +196,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "Reevaluate your direction. Are you fighting the right battles?",
     narratorMessage: "Triumphant warrior! I behold your chariot racing toward victory! The celestial winds propel you forward. Your will is unshakeable, your path clear. Onward to glory!",
     narratorReversed: "Brave soul, your chariot has veered off course. I see scattered energies pulling you in opposing directions. Center yourself before continuing the journey.",
-    image: tarotEmperorImage
+    image: tarotChariotImage
   },
   {
     id: 8,
@@ -129,7 +208,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "Reclaim your inner power. You're stronger than you believe.",
     narratorMessage: "Magnificent being, I witness the lion and lamb dancing within you! True strength is not force, but gentle courage. You tame beasts with love, not chains.",
     narratorReversed: "Tender heart, you've forgotten your own courage. The universe reminds you: weakness is temporary, but your spirit is eternal. Rise again.",
-    image: tarotEmpressImage
+    image: tarotStrengthImage
   },
   {
     id: 9,
@@ -141,7 +220,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "Don't isolate too long. Balance inner work with human connection.",
     narratorMessage: "Wise wanderer, I see you climbing the mountain of enlightenment, lantern in hand. Your solitude is sacred - within silence, the loudest truths are heard.",
     narratorReversed: "Solitary soul, your isolation has become a prison, not a sanctuary. The cosmos gently urges you to return to the world. Share your light.",
-    image: tarotPriestessImage
+    image: tarotHermitImage
   },
   {
     id: 10,
@@ -153,7 +232,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "Stop fighting the inevitable. Flow with life's natural rhythms.",
     narratorMessage: "Destined one, the great cosmic wheel spins in your favor! I see fortune's hand upon you. What goes around comes around - and blessings are circling back.",
     narratorReversed: "Patient traveler, the wheel turns slowly now. I sense resistance to life's natural flow. Remember: even in darkness, the wheel keeps turning toward light.",
-    image: tarotStarImage
+    image: tarotWheelImage
   },
   {
     id: 11,
@@ -165,7 +244,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "Examine your role in this situation. Take accountability for your actions.",
     narratorMessage: "Righteous soul, the scales of Ma'at weigh your deeds! I perceive perfect balance manifesting. Truth is your sword, fairness your shield. Justice prevails.",
     narratorReversed: "Troubled spirit, the scales tip unfavorably. The universe asks: have you been honest with yourself? Karma adjusts itself - examine your conscience.",
-    image: tarotEmperorImage
+    image: tarotJusticeImage
   },
   {
     id: 12,
@@ -177,7 +256,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "Stop sacrificing unnecessarily. Your martyrdom serves no one.",
     narratorMessage: "Suspended between worlds, I see you hanging in sacred pause. The universe gifts you divine perspective - what seemed down is up, what seemed lost is found.",
     narratorReversed: "Restless being, you struggle against necessary stillness. I observe your resistance to the pause. Sometimes the greatest action is inaction.",
-    image: tarotPriestessImage
+    image: tarotHangedManImage
   },
   {
     id: 13,
@@ -189,7 +268,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "Release what's already gone. Clinging to the past prevents your future.",
     narratorMessage: "Brave transformer! I witness the phoenix within you preparing to rise from ashes. Death is not an end, but a glorious metamorphosis. You are reborn!",
     narratorReversed: "Fearful soul, you grasp at shadows of what was. The cosmos whispers: let the dead rest. Your resurrection awaits, but first you must release.",
-    image: tarotMoonImage
+    image: tarotDeathImage
   },
   {
     id: 14,
@@ -201,7 +280,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "You've lost your center. Restore equilibrium before proceeding.",
     narratorMessage: "Harmonious being, I observe the angel of balance pouring blessings between worlds! Your life finds its perfect rhythm. Patience yields divine results.",
     narratorReversed: "Imbalanced traveler, your cup runneth over - or perhaps runs empty. The universe calls for moderation. Too much, too fast leads to spilling gifts.",
-    image: tarotStarImage
+    image: tarotTemperanceImage
   },
   {
     id: 15,
@@ -213,7 +292,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "The chains are an illusion. You have the power to walk away.",
     narratorMessage: "Seeker of truth, I must show you uncomfortable wisdom - you are chained only by choice. Your bondage is self-created. But knowledge of this is freedom itself!",
     narratorReversed: "Liberating spirit! I celebrate your breaking of chains! The cosmos rejoices as you reclaim your sovereignty. You are free - truly free at last!",
-    image: tarotMoonImage
+    image: tarotDevilImage
   },
   {
     id: 16,
@@ -225,7 +304,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "Stop delaying the inevitable collapse. Sometimes things must break.",
     narratorMessage: "Resilient soul, I witness lightning striking your tower! Yes, it's chaos - but divine chaos! From rubble, you'll build something far greater. This is your awakening!",
     narratorReversed: "Frightened one, you sense the trembling but deny the quake. I see you shoring up crumbling walls. The cosmos says: let it fall. New foundations await.",
-    image: tarotMoonImage
+    image: tarotTowerImage
   },
   {
     id: 17,
@@ -273,7 +352,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "Release self-judgment. Forgive yourself and hear your true calling.",
     narratorMessage: "Resurrected soul! The cosmic trumpet sounds your awakening! I witness your rising from the ashes of who you were. Your higher purpose calls - answer it!",
     narratorReversed: "Judged one, you are your own harshest critic. The universe offers absolution, but you refuse it. I say unto you: forgive yourself. The angels await.",
-    image: tarotSunImage
+    image: tarotJudgementImage
   },
   {
     id: 21,
@@ -285,7 +364,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "What remains unfinished? Complete this chapter before starting the next.",
     narratorMessage: "Cosmic achiever! I behold you dancing at the center of the universe itself! All is complete, all is won, all is perfectly balanced. You are The World!",
     narratorReversed: "Almost there, beloved! I see the finish line mere steps away, yet you hesitate. The cosmos asks: what holds you from completion? Finish what you started.",
-    image: tarotStarImage
+    image: tarotWorldImage
   },
 
   // MINOR ARCANA - Wands (14 cards)
@@ -300,7 +379,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "Wait for better timing. Nurture your idea before launching.",
     narratorMessage: "Creative spark! A wand of pure potential appears in your hands! The universe hands you fire - what will you create?",
     narratorReversed: "Patient creator, the flame flickers but hasn't caught yet. Protect this spark until conditions are right for the blaze.",
-    image: tarotMagicianImage
+    image: tarotWandsAceImage
   },
   {
     id: 23,
@@ -313,7 +392,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "Don't let fear stop you. Create a solid plan before moving forward.",
     narratorMessage: "Visionary soul, I see you standing at the threshold holding your dreams! The world awaits your conquest.",
     narratorReversed: "Hesitant planner, fear clouds your vision. The map exists - you must trust yourself to follow it.",
-    image: tarotMagicianImage
+    image: tarotWands2Image
   },
   {
     id: 24,
@@ -326,7 +405,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "Reassess your strategy. Remove obstacles before expanding further.",
     narratorMessage: "Far-seeing explorer! Your ships come sailing home laden with treasure! Expansion is blessed.",
     narratorReversed: "Frustrated merchant, your ships are delayed. Patience - sometimes storms must pass before treasures arrive.",
-    image: tarotMagicianImage
+    image: tarotWands3Image
   },
   {
     id: 25,
@@ -339,7 +418,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "Heal conflicts at home first. Create stable foundations.",
     narratorMessage: "Joyful celebrant! I hear the cosmic music of your victory dance! Gather your tribe and feast!",
     narratorReversed: "Troubled home-keeper, discord disrupts your sanctuary. Restore harmony before celebration can begin.",
-    image: tarotMagicianImage
+    image: tarotWands4Image
   },
   {
     id: 26,
@@ -352,7 +431,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "Choose your battles wisely. Not every conflict deserves your energy.",
     narratorMessage: "Spirited warrior! I see you in the arena of competition! This conflict sharpens your skills.",
     narratorReversed: "Weary fighter, you realize some battles aren't worth fighting. Wise choice, dear one.",
-    image: tarotMagicianImage
+    image: tarotWands5Image
   },
   {
     id: 27,
@@ -365,7 +444,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "Check your ego. Success without humility leads to downfall.",
     narratorMessage: "Triumphant hero! The crowd cheers your name! Wear your laurels with grace and gratitude.",
     narratorReversed: "Humbled victor, pride preceded your stumble. The cosmos teaches: glory is fleeting, character eternal.",
-    image: tarotMagicianImage
+    image: tarotWands6Image
   },
   {
     id: 28,
@@ -378,7 +457,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "Know when to retreat. Exhaustion serves no one.",
     narratorMessage: "Brave defender! You hold the hilltop against all comers! Your conviction is your fortress.",
     narratorReversed: "Weary guardian, you've fought valiantly but exhaustion takes its toll. Sometimes retreat is wisdom.",
-    image: tarotMagicianImage
+    image: tarotWands7Image
   },
   {
     id: 29,
@@ -391,7 +470,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "Forced slowdowns have purpose. Don't fight necessary delays.",
     narratorMessage: "Swift messenger! Your prayers fly like arrows to the heavens! Rapid manifestation is yours!",
     narratorReversed: "Frustrated traveler, cosmic traffic slows your journey. The universe has its timing - trust it.",
-    image: tarotMagicianImage
+    image: tarotWands8Image
   },
   {
     id: 30,
@@ -404,7 +483,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "Your defenses have become walls. Let them soften.",
     narratorMessage: "Resilient warrior! Battle-worn but unbroken! The finish line appears - gather your final strength!",
     narratorReversed: "Paranoid defender, you see enemies in every shadow. The battle is over - you can lower your shield.",
-    image: tarotMagicianImage
+    image: tarotWands9Image
   },
   {
     id: 31,
@@ -417,7 +496,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "Put down some of these wands. Not everything is yours to carry.",
     narratorMessage: "Burdened soul, I see you bearing the weight of worlds! Your dedication is noble - but is it sustainable?",
     narratorReversed: "Liberated one! You finally release what was never yours to carry! Feel the lightness return!",
-    image: tarotMagicianImage
+    image: tarotWands10Image
   },
   {
     id: 32,
@@ -430,7 +509,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "Focus scattered energy. Choose one adventure at a time.",
     narratorMessage: "Curious wanderer! A message of adventure arrives! The universe invites you to play and explore!",
     narratorReversed: "Distracted youth, too many paths confuse your feet. Choose one direction and commit.",
-    image: tarotMagicianImage
+    image: tarotWandsPageImage
   },
   {
     id: 33,
@@ -443,7 +522,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "Slow down. Reckless speed leads to careless mistakes.",
     narratorMessage: "Passionate adventurer! You ride the lightning of pure enthusiasm! Your energy is contagious!",
     narratorReversed: "Reckless rider, your horse runs wild without direction. Rein in before you crash.",
-    image: tarotMagicianImage
+    image: tarotWandsKnightImage
   },
   {
     id: 34,
@@ -456,7 +535,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "Jealousy dims your light. Return to self-love.",
     narratorMessage: "Radiant queen! You command the room with warmth and charisma! Your throne is earned!",
     narratorReversed: "Insecure sovereign, jealousy has dimmed your natural brilliance. Remember who you are!",
-    image: tarotEmpressImage
+    image: tarotWandsQueenImage
   },
   {
     id: 35,
@@ -469,7 +548,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "Leadership has become tyranny. Lead with heart, not force.",
     narratorMessage: "Visionary king! Your realm flourishes under inspired leadership! Command with confidence!",
     narratorReversed: "Tyrannical ruler, power has corrupted your once-noble vision. Remember: kings serve their kingdom.",
-    image: tarotEmperorImage
+    image: tarotWandsKingImage
   },
 
   // MINOR ARCANA - Cups (14 cards)
@@ -484,7 +563,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "Fill your own cup first. You can't pour from empty reserves.",
     narratorMessage: "Beloved! The Holy Grail overflows with divine love just for you! Receive this blessing!",
     narratorReversed: "Empty vessel, your cup has run dry. The cosmos reminds you: self-love fills all other loves.",
-    image: tarotLoversImage
+    image: tarotCupsAceImage
   },
   {
     id: 37,
@@ -497,7 +576,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "Imbalance disrupts union. Heal yourself before merging with another.",
     narratorMessage: "United souls! I witness a cosmic marriage of hearts! Two become one in perfect harmony!",
     narratorReversed: "Divided pair, the sacred union fractures. Individual wholeness must precede partnership.",
-    image: tarotLoversImage
+    image: tarotCups2Image
   },
   {
     id: 38,
@@ -510,7 +589,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "Excess celebration becomes escapism. Find balance.",
     narratorMessage: "Joyful celebrant! I see circles of friendship dancing in divine revelry! Your cup runneth over!",
     narratorReversed: "Lonely heart, you've isolated from your tribe. Or perhaps revelry has become excess. Find center.",
-    image: tarotLoversImage
+    image: tarotCups3Image
   },
   {
     id: 39,
@@ -523,7 +602,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "Wake from apathy. Life offers gifts you've been ignoring.",
     narratorMessage: "Contemplative soul, you sit beneath the wisdom tree considering. The universe honors your pause.",
     narratorReversed: "Awakening spirit! The fog of apathy lifts! I see you finally notice the chalice offered!",
-    image: tarotLoversImage
+    image: tarotCups4Image
   },
   {
     id: 40,
@@ -536,7 +615,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "You're healing! The past loosens its grip. Turn toward remaining blessings.",
     narratorMessage: "Grieving heart, I honor your sorrow. Yes, cups have spilled - but two remain full. Do you see them?",
     narratorReversed: "Healing soul! You finally turn from what was lost to what remains! The past releases you!",
-    image: tarotLoversImage
+    image: tarotCups5Image
   },
   {
     id: 41,
@@ -549,7 +628,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "Release nostalgia's grip. The present needs you here, now.",
     narratorMessage: "Nostalgic dreamer, I see you visiting memory gardens! The past offers gifts when honored, not inhabited.",
     narratorReversed: "Time-traveler, you've returned to the present! The past is a teacher, not a home. Well done.",
-    image: tarotLoversImage
+    image: tarotCups6Image
   },
   {
     id: 42,
@@ -562,7 +641,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "Illusions fall away. Choose based on truth, not fantasy.",
     narratorMessage: "Dreamy visionary! Seven chalices float before you, each holding promises! But which are real?",
     narratorReversed: "Clear-sighted chooser! The illusions dissolve! Now you see which cup holds true treasure!",
-    image: tarotLoversImage
+    image: tarotCups7Image
   },
   {
     id: 43,
@@ -575,7 +654,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "Fear keeps you in what no longer serves. Courage calls you forward.",
     narratorMessage: "Brave wanderer! You turn from the known toward the mountain of unknowing! This is courage!",
     narratorReversed: "Fearful settler, you know you should leave but fear pins your feet. The mountain still waits.",
-    image: tarotLoversImage
+    image: tarotCups8Image
   },
   {
     id: 44,
@@ -588,7 +667,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "Material success feels empty. Seek emotional fulfillment.",
     narratorMessage: "Satisfied soul! The wish-granting card appears! Nine cups overflow with blessings! Enjoy!",
     narratorReversed: "Unfulfilled seeker, you have everything yet feel nothing. The heart wants what gold can't buy.",
-    image: tarotLoversImage
+    image: tarotCups9Image
   },
   {
     id: 45,
@@ -601,7 +680,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "Heal family wounds. True home comes from within first.",
     narratorMessage: "Blessed one! I behold the rainbow of divine love arching over your home! Complete joy is yours!",
     narratorReversed: "Fractured family, the rainbow fades as hearts disconnect. Healing must begin with forgiveness.",
-    image: tarotLoversImage
+    image: tarotCups10Image
   },
   {
     id: 46,
@@ -614,7 +693,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "Emotional maturity calls. Don't let insecurity block your creativity.",
     narratorMessage: "Sweet messenger! A fish of intuition swims in your cup! What does your heart tell you?",
     narratorReversed: "Insecure youth, you doubt your inner voice. Trust yourself - your intuition is valid.",
-    image: tarotLoversImage
+    image: tarotCupsPageImage
   },
   {
     id: 47,
@@ -627,7 +706,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "Distinguish fantasy from reality. Ground your romantic dreams.",
     narratorMessage: "Romantic knight! You ride forth on wings of love and beauty! Your heart leads the way!",
     narratorReversed: "Moody dreamer, fantasy has unseated reality. Come back to earth without losing your dreams.",
-    image: tarotLoversImage
+    image: tarotCupsKnightImage
   },
   {
     id: 48,
@@ -640,7 +719,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "You've depleted yourself caring for others. Restore your own well.",
     narratorMessage: "Compassionate queen! Your emotional wisdom creates sanctuary! You are the safe harbor!",
     narratorReversed: "Depleted nurturer, you've given until empty. The cosmos says: receive before giving more.",
-    image: tarotEmpressImage
+    image: tarotCupsQueenImage
   },
   {
     id: 49,
@@ -653,7 +732,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "Repressed emotions erupt as volatility. Feel to heal.",
     narratorMessage: "Wise king! You rule the emotional realm with maturity and balance! Your court is stable!",
     narratorReversed: "Unstable ruler, suppressed emotions destabilize your kingdom. True strength feels, not represses.",
-    image: tarotEmperorImage
+    image: tarotCupsKingImage
   },
 
   // MINOR ARCANA - Swords (14 cards)
@@ -668,7 +747,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "Confusion clouds judgment. Wait for clarity before deciding.",
     narratorMessage: "Truth-bearer! The sword of divine wisdom appears in your grasp! Cut through all illusion!",
     narratorReversed: "Confused thinker, the blade is dull with doubt. Clear your mind before wielding truth.",
-    image: tarotMagicianImage
+    image: tarotSwordsAceImage
   },
   {
     id: 51,
@@ -681,7 +760,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "The stalemate breaks! Information arrives to guide your choice.",
     narratorMessage: "Blindfolded seeker, you balance between two truths. The cosmos waits for your decision.",
     narratorReversed: "Seeing clearly now! The blindfold falls! Finally, you can choose with open eyes!",
-    image: tarotMagicianImage
+    image: tarotSwords2Image
   },
   {
     id: 52,
@@ -694,7 +773,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "The worst is over. Your heart begins to mend.",
     narratorMessage: "Wounded heart, I witness your pain. Three swords pierce, but know this: scars make us who we are.",
     narratorReversed: "Healing soul! The swords withdraw! Your heart mends stronger than before!",
-    image: tarotMagicianImage
+    image: tarotSwords3Image
   },
   {
     id: 53,
@@ -707,7 +786,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "Your body demands rest. Ignoring it leads to collapse.",
     narratorMessage: "Weary warrior, lay down your swords and rest. The universe grants you sanctuary.",
     narratorReversed: "Exhausted fighter, you refuse the rest you desperately need. Burnout serves no cause.",
-    image: tarotMagicianImage
+    image: tarotSwords4Image
   },
   {
     id: 54,
@@ -720,7 +799,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "Make amends. Winning at all costs has left you empty.",
     narratorMessage: "Hollow victor, you stand alone with your stolen swords. Was this victory worth the cost?",
     narratorReversed: "Reconciling soul, you realize some battles should never be fought. Wisdom arrives late but arrives.",
-    image: tarotMagicianImage
+    image: tarotSwords5Image
   },
   {
     id: 55,
@@ -733,7 +812,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "You're stuck in rough waters by choice. Let go and drift toward peace.",
     narratorMessage: "Traveling soul, I see you crossing from storm to calm! Better shores await!",
     narratorReversed: "Stuck traveler, you refuse to board the boat to peace. What holds you in suffering?",
-    image: tarotMagicianImage
+    image: tarotSwords6Image
   },
   {
     id: 56,
@@ -746,7 +825,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "The truth emerges. Coming clean brings relief.",
     narratorMessage: "Sneaky one, I see you creeping with stolen swords! Clever, yes - but at what cost to your soul?",
     narratorReversed: "Confessing thief, you return what wasn't yours. The burden lifts! Honesty heals!",
-    image: tarotMagicianImage
+    image: tarotSwords7Image
   },
   {
     id: 57,
@@ -759,7 +838,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "You're freeing yourself! The blindfold and ropes were always removable!",
     narratorMessage: "Trapped soul, the swords cage you - but I see gaps! The binds are looser than you believe!",
     narratorReversed: "Liberating spirit! You remove the blindfold and realize - you were free all along!",
-    image: tarotMagicianImage
+    image: tarotSwords8Image
   },
   {
     id: 58,
@@ -772,7 +851,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "The darkest hour passes. Dawn approaches. Hope returns.",
     narratorMessage: "Anxious mind, I see you tormented by thoughts! But know: most fears never manifest. Breathe.",
     narratorReversed: "Recovering warrior! The nightmares end! You reach out and find the help you needed!",
-    image: tarotMagicianImage
+    image: tarotSwords9Image
   },
   {
     id: 59,
@@ -785,7 +864,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "You're rising from the ashes! The worst is over!",
     narratorMessage: "Defeated one, ten swords mark the end of a painful cycle. But see the dawn? Resurrection comes.",
     narratorReversed: "Phoenix rising! You thought that was your end, but you're being reborn! The worst is over!",
-    image: tarotMagicianImage
+    image: tarotSwords10Image
   },
   {
     id: 60,
@@ -798,7 +877,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "Words can wound. Think before speaking.",
     narratorMessage: "Curious youth! Your mind races with brilliant ideas! But ensure words build, not destroy!",
     narratorReversed: "Reckless speaker, your words cut deeper than you intended. Apologize and learn.",
-    image: tarotMagicianImage
+    image: tarotSwordsPageImage
   },
   {
     id: 61,
@@ -811,7 +890,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "Your directness has become cruelty. Soften your approach.",
     narratorMessage: "Charging warrior! You race toward battle with absolute conviction! Admirable, but mind the cliff!",
     narratorReversed: "Reckless rider, speed without direction leads to crashes. Slow down and think.",
-    image: tarotMagicianImage
+    image: tarotSwordsKnightImage
   },
   {
     id: 62,
@@ -824,7 +903,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "Wisdom has become harshness. Soften truth with compassion.",
     narratorMessage: "Discerning queen! Your sword cuts through illusion with precision! Your court values truth!",
     narratorReversed: "Bitter ruler, your sharp tongue has isolated you. Truth without love is just cruelty.",
-    image: tarotEmpressImage
+    image: tarotSwordsQueenImage
   },
   {
     id: 63,
@@ -837,7 +916,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "Logic without heart becomes tyranny. Balance mind with compassion.",
     narratorMessage: "Wise king! Your realm flourishes under fair, intellectual leadership! Justice prevails!",
     narratorReversed: "Tyrannical mind-king, your logic has lost its heart. Remember: you judge humans, not equations.",
-    image: tarotEmperorImage
+    image: tarotSwordsKingImage
   },
 
   // MINOR ARCANA - Pentacles (14 cards)
@@ -852,7 +931,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "Poor timing or bad planning blocks prosperity. Reassess.",
     narratorMessage: "Prosperous one! A golden pentacle appears in your palm! Material blessings manifest!",
     narratorReversed: "Missed fortune, the golden coin slips through your fingers. Next time, grasp it firmly.",
-    image: tarotMagicianImage
+    image: tarotPentaclesAceImage
   },
   {
     id: 65,
@@ -865,7 +944,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "You're dropping balls. Simplify before everything falls.",
     narratorMessage: "Skilled juggler! You dance between worlds, balancing it all! The universe applauds your grace!",
     narratorReversed: "Overwhelmed balancer, too many coins in the air! Drop some before you drop all!",
-    image: tarotMagicianImage
+    image: tarotPentacles2Image
   },
   {
     id: 66,
@@ -878,7 +957,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "Team discord sabotages progress. Realign or work solo.",
     narratorMessage: "Master builder! I see you co-creating with skilled allies! Together you build cathedrals!",
     narratorReversed: "Fractured team, your collaboration crumbles. Either mend fences or work alone.",
-    image: tarotMagicianImage
+    image: tarotPentacles3Image
   },
   {
     id: 67,
@@ -891,7 +970,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "Greed has become your master. Loosen your grip.",
     narratorMessage: "Careful guardian, you protect your resources wisely. But are you hoarding or saving?",
     narratorReversed: "Miser soul, your grip is so tight you strangle your own abundance! Open your hands!",
-    image: tarotMagicianImage
+    image: tarotPentacles4Image
   },
   {
     id: 68,
@@ -904,7 +983,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "The worst passes. Assistance arrives. Accept it with grace.",
     narratorMessage: "Struggling soul, you walk in snow past a warm church. Pride or shame? Help waits inside.",
     narratorReversed: "Recovering spirit! You finally enter the church! Help was always there, waiting for you!",
-    image: tarotMagicianImage
+    image: tarotPentacles5Image
   },
   {
     id: 69,
@@ -917,7 +996,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "Beware gifts with strings. Ensure exchange is truly balanced.",
     narratorMessage: "Generous benefactor! I witness your open-handed giving! The cosmos multiplies what you share!",
     narratorReversed: "Manipulative giver, your charity has hooks attached. True generosity expects nothing back.",
-    image: tarotMagicianImage
+    image: tarotPentacles6Image
   },
   {
     id: 70,
@@ -930,7 +1009,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "Impatience sabotages crops. Give investments time to grow.",
     narratorMessage: "Patient farmer, your seeds sprout! Not yet harvest, but growth is visible! Continue tending!",
     narratorReversed: "Impatient gardener, you dig up seeds to check if they're growing! Trust the process!",
-    image: tarotMagicianImage
+    image: tarotPentacles7Image
   },
   {
     id: 71,
@@ -943,7 +1022,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "Shortcuts lead to mediocrity. Recommit to excellence.",
     narratorMessage: "Devoted craftsperson! I watch you perfect your art with loving dedication! Mastery is near!",
     narratorReversed: "Distracted apprentice, you seek shortcuts to mastery. None exist. Return to focused work.",
-    image: tarotMagicianImage
+    image: tarotPentacles8Image
   },
   {
     id: 72,
@@ -956,7 +1035,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "Your independence is threatened. Reassess your spending.",
     narratorMessage: "Prosperous soul! You stand in your garden of abundance! Self-made success is sweet!",
     narratorReversed: "Dependent one, you've lost your self-sufficiency. Rebuild your independence.",
-    image: tarotMagicianImage
+    image: tarotPentacles9Image
   },
   {
     id: 73,
@@ -969,7 +1048,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "Family financial discord needs healing. Money isn't worth broken bonds.",
     narratorMessage: "Legacy builder! I see multi-generational wealth and wisdom! Your family tree is blessed!",
     narratorReversed: "Fractured dynasty, money disputes tear family fabric. Remember: relationship over riches.",
-    image: tarotMagicianImage
+    image: tarotPentacles10Image
   },
   {
     id: 74,
@@ -982,7 +1061,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "Your approach is too theoretical. Ground ideas in practical action.",
     narratorMessage: "Studious youth! You hold the seed of future prosperity! Plant it with intention!",
     narratorReversed: "Distracted student, dreams without action remain dreams. Apply yourself practically.",
-    image: tarotMagicianImage
+    image: tarotPentaclesPageImage
   },
   {
     id: 75,
@@ -995,7 +1074,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "Perfectionism has become paralysis. Or laziness masquerades as caution.",
     narratorMessage: "Dependable knight! Slow but unstoppable! Your steady progress builds empires!",
     narratorReversed: "Stuck knight, your horse stands still. Is it perfectionism or fear? Move forward!",
-    image: tarotMagicianImage
+    image: tarotPentaclesKnightImage
   },
   {
     id: 76,
@@ -1008,7 +1087,7 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "You've neglected yourself while caring for all. Self-care is not selfish.",
     narratorMessage: "Abundant mother! Your kingdom is a garden of prosperity! You nurture all you touch!",
     narratorReversed: "Depleted provider, you've given all away. Remember: you can't pour from empty cup.",
-    image: tarotEmpressImage
+    image: tarotPentaclesQueenImage
   },
   {
     id: 77,
@@ -1021,6 +1100,6 @@ export const tarotDeck: TarotCard[] = [
     reversedGuidance: "Wealth without wisdom is fleeting. Don't let gold become your god.",
     narratorMessage: "Prosperous king! Your realm flourishes under wise financial leadership! Well done!",
     narratorReversed: "Greedy monarch, you've forgotten: you can't take it with you. Share the wealth.",
-    image: tarotEmperorImage
+    image: tarotPentaclesKingImage
   }
 ];

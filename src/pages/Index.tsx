@@ -18,15 +18,15 @@ const Index = () => {
       <StarField />
       <HeroSection />
       <TarotSection />
-      <ZodiacSection />
+      {/* <ZodiacSection /> */}
       <PastLifePortal />
       <NakshatraJourney />
       <Palmistry />
-       <SpiritAnimalSummoner /> 
+       {/* <SpiritAnimalSummoner /> 
       <DreamOracle />
       <ElementalAlchemy />
-       <ServicesSection /> 
-       <TestimonialsSection /> 
+       <ServicesSection />  
+       <TestimonialsSection /> */}
       <Footer />
     </div>
   );

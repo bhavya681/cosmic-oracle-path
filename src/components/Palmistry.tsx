@@ -3,11 +3,11 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Hand, Sparkles } from 'lucide-react';
 
-// Add mystical zodiac symbols and celestial icons for bg
+// Astrological/zodiac/celestial symbols for bg features
 const ASTRO_SYMBOLS = [
-  '♈', '♉', '♊', '♋', '♌', '♍', '♎', '♏', '♐', '♑', '♒', '♓', // Zodiac
-  '☉', '☽', '☿', '♀', '♂', '♃', '♄', '♅', '♆', '♇',           // Planets
-  '★', '✶', '✦', '✧', '✩', '✪', '✯',                          // Stars
+  // '♈', '♉', '♊', '♋', '♌', '♍', '♎', '♏', '♐', '♑', '♒', '♓',
+  '☉', '☽', '☿', '♀', '♂', '♃', '♄', '♅', '♆', '♇',
+  '★', '✶', '✦', '✧', '✩', '✪', '✯',
 ];
 
 const palmLines = [
@@ -59,80 +59,115 @@ export const Palmistry = () => {
   const [selectedLine, setSelectedLine] = useState<typeof palmLines[0] | null>(null);
   const [hoveredLine, setHoveredLine] = useState<string | null>(null);
 
+  // Professional dark astrological background effect as a separate component
+  const AstrologicalBackground = () => (
+    <div className="absolute inset-0 z-0 pointer-events-none">
+      {/* Animated dark nebula */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#170c27] via-[#0e0720] to-[#060214] opacity-95 mix-blend-darken animate-cosmic-pulse" />
+      {/* Constellation overlay with accent glows */}
+      <svg className="absolute inset-0 w-full h-full z-0 pointer-events-none" viewBox="0 0 1000 700">
+        <polyline
+          points="70,530 180,350 260,180 400,120 570,240 730,140 890,330"
+          stroke="#c084fc"
+          strokeWidth="1.5"
+          fill="none"
+          opacity="0.19"
+          strokeDasharray="12"
+        />
+        <polyline
+          points="190,630 320,500 460,600 660,670 850,540"
+          stroke="#f9fafb"
+          strokeWidth="1"
+          fill="none"
+          opacity="0.12"
+          strokeDasharray="11"
+        />
+        {/* Subtle constellation glow nodes */}
+        {[...Array(11)].map((_, i) => (
+          <circle
+            key={i}
+            cx={210 + i * 72 + Math.sin(i) * 15}
+            cy={300 + Math.sin(i * 1.8) * 130}
+            r={Math.random() * 4.5 + 2.2}
+            fill="#e0e7ff"
+            opacity="0.14"
+            filter="url(#constellationGlow)"
+          />
+        ))}
+        {/* Filter for node glow */}
+        <defs>
+          <filter id="constellationGlow" x="-40%" y="-40%" width="120%" height="120%">
+            <feDropShadow dx="0" dy="0" stdDeviation="6" floodColor="#e0e7ff" floodOpacity="0.7" />
+          </filter>
+        </defs>
+      </svg>
+      {/* Subtle randomized starfield */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        {[...Array(100)].map((_, i) => {
+          // Stable star randomness with seeded "position"
+          const t = (i * 951) % 1000, l = (i * 1373) % 1000;
+          return (
+            <div
+              key={`star-${i}`}
+              className="absolute rounded-full bg-white"
+              style={{
+                top: `${t / 10}%`,
+                left: `${l / 10}%`,
+                width: `${(i % 7 === 0 ? 1.6 : 0.7) + (i % 3) * 0.3}px`,
+                height: `${(i % 5 === 0 ? 1.2 : 0.6) + (i % 4) * 0.2}px`,
+                opacity: 0.13 + ((i % 10) / 22),
+                filter: 'blur(0.7px)',
+              }}
+            />
+          );
+        })}
+      </div>
+      {/* Floating mystical zodiac/astrological icons */}
+      <div className="absolute inset-0 z-10 pointer-events-none overflow-hidden">
+        {[...Array(28)].map((_, i) => {
+          // Pseudo-random positions/sizes for icons, repeatable for determinism
+          const top = ((i * 379) % 1000) / 10 + 1.5;
+          const left = ((i * 743) % 1000) / 10 + 1.5;
+          const symbol = ASTRO_SYMBOLS[i % ASTRO_SYMBOLS.length];
+          const fontSize = 32 + (i % 11) * 4 + (i % 8) * 2;
+          const spin = (i % 2 === 0 ? "animate-astro-float" : "animate-astro-float2");
+          return (
+            <div
+              key={`astrobg-icon-${i}`}
+              className={`absolute select-none ${spin} text-indigo-50/15 dark:text-fuchsia-200/10`}
+              style={{
+                top: `${top}%`,
+                left: `${left}%`,
+                fontSize: `${fontSize}px`,
+                animationDelay: `${i * 0.7}s`,
+                animationDuration: `${12 + (i % 6) * 2}s`,
+                textShadow: '0 0 18px #a78bfa,0 2px 8px #818cf8,0 0 38px #8b5cf6',
+                filter: 'blur(0.2px)',
+                opacity: 0.5 + (i % 5) * 0.05,
+                pointerEvents: 'none',
+              }}
+              aria-hidden="true"
+            >
+              {symbol}
+            </div>
+          );
+        })}
+      </div>
+      {/* Optional dark vignette overlay */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0)_65%,rgba(12,10,28,0.97)_100%)] pointer-events-none" style={{mixBlendMode:'multiply'}} />
+    </div>
+  );
+
   return (
     <section
       className={`
         py-16 md:py-24 px-2 sm:px-4 relative overflow-hidden
         bg-[#100826] dark:bg-[#080310]
-        before:absolute before:inset-0 before:pointer-events-none before:z-0
-        before:bg-[radial-gradient(ellipse_at_bottom_right,_rgba(253,246,228,0.10)_0%,_rgba(139,92,246,0.13)_40%,_transparent_80%)]
       `}
       style={{ minHeight: '100vh' }}
     >
-      {/* Backgrounds and overlays */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        {/* Nebula-like glow */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#2d114b]/80 via-[#320835]/70 to-[#0b0023]/80 opacity-85 animate-pulse-glow mix-blend-screen" />
-        {/* Subtle starfield */}
-        <div className="absolute inset-0 z-0 pointer-events-none">
-          {[...Array(100)].map((_, i) => (
-            <div
-              key={`star-${i}`}
-              className="absolute rounded-full bg-white"
-              style={{
-                top: `${Math.random() * 100}%`,
-                left: `${Math.random() * 100}%`,
-                width: `${Math.random() * 1.2 + 0.5}px`,
-                height: `${Math.random() * 1.2 + 0.5}px`,
-                opacity: Math.random() * 0.4 + 0.15,
-                filter: 'blur(0.5px)',
-              }}
-            />
-          ))}
-        </div>
-        {/* Floating mystical symbols & astrological icons */}
-        <div className="absolute inset-0 z-10 pointer-events-none overflow-hidden">
-          {[...Array(18)].map((_, i) => {
-            const symbol = ASTRO_SYMBOLS[i % ASTRO_SYMBOLS.length];
-            return (
-              <div
-                key={`mystic-${i}`}
-                className="absolute text-indigo-50/10 dark:text-primary/10 animate-float"
-                style={{
-                  top: `${Math.random() * 100}%`,
-                  left: `${Math.random() * 100}%`,
-                  fontSize: `${Math.random() * 32 + 22}px`,
-                  animationDelay: `${i * 0.8}s`,
-                  animationDuration: `${Math.random() * 10 + 9}s`,
-                  textShadow: '0 0 16px #d8b4fe, 0 2px 8px #818cf8',
-                  userSelect: 'none',
-                }}
-              >
-                {symbol}
-              </div>
-            );
-          })}
-        </div>
-        {/* Constellation overlay lines */}
-        <svg className="absolute inset-0 w-full h-full z-0 pointer-events-none" viewBox="0 0 1000 700">
-          <polyline
-            points="70,530 180,350 260,180 400,120 570,240 730,140 890,330"
-            stroke="#b993f6"
-            strokeWidth="1"
-            fill="none"
-            opacity="0.12"
-            strokeDasharray="10"
-          />
-          <polyline
-            points="190,630 320,500 460,600 660,670 850,540"
-            stroke="#e0d2fe"
-            strokeWidth="1"
-            fill="none"
-            opacity="0.10"
-            strokeDasharray="8"
-          />
-        </svg>
-      </div>
+      {/* Professional dark astrological background */}
+      <AstrologicalBackground />
 
       <div className="max-w-6xl mx-auto relative z-20">
         <div className="text-center mb-10 md:mb-16 animate-fade-in">
@@ -154,29 +189,27 @@ export const Palmistry = () => {
 
         {/* Responsive grid: stacked on mobile, 2-cols on md+ */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-start">
-          {/* Enhanced Palm Diagram Responsive */}
-          <Card className="p-4 xs:p-6 sm:p-8 bg-gradient-to-br from-[#110a23]/80 via-[#1d0c27]/75 to-[#1c103b]/50 backdrop-blur-md border-fuchsia-300/30 shadow-[0_7px_36px_-4px_rgba(40,11,55,0.21)] relative overflow-hidden ring-1 ring-fuchsia-400/15 w-full">
-            {/* Mystical glow effect */}
-            <div className="absolute inset-0 bg-gradient-radial from-fuchsia-300/10 via-transparent to-purple-900/10 animate-pulse-glow pointer-events-none" />
-            
+          {/* Palm Diagram Card */}
+          <Card className="p-4 xs:p-6 sm:p-8 bg-gradient-to-br from-[#110a23]/80 via-[#1d0c27]/75 to-[#1c103b]/50 backdrop-blur-md border-fuchsia-300/30 shadow-[0_7px_36px_-4px_rgba(40,11,55,0.18)] relative overflow-hidden ring-1 ring-fuchsia-400/12 w-full">
+            {/* Mystical palm diagram with astrological details */}
             <div className="
               relative mx-auto
               aspect-[3/4]
               w-[85vw] xs:w-[66vw] sm:w-[410px] md:w-[330px] lg:w-[360px]
               max-w-[98vw] md:max-w-[340px] lg:max-w-[360px]
-              bg-gradient-to-br from-[#16132b]/90 via-[#2b113e]/60 to-[#26114b]/25
+              bg-gradient-to-br from-[#16132b]/95 via-[#2b113e]/70 to-[#26114b]/30
               rounded-3xl overflow-hidden 
-              shadow-[inset_0_4px_30px_rgba(18,7,41,0.19)]
-              border-2 border-violet-300/20 ring-2 ring-indigo-600/10
+              shadow-[inset_0_4px_36px_rgba(18,7,41,0.17)]
+              border-2 border-violet-300/15 ring-2 ring-indigo-600/10
               "
             >
-              {/* Celestial halo glow */}
-              <div className="absolute inset-0 bg-gradient-radial from-fuchsia-500/15 via-transparent to-transparent opacity-70 pointer-events-none" />
+              {/* Glowing radial overlay */}
+              <div className="absolute inset-0 bg-gradient-radial from-fuchsia-400/12 via-transparent to-purple-900/7 pointer-events-none" />
 
-              {/* Palm Shape with astrological details */}
+              {/* Palm SVG */}
               <div className="absolute inset-0">
                 <svg viewBox="0 0 300 400" className="w-full h-full drop-shadow-lg">
-                  {/* Thumb with shading */}
+                  {/* Thumb and palm gradient */}
                   <defs>
                     <radialGradient id="palmGradient" cx="50%" cy="50%">
                       <stop offset="0%" stopColor="#231723" />
@@ -188,58 +221,46 @@ export const Palmistry = () => {
                       <feGaussianBlur in="SourceAlpha" stdDeviation="2"/>
                       <feOffset dx="1" dy="2" result="offsetblur"/>
                       <feComponentTransfer>
-                        <feFuncA type="linear" slope="0.19"/>
+                        <feFuncA type="linear" slope="0.18"/>
                       </feComponentTransfer>
                       <feMerge>
                         <feMergeNode/>
                         <feMergeNode in="SourceGraphic"/>
                       </feMerge>
                     </filter>
-                    {/* Astrological icon patterns */}
                     <pattern id="astroPattern" x="0" y="0" patternUnits="userSpaceOnUse" width="40" height="40">
-                      <text x="10" y="25" fontSize="18" fill="#c084fc" opacity="0.12">★</text>
+                      <text x="10" y="25" fontSize="18" fill="#c084fc" opacity="0.14">★</text>
                       <text x="24" y="17" fontSize="14" fill="#b3b2f7" opacity="0.08">♈</text>
-                      <text x="5" y="38" fontSize="13" fill="#f9d8eb" opacity="0.05">♑</text>
+                      <text x="5" y="38" fontSize="13" fill="#f9d8eb" opacity="0.07">♑</text>
                     </pattern>
                   </defs>
                   
-                  {/* Thumb */}
                   <ellipse cx="60" cy="280" rx="35" ry="80" fill="url(#palmGradient)" stroke="#a78bfa" strokeWidth="2.5" filter="url(#palmShadow)" />
-                  
-                  {/* Palm base */}
                   <ellipse cx="180" cy="250" rx="110" ry="140" fill="url(#palmGradient)" stroke="#a78bfa" strokeWidth="2.5" filter="url(#palmShadow)" />
-                  
-                  {/* Fingers with realistic joints */}
                   <rect x="100" y="30" width="30" height="120" rx="15" fill="url(#palmGradient)" stroke="#a78bfa" strokeWidth="2.5" filter="url(#palmShadow)" />
-                  <circle cx="115" cy="80" r="3" fill="#eab308" opacity="0.23" />
-                  <circle cx="115" cy="110" r="3" fill="#eab308" opacity="0.16" />
-                  
+                  <circle cx="115" cy="80" r="3" fill="#eab308" opacity="0.22" />
+                  <circle cx="115" cy="110" r="3" fill="#eab308" opacity="0.14" />
                   <rect x="145" y="20" width="30" height="130" rx="15" fill="url(#palmGradient)" stroke="#a78bfa" strokeWidth="2.5" filter="url(#palmShadow)" />
-                  <circle cx="160" cy="70" r="3" fill="#eab308" opacity="0.20" />
-                  <circle cx="160" cy="105" r="3" fill="#eab308" opacity="0.09" />
-                  
+                  <circle cx="160" cy="70" r="3" fill="#eab308" opacity="0.19" />
+                  <circle cx="160" cy="105" r="3" fill="#eab308" opacity="0.08" />
                   <rect x="190" y="30" width="30" height="125" rx="15" fill="url(#palmGradient)" stroke="#a78bfa" strokeWidth="2.5" filter="url(#palmShadow)" />
                   <circle cx="205" cy="80" r="3" fill="#eab308" opacity="0.17" />
-                  <circle cx="205" cy="112" r="3" fill="#eab308" opacity="0.07" />
-                  
+                  <circle cx="205" cy="112" r="3" fill="#eab308" opacity="0.06" />
                   <rect x="235" y="50" width="28" height="110" rx="14" fill="url(#palmGradient)" stroke="#a78bfa" strokeWidth="2.5" filter="url(#palmShadow)" />
                   <circle cx="249" cy="95" r="2.5" fill="#eab308" opacity="0.09" />
                   <circle cx="249" cy="120" r="2.5" fill="#eab308" opacity="0.04" />
-                  
-                  {/* Palm texture details - star constellation dots */}
                   {[...Array(9)].map((_, i) => (
                     <circle
                       key={`astro-dot-${i}`}
                       cx={120 + Math.random() * 120}
                       cy={160 + Math.random() * 110}
-                      r={Math.random() * 1.4 + 0.9}
+                      r={Math.random() * 1.2 + 1.1}
                       fill="#fff"
-                      opacity={Math.random() * 0.18 + 0.10}
-                      filter="blur(0.2px)"
+                      opacity={Math.random() * 0.17 + 0.10}
+                      filter="blur(0.32px)"
                     />
                   ))}
-                  {/* Overlay: Astrological pattern as faint texture */}
-                  <rect x="90" y="100" width="120" height="160" fill="url(#astroPattern)" opacity="0.11" rx="42" />
+                  <rect x="90" y="100" width="120" height="160" fill="url(#astroPattern)" opacity="0.13" rx="42" />
                 </svg>
               </div>
               {/* Palm Lines */}
@@ -249,13 +270,12 @@ export const Palmistry = () => {
                   className={`
                     absolute ${line.position} cursor-pointer transition-all duration-300
                     ${hoveredLine === line.id ? 'scale-110 z-20' : 'z-10'}
-                    `}
+                  `}
                   onMouseEnter={() => setHoveredLine(line.id)}
                   onMouseLeave={() => setHoveredLine(null)}
                   onClick={() => setSelectedLine(line)}
                   tabIndex={0}
                   aria-label={line.name}
-                  // Accessible for mobile (Touch)
                   onTouchStart={() => setHoveredLine(line.id)}
                   onTouchEnd={() => setHoveredLine(null)}
                 >
@@ -278,7 +298,6 @@ export const Palmistry = () => {
                 </div>
               ))}
             </div>
-
             <div className="mt-6 md:mt-7 text-center space-y-2">
               <p className="text-xs xs:text-sm text-violet-200 italic flex flex-wrap items-center justify-center gap-x-2 gap-y-1">
                 <span className="text-fuchsia-200 animate-pulse-slow text-xl">☉</span>
@@ -299,7 +318,7 @@ export const Palmistry = () => {
           {/* Reading Display */}
           <div className="space-y-5 md:space-y-6 mt-6 md:mt-0">
             {!selectedLine ? (
-              <Card className="p-4 xs:p-6 sm:p-8 bg-gradient-to-bl from-[#3e1452]/40 via-[#16113b]/60 to-[#060211]/80 backdrop-blur-sm border-fuchsia-400/20 shadow-[0_2px_14px_0_rgba(71,27,124,0.15)] animate-fade-in w-full">
+              <Card className="p-4 xs:p-6 sm:p-8 bg-gradient-to-bl from-[#3e1452]/40 via-[#16113b]/60 to-[#060211]/80 backdrop-blur-sm border-fuchsia-400/20 shadow-[0_2px_14px_0_rgba(71,27,124,0.13)] animate-fade-in w-full">
                 <div className="text-center space-y-4">
                   <span className="relative block w-14 h-14 sm:w-16 sm:h-16 mx-auto">
                     <span className="absolute inset-0 rounded-full bg-gradient-to-t from-fuchsia-300/20 via-indigo-300/10 to-transparent blur-2xl animate-pulse-glow" />
@@ -347,7 +366,7 @@ export const Palmistry = () => {
             )}
 
             {/* All Lines Quick Reference */}
-            <Card className="p-3 xs:p-4 sm:p-6 bg-gradient-to-br from-[#191237]/80 via-[#1d0c27]/80 to-[#1c103b]/10 backdrop-blur-sm border-violet-200/15 w-full">
+            <Card className="p-3 xs:p-4 sm:p-6 bg-gradient-to-br from-[#191237]/80 via-[#1d0c27]/80 to-[#1c103b]/10 backdrop-blur-sm border-violet-200/12 w-full">
               <h4 className="font-heading text-base sm:text-lg font-bold text-fuchsia-200 mb-3 sm:mb-4 tracking-wide flex items-center gap-2">
                 <span className="text-xl sm:text-2xl animate-pulse-slow">♁</span>
                 Palm Lines Astropedia
@@ -359,10 +378,10 @@ export const Palmistry = () => {
                     key={line.id}
                     onClick={() => setSelectedLine(line)}
                     className={`
-                      w-full flex items-center gap-2 sm:gap-3 p-2.5 sm:p-3 rounded-lg transition-all duration-300 shadow-[0_0_9px_0_rgba(168,139,250,0.09)]
+                      w-full flex items-center gap-2 sm:gap-3 p-2.5 sm:p-3 rounded-lg transition-all duration-300 shadow-[0_0_9px_0_rgba(168,139,250,0.08)]
                       ${selectedLine?.id === line.id
-                        ? 'bg-gradient-to-r from-fuchsia-600 via-violet-600 to-indigo-900 text-white shadow-glow ring-2 ring-fuchsia-400/40'
-                        : 'bg-[#1b173c]/30 hover:bg-[#2d244e]/40 outline-none'
+                        ? 'bg-gradient-to-r from-fuchsia-600 via-violet-600 to-indigo-900 text-white shadow-glow ring-2 ring-fuchsia-400/36'
+                        : 'bg-[#1b173c]/30 hover:bg-[#2d244e]/38 outline-none'
                       }
                     `}
                   >

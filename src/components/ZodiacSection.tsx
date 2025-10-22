@@ -59,19 +59,49 @@ export const ZodiacSection = () => {
         </div>
 
         <Card className="p-8 md:p-12 bg-card/80 backdrop-blur-sm border-primary/30 shadow-cosmic relative overflow-hidden">
-          {/* Animated cosmic background */}
-          <div className="absolute inset-0 opacity-20">
+          {/* Animated cosmic background with enhanced effects */}
+          <div className="absolute inset-0 opacity-30">
             <div className="absolute inset-0 bg-gradient-cosmic animate-pulse-glow" />
-            {[...Array(30)].map((_, i) => (
+            {/* Twinkling stars */}
+            {[...Array(50)].map((_, i) => (
               <div
                 key={i}
                 className="absolute w-1 h-1 bg-primary rounded-full animate-pulse"
                 style={{
                   top: `${Math.random() * 100}%`,
                   left: `${Math.random() * 100}%`,
-                  animationDelay: `${Math.random() * 2}s`,
+                  animationDelay: `${Math.random() * 3}s`,
+                  animationDuration: `${1 + Math.random()}s`,
                 }}
               />
+            ))}
+            {/* Shooting stars */}
+            {[...Array(3)].map((_, i) => (
+              <div
+                key={`shooting-${i}`}
+                className="absolute h-px w-16 bg-gradient-to-r from-transparent via-primary to-transparent animate-shooting-star"
+                style={{
+                  top: `${Math.random() * 50}%`,
+                  left: '-20%',
+                  animationDelay: `${i * 4}s`,
+                }}
+              />
+            ))}
+            {/* Floating zodiac symbols */}
+            {zodiacSigns.slice(0, 6).map((sign, i) => (
+              <div
+                key={`float-${i}`}
+                className="absolute text-4xl opacity-10 animate-float"
+                style={{
+                  top: `${15 + i * 15}%`,
+                  left: `${10 + i * 12}%`,
+                  animationDelay: `${i * 0.5}s`,
+                  animationDuration: `${8 + i * 2}s`,
+                  color: sign.color,
+                }}
+              >
+                {sign.symbol}
+              </div>
             ))}
           </div>
           
@@ -110,16 +140,35 @@ export const ZodiacSection = () => {
             </Button>
 
             {showPrediction && (
-              <div className="mt-8 p-8 bg-gradient-cosmic rounded-2xl animate-scale-in">
-                <div className="flex items-center gap-4 mb-6">
+              <div className="mt-8 p-8 bg-gradient-cosmic rounded-2xl animate-scale-in border border-primary/20 relative overflow-hidden">
+                {/* Animated background glow */}
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-secondary/5 to-accent/5 animate-pulse-glow" />
+                
+                {/* Orbiting particles */}
+                {[...Array(8)].map((_, i) => (
+                  <div
+                    key={`orbit-${i}`}
+                    className="absolute w-1 h-1 bg-primary/40 rounded-full"
+                    style={{
+                      top: '50%',
+                      left: '10%',
+                      animation: `orbit-symbol ${6 + i}s linear infinite`,
+                      animationDelay: `${i * 0.75}s`,
+                    }}
+                  />
+                ))}
+                
+                <div className="flex items-center gap-4 mb-6 relative z-10">
                   <div className="relative">
-                    <div className="w-20 h-20 rounded-full bg-gradient-cosmic flex items-center justify-center animate-pulse-glow shadow-glow">
+                    <div className="w-20 h-20 rounded-full bg-gradient-cosmic flex items-center justify-center animate-pulse-glow shadow-glow relative">
                       <span 
                         className="text-5xl animate-rotate-slow" 
                         style={{ color: zodiacSigns.find(z => z.name === selectedSign)?.color }}
                       >
                         {zodiacSigns.find(z => z.name === selectedSign)?.symbol}
                       </span>
+                      {/* Spinning ring */}
+                      <div className="absolute inset-0 rounded-full border-2 border-primary/30 animate-spin" style={{ animationDuration: '8s' }} />
                     </div>
                     <div className="absolute inset-0 rounded-full border-4 border-primary/20 animate-ping" />
                   </div>
@@ -132,9 +181,13 @@ export const ZodiacSection = () => {
                     </p>
                   </div>
                 </div>
-                <p className="font-body text-lg text-foreground/90 leading-relaxed">
+                <p className="font-body text-lg text-foreground/90 leading-relaxed relative z-10 animate-fade-in" style={{ animationDelay: '0.3s' }}>
                   {prediction}
                 </p>
+                
+                {/* Decorative stars */}
+                <div className="absolute top-4 right-4 text-primary/20 text-2xl animate-pulse">✦</div>
+                <div className="absolute bottom-4 left-4 text-accent/20 text-xl animate-pulse" style={{ animationDelay: '0.5s' }}>✧</div>
               </div>
             )}
           </div>
@@ -146,6 +199,36 @@ export const ZodiacSection = () => {
           </p>
         </div>
       </div>
+      
+      <style>{`
+        @keyframes shooting-star {
+          0% {
+            transform: translateX(0) translateY(0);
+            opacity: 0;
+          }
+          10% {
+            opacity: 1;
+          }
+          90% {
+            opacity: 1;
+          }
+          100% {
+            transform: translateX(300px) translateY(150px);
+            opacity: 0;
+          }
+        }
+        .animate-shooting-star {
+          animation: shooting-star 3s ease-out infinite;
+        }
+        @keyframes orbit-symbol {
+          from {
+            transform: translate(-50%, -50%) rotate(0deg) translateX(40px) rotate(0deg);
+          }
+          to {
+            transform: translate(-50%, -50%) rotate(360deg) translateX(40px) rotate(-360deg);
+          }
+        }
+      `}</style>
     </section>
   );
 };

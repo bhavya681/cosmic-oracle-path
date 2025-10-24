@@ -87,7 +87,7 @@ export const TarotSection = () => {
 
 
   return (
-    <section id="tarot" className="py-24 px-4 relative overflow-hidden">
+    <section id="tarrot" className="py-24 px-4 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-cosmic opacity-30 animate-pulse-glow" />
       
       <div className="max-w-7xl mx-auto relative z-10">

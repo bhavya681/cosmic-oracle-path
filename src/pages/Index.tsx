@@ -10,6 +10,7 @@ import { DreamOracle } from '@/components/DreamOracle';
 import { ElementalAlchemy } from '@/components/ElementalAlchemy';
 import { ServicesSection } from '@/components/ServicesSection';
 import { TestimonialsSection } from '@/components/TestimonialsSection';
+import NumerologySection from '@/components/NumerologySection';
 import { ContactUs } from '@/components/ContactUs';
 import { Footer } from '@/components/Footer';
 
@@ -21,9 +22,10 @@ const Index = () => {
       <TarotSection />
       {/* <ZodiacSection /> */}
       <PastLifePortal />
+      <NumerologySection />
       <NakshatraJourney />
       <Palmistry />
-       {/* <SpiritAnimalSummoner /> 
+      {/* <SpiritAnimalSummoner /> 
       <DreamOracle />
       <ElementalAlchemy />
        <ServicesSection />  

@@ -10,6 +10,7 @@ import { DreamOracle } from '@/components/DreamOracle';
 import { ElementalAlchemy } from '@/components/ElementalAlchemy';
 import { ServicesSection } from '@/components/ServicesSection';
 import { TestimonialsSection } from '@/components/TestimonialsSection';
+import { ContactUs } from '@/components/ContactUs';
 import { Footer } from '@/components/Footer';
 
 const Index = () => {
@@ -27,6 +28,7 @@ const Index = () => {
       <ElementalAlchemy />
        <ServicesSection />  
        <TestimonialsSection /> */}
+      <ContactUs />
       <Footer />
     </div>
   );

@@ -134,6 +134,30 @@ const twelfthHouseData = {
   Pisces: "Mystic, monk, or seer; spiritual unfinished business.",
 };
 
+// All 12 Rashi in order, so 12th from any ascendant can be calculated:
+const rashiOrder = [
+  "Aries",
+  "Taurus",
+  "Gemini",
+  "Cancer",
+  "Leo",
+  "Virgo",
+  "Libra",
+  "Scorpio",
+  "Sagittarius",
+  "Capricorn",
+  "Aquarius",
+  "Pisces",
+];
+
+// This calculates the 12th sign from a given ascendant sign
+function getTwelfthRashiFromAscendant(asc: string): string | undefined {
+  const idx = rashiOrder.indexOf(asc);
+  if (idx === -1) return undefined;
+  // 12th from ascendant: index - 1 (with wraparound)
+  return rashiOrder[(idx + 11) % 12];
+}
+
 export const PastLifePortal = () => {
   const [isExploring, setIsExploring] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
@@ -144,14 +168,16 @@ export const PastLifePortal = () => {
   const [userDOB, setUserDOB] = useState("");
   const [ascendant, setAscendant] = useState("");
   const [nakshatra, setNakshatra] = useState("");
-  const [twelfthRashi, setTwelfthRashi] = useState("");
 
+  // Twelfth rashi is now computed automatically
+  const twelfthRashi = getTwelfthRashiFromAscendant(ascendant);
+
+  // Remove twelfthRashi input from validity check
   const validInput =
     userName.trim().length > 0 &&
     /^\d{4}-\d{2}-\d{2}$/.test(userDOB) &&
     ascendant &&
-    nakshatra &&
-    twelfthRashi;
+    nakshatra;
 
   useEffect(() => {
     if (isExploring) setPortalActive(true);
@@ -165,7 +191,7 @@ export const PastLifePortal = () => {
     setTimeout(() => {
       const asc = ascendantData[ascendant];
       const nak = nakshatraData[nakshatra];
-      const tw12 = twelfthHouseData[twelfthRashi];
+      const tw12 = twelfthRashi ? twelfthHouseData[twelfthRashi] : undefined;
 
       if (asc && nak && tw12) {
         const combinedMessage = `✨ In a previous incarnation, ${
@@ -317,19 +343,7 @@ export const PastLifePortal = () => {
                       </option>
                     ))}
                   </select>
-                  <label className="block mt-6 text-left text-lg mb-2">12th House Rashi</label>
-                  <select
-                    value={twelfthRashi}
-                    onChange={(e) => setTwelfthRashi(e.target.value)}
-                    className="w-full px-4 py-2 rounded-md border border-primary/20 bg-background/70 text-foreground/80"
-                  >
-                    <option value="">Select Rashi</option>
-                    {Object.keys(twelfthHouseData).map((r) => (
-                      <option key={r} value={r}>
-                        {r}
-                      </option>
-                    ))}
-                  </select>
+                  {/* 12th House Rashi display removed */}
                 </div>
                 <p className="text-lg text-foreground/80 mt-6">
                   Enter your birth details to unlock the hidden memories of your soul.
@@ -348,48 +362,47 @@ export const PastLifePortal = () => {
               </div>
             )}
 
-{showMessage && (
-  <div className="space-y-8 animate-scale-in">
-    <div className="relative">
-      <div className="relative w-full aspect-video rounded-2xl overflow-hidden shadow-cosmic border-8 border-amber-900/30">
-        {/* Vintage image layers remain the same */}
-        <img 
-          src={image} 
-          alt="Past Life Vision" 
-          className="w-full h-full object-cover sepia-[0.6] contrast-[1.1] brightness-[0.9]"
-        />
-        <div className="absolute inset-0 opacity-30">
-          <img 
-            src={image} 
-            alt="Spirit Echo" 
-            className="w-full h-full object-cover animate-pulse"
-            style={{ filter: 'blur(3px) brightness(1.5) contrast(0.8)', mixBlendMode: 'screen' }}
-          />
-        </div>
-        {/* Optional rays/orbs here */}
-      </div>
-    </div>
+            {showMessage && (
+              <div className="space-y-8 animate-scale-in">
+                <div className="relative">
+                  <div className="relative w-full aspect-video rounded-2xl overflow-hidden shadow-cosmic border-8 border-amber-900/30">
+                    {/* Vintage image layers remain the same */}
+                    <img 
+                      src={image} 
+                      alt="Past Life Vision" 
+                      className="w-full h-full object-cover sepia-[0.6] contrast-[1.1] brightness-[0.9]"
+                    />
+                    <div className="absolute inset-0 opacity-30">
+                      <img 
+                        src={image} 
+                        alt="Spirit Echo" 
+                        className="w-full h-full object-cover animate-pulse"
+                        style={{ filter: 'blur(3px) brightness(1.5) contrast(0.8)', mixBlendMode: 'screen' }}
+                      />
+                    </div>
+                  </div>
+                </div>
 
-    <div className="space-y-3">
-      <h3 className="font-heading text-3xl font-bold text-primary text-center">
-        {userName ? `${userName}'s Past Life` : 'Your Past Life Revealed'}
-      </h3>
+                <div className="space-y-3">
+                  <h3 className="font-heading text-3xl font-bold text-primary text-center">
+                    {userName ? `${userName}'s Past Life` : 'Your Past Life Revealed'}
+                  </h3>
 
-      <div className="w-full animate-fade-in space-y-8">
-        <MysticalNarrator 
-          message={message}
-          tone="pastlife"
-          avatar="oracle"
-          intro="Let me peer into your soul’s echoes across time..."
-        />
-      </div>
+                  <div className="w-full animate-fade-in space-y-8">
+                    <MysticalNarrator 
+                      message={message}
+                      tone="pastlife"
+                      avatar="oracle"
+                      intro="Let me peer into your soul’s echoes across time..."
+                    />
+                  </div>
 
-      <p className="font-body text-sm text-muted-foreground italic text-center">
-        ✨ This wisdom whispers through lifetimes{userDOB ? ` since ${userDOB}` : ''}.
-      </p>
-    </div>
-  </div>
-)}
+                  <p className="font-body text-sm text-muted-foreground italic text-center">
+                    ✨ This wisdom whispers through lifetimes{userDOB ? ` since ${userDOB}` : ''}.
+                  </p>
+                </div>
+              </div>
+            )}
 
             <Button
               size="lg"
@@ -407,7 +420,7 @@ export const PastLifePortal = () => {
 
             {!showMessage && !isExploring && !validInput && (
               <div className="text-sm text-red-600 animate-fade-in">
-                Please fill all fields (Name, DOB, Ascendant, Nakshatra, 12th Rashi).
+                Please fill all fields (Name, DOB, Ascendant, Nakshatra).
               </div>
             )}
           </div>

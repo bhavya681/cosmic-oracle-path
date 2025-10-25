@@ -82,6 +82,147 @@ const numerologyCells = [
   },
 ];
 
+// --- Professional Numerology Logic ---
+
+const MASTER_NUMBERS = [11, 22, 33];
+const reduceNumber = (num: number): number => {
+  while (!MASTER_NUMBERS.includes(num) && num > 9) {
+    num = num
+      .toString()
+      .split("")
+      .reduce((a, b) => a + parseInt(b, 10), 0);
+  }
+  return num;
+};
+
+const calculateLifePath = (dob: string): number => {
+  // dob = yyyy-mm-dd
+  if (!dob || typeof dob !== 'string' || dob.split("-").length !== 3) return 1;
+  const [yearStr, monthStr, dayStr] = dob.split("-");
+  if (!yearStr || !monthStr || !dayStr) return 1;
+  const sumMonth = reduceNumber(Number(monthStr));
+  const sumDay = reduceNumber(Number(dayStr));
+  const sumYear = reduceNumber(
+    yearStr.split("").reduce((a, b) => a + parseInt(b, 10), 0)
+  );
+  return reduceNumber(sumMonth + sumDay + sumYear);
+};
+
+const calculateDestiny = (fullName: string): number => {
+  const letterValues: Record<string, number> = {
+    A: 1, B: 2, C: 3, D: 4, E: 5, F: 6, G: 7, H: 8, I: 9,
+    J: 1, K: 2, L: 3, M: 4, N: 5, O: 6, P: 7, Q: 8, R: 9,
+    S: 1, T: 2, U: 3, V: 4, W: 5, X: 6, Y: 7, Z: 8
+  };
+  if (!fullName) return 1;
+  const parts = fullName.trim().split(/\s+/);
+  const partTotals = parts.map(part =>
+    part
+      .toUpperCase()
+      .split("")
+      .reduce((sum, ch) => sum + (letterValues[ch] || 0), 0)
+  );
+  const total = partTotals.reduce((a, b) => a + reduceNumber(b), 0);
+  return reduceNumber(total);
+};
+
+const calculateSoulUrge = (fullName: string): number => {
+  if (!fullName) return 1;
+  const vowels = new Set(["A", "E", "I", "O", "U"]);
+  const vowelValues: Record<string, number> = { A: 1, E: 5, I: 9, O: 6, U: 3 };
+  const name = fullName.toUpperCase();
+  const letters = name.replace(/[^A-Z]/g, '').split("");
+  let sum = 0;
+  for (let i = 0; i < letters.length; i++) {
+    const char = letters[i];
+    if (char === "Y") {
+      const prev = letters[i - 1] || "";
+      const next = letters[i + 1] || "";
+      // Y is vowel if surrounded by consonants or at the word end after consonant
+      const isVowelY =
+        (!vowels.has(prev) && !vowels.has(next)) ||
+        (i === letters.length - 1 && !vowels.has(prev));
+      if (isVowelY) sum += 7;
+    } else if (vowels.has(char)) {
+      sum += vowelValues[char];
+    }
+  }
+  return reduceNumber(sum);
+};
+
+const calculatePersonality = (fullName: string): number => {
+  if (!fullName) return 1;
+  const vowels = new Set(["A", "E", "I", "O", "U", "Y"]);
+  const letterValues: Record<string, number> = {
+    A: 1, B: 2, C: 3, D: 4, E: 5, F: 6, G: 7, H: 8, I: 9,
+    J: 1, K: 2, L: 3, M: 4, N: 5, O: 6, P: 7, Q: 8, R: 9,
+    S: 1, T: 2, U: 3, V: 4, W: 5, X: 6, Y: 7, Z: 8
+  };
+  const name = fullName.toUpperCase().replace(/[^A-Z]/g, "");
+  const sum = name
+    .split("")
+    .filter(ch => !vowels.has(ch))
+    .reduce((a, ch) => a + (letterValues[ch] || 0), 0);
+  return reduceNumber(sum);
+};
+
+const calculateMaturity = (lifePath: number, destiny: number): number => (
+  reduceNumber(lifePath + destiny)
+);
+
+const calculatePinnaclesAndChallenges = (dob: string) => {
+  // Returns: { pinnacles: number[], challenges: number[] }
+  const [yearStr, monthStr, dayStr] = dob.split("-");
+  if (!yearStr || !monthStr || !dayStr) {
+    return { pinnacles: [1,1,1,1], challenges: [0,0,0,0] };
+  }
+  const month = reduceNumber(+monthStr);
+  const day = reduceNumber(+dayStr);
+  const year = reduceNumber(
+    yearStr.split("").reduce((a, b) => a + parseInt(b, 10), 0)
+  );
+  const firstPinnacle = reduceNumber(month + day);
+  const secondPinnacle = reduceNumber(day + year);
+  const thirdPinnacle = reduceNumber(firstPinnacle + secondPinnacle);
+  const fourthPinnacle = reduceNumber(month + year);
+  const firstChallenge = Math.abs(month - day);
+  const secondChallenge = Math.abs(day - year);
+  const thirdChallenge = Math.abs(firstChallenge - secondChallenge);
+  const fourthChallenge = Math.abs(month - year);
+  return {
+    pinnacles: [
+      reduceNumber(firstPinnacle),
+      reduceNumber(secondPinnacle),
+      reduceNumber(thirdPinnacle),
+      reduceNumber(fourthPinnacle)
+    ],
+    challenges: [
+      reduceNumber(firstChallenge),
+      reduceNumber(secondChallenge),
+      reduceNumber(thirdChallenge),
+      reduceNumber(fourthChallenge)
+    ]
+  };
+};
+
+const calculatePersonalYear = (dob: string): number => {
+  if (!dob || dob.split("-").length !== 3) return 1;
+  const [, monthStr, dayStr] = dob.split("-");
+  const currentYear = new Date().getFullYear();
+  const total = Number(monthStr) + Number(dayStr) + currentYear;
+  return reduceNumber(total);
+};
+
+const calculatePersonalMonth = (personalYear: number): number => {
+  const currentMonth = new Date().getMonth() + 1;
+  return reduceNumber(personalYear + currentMonth);
+};
+
+const calculatePersonalDay = (personalMonth: number): number => {
+  const currentDay = new Date().getDate();
+  return reduceNumber(personalMonth + currentDay);
+};
+
 export default function NumerologySection() {
   const [formData, setFormData] = useState({
     fullName: "",
@@ -94,89 +235,7 @@ export default function NumerologySection() {
   const [animationFinished, setAnimationFinished] = useState(false);
   const [selectedDetail, setSelectedDetail] = useState<string | null>(null);
 
-  // Calculation logic (unchanged)...
-
-  const calculateLifePath = (dateOfBirth: string): number => {
-    if (!dateOfBirth || typeof dateOfBirth !== 'string') return 1;
-    const parts = dateOfBirth.split("-");
-    if (parts.length !== 3) return 1;
-    const [yearStr, monthStr, dayStr] = parts;
-    const reduceComponent = (component: string): number => {
-      let n = component
-        .split('')
-        .map(Number)
-        .filter(v => !isNaN(v))
-        .reduce((sum, d) => sum + d, 0);
-      while (n !== 11 && n !== 22 && n !== 33 && n > 9) {
-        n = n
-          .toString()
-          .split("")
-          .reduce((sum, digit) => sum + parseInt(digit), 0);
-      }
-      return n;
-    };
-    const month = reduceComponent(monthStr);
-    const day = reduceComponent(dayStr);
-    const year = reduceComponent(yearStr);
-    let total = month + day + year;
-    while (total !== 11 && total !== 22 && total !== 33 && total > 9) {
-      total = total.toString().split("").reduce((sum, digit) => sum + parseInt(digit), 0);
-    }
-    return total;
-  };
-
-  const reduceToSingleDigit = (num: number): number => {
-    while (num > 9 && num !== 11 && num !== 22 && num !== 33) {
-      num = num.toString().split('').reduce((sum, digit) => sum + parseInt(digit), 0);
-    }
-    return num;
-  };
-
-  const calculateDestiny = (fullName: string): number => {
-    const letterValues: { [key: string]: number } = {
-      'A': 1, 'B': 2, 'C': 3, 'D': 4, 'E': 5, 'F': 6, 'G': 7, 'H': 8, 'I': 9,
-      'J': 1, 'K': 2, 'L': 3, 'M': 4, 'N': 5, 'O': 6, 'P': 7, 'Q': 8, 'R': 9,
-      'S': 1, 'T': 2, 'U': 3, 'V': 4, 'W': 5, 'X': 6, 'Y': 7, 'Z': 8
-    };
-    const name = fullName.replace(/\s/g, '').toUpperCase();
-    let sum = 0;
-    for (let char of name) {
-      if (letterValues[char]) {
-        sum += letterValues[char];
-      }
-    }
-    return reduceToSingleDigit(sum);
-  };
-
-  const calculateSoulUrge = (fullName: string): number => {
-    const vowelValues: { [key: string]: number } = {
-      'A': 1, 'E': 5, 'I': 9, 'O': 6, 'U': 3, 'Y': 7
-    };
-    const name = fullName.replace(/\s/g, '').toUpperCase();
-    let sum = 0;
-    for (let char of name) {
-      if (vowelValues[char]) {
-        sum += vowelValues[char];
-      }
-    }
-    return reduceToSingleDigit(sum);
-  };
-
-  const calculatePersonality = (fullName: string): number => {
-    const consonantValues: { [key: string]: number } = {
-      'B': 2, 'C': 3, 'D': 4, 'F': 6, 'G': 7, 'H': 8, 'J': 1, 'K': 2, 'L': 3,
-      'M': 4, 'N': 5, 'P': 7, 'Q': 8, 'R': 9, 'S': 1, 'T': 2, 'V': 4, 'W': 5, 'X': 6, 'Z': 8
-    };
-    const name = fullName.replace(/\s/g, '').toUpperCase();
-    let sum = 0;
-    for (let char of name) {
-      if (consonantValues[char]) {
-        sum += consonantValues[char];
-      }
-    }
-    return reduceToSingleDigit(sum);
-  };
-
+  // Interpretations remain unchanged
   const getInterpretation = (data: NumerologyData): NumerologyInterpretation => {
     // ...interpretations block...
     const interpretations: { [key: number]: any } = {
@@ -241,20 +300,34 @@ export default function NumerologySection() {
     setSelectedDetail(null);
     setShowAnimation(true);
     setAnimationFinished(false);
+
     try {
       await new Promise(resolve => setTimeout(resolve, 1200));
+
+      const lifePath = calculateLifePath(formData.dateOfBirth);
+      const destiny = calculateDestiny(formData.fullName);
+      const soulUrge = calculateSoulUrge(formData.fullName);
+      const personality = calculatePersonality(formData.fullName);
+      const maturity = calculateMaturity(lifePath, destiny);
+      const { pinnacles, challenges } = calculatePinnaclesAndChallenges(formData.dateOfBirth);
+
+      const personalYear = calculatePersonalYear(formData.dateOfBirth);
+      const personalMonth = calculatePersonalMonth(personalYear);
+      const personalDay = calculatePersonalDay(personalMonth);
+
       const data: NumerologyData = {
-        lifePath: calculateLifePath(formData.dateOfBirth),
-        destiny: calculateDestiny(formData.fullName),
-        soulUrge: calculateSoulUrge(formData.fullName),
-        personality: calculatePersonality(formData.fullName),
-        maturity: calculateLifePath(formData.dateOfBirth) + 9,
-        challenge: Math.abs(calculateLifePath(formData.dateOfBirth) - calculateDestiny(formData.fullName)),
-        pinnacle: calculateLifePath(formData.dateOfBirth) + calculateDestiny(formData.fullName),
-        personalYear: (new Date().getFullYear() + calculateLifePath(formData.dateOfBirth)) % 9 || 9,
-        personalMonth: ((new Date().getMonth() + 1) + calculateLifePath(formData.dateOfBirth)) % 9 || 9,
-        personalDay: (new Date().getDate() + calculateLifePath(formData.dateOfBirth)) % 9 || 9,
+        lifePath,
+        destiny,
+        soulUrge,
+        personality,
+        maturity,
+        challenge: challenges[0] ?? 0,
+        pinnacle: pinnacles[0] ?? 0,
+        personalYear,
+        personalMonth,
+        personalDay,
       };
+
       setNumerologyData(data);
       setInterpretation(getInterpretation(data));
       setTimeout(() => {
@@ -272,7 +345,7 @@ export default function NumerologySection() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Loader (not blocking, not fullscreen, no overlay background)
+  // Loader (unchanged)
   function CalculationOverlay() {
     // Just an animated loader inside the form card area (centered)
     return (
@@ -308,7 +381,7 @@ export default function NumerologySection() {
 
   return (
     <section
-      className="pt-12 pb-10 md:py-20 relative overflow-hidden"
+      className="pt-7 pb-8 md:py-20 relative overflow-hidden"
       style={{
         background: "radial-gradient(ellipse 120% 120% at 50% 20%, #141027 68%, #190034 88%, #090017 100%)"
       }}
@@ -371,12 +444,12 @@ export default function NumerologySection() {
       {/* End: BG */}
 
       <div className="container mx-auto px-2 sm:px-4 relative z-10">
-        <div className="text-center mb-10 sm:mb-16">
-          <div className="inline-flex items-center gap-2 bg-black/50 backdrop-blur-md rounded-full px-3 sm:px-6 py-2 mb-6 shadow-sm ring-1 ring-purple-900">
+        <div className="text-center mb-8 sm:mb-12">
+          <div className="inline-flex items-center gap-2 bg-black/50 backdrop-blur-md rounded-full px-3 sm:px-6 py-2 mb-5 shadow-sm ring-1 ring-purple-900">
             <Calculator className="w-5 h-5 text-purple-300" />
             <span className="text-purple-300 font-medium">Numerology Analysis</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold text-white mb-6 drop-shadow galaxy-title-glow">
+          <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold text-white mb-4 sm:mb-6 drop-shadow galaxy-title-glow">
             Discover Your{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-300 animate-gradient-sheen">
               Numerological Path
@@ -384,13 +457,13 @@ export default function NumerologySection() {
           </h2>
           <p className="text-base sm:text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
             Unlock the mystical power of numbers to reveal your life path, destiny, and soul's purpose.<br />
-            <span className="text-purple-400 block mt-2 text-sm sm:text-base">
+            <span className="text-purple-400 block mt-2 text-xs sm:text-base">
               (Life Path calculated: reduce birth <b>month, day, year</b> separately, add, reduce, and honor master numbers.)
             </span>
           </p>
         </div>
 
-        <div className="max-w-2xl sm:max-w-3xl md:max-w-4xl mx-auto relative">
+        <div className="max-w-md sm:max-w-2xl md:max-w-4xl mx-auto relative">
           {/* Calculation overlay (non-blocking, no background) */}
           {showAnimation && isCalculating && <CalculationOverlay />}
           <Card className="bg-black/85 backdrop-blur-2xl border-purple-900 shadow-[0_0_140px_0_rgba(149,70,255,0.18)] ring-2 ring-purple-900/40 relative overflow-hidden">
@@ -453,9 +526,9 @@ export default function NumerologySection() {
           {/* Result: animated reveal after calculation */}
           {(numerologyData && interpretation) && animationFinished && (
             <ResultReveal>
-              <div className="mt-10 sm:mt-12 space-y-8">
+              <div className="mt-8 sm:mt-10 space-y-6">
                 {/* Number Dashboard Overview */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
+                <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
                   {numerologyCells.map((cell) => {
                     const NumIcon = cell.icon;
                     return (

@@ -11,6 +11,7 @@ import { ElementalAlchemy } from '@/components/ElementalAlchemy';
 import { ServicesSection } from '@/components/ServicesSection';
 import { TestimonialsSection } from '@/components/TestimonialsSection';
 import NumerologySection from '@/components/NumerologySection';
+import { MysticExperience } from '@/components/MysticExperience';
 import { ContactUs } from '@/components/ContactUs';
 import { Footer } from '@/components/Footer';
 
@@ -24,6 +25,7 @@ const Index = () => {
       <PastLifePortal />
       <NumerologySection />
       <NakshatraJourney />
+      <MysticExperience />
       <Palmistry />
       {/* <SpiritAnimalSummoner /> 
       <DreamOracle />

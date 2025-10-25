@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Mail, Phone, MapPin, Send, CheckCircle, Star, Sparkles } from "lucide-react";
+import { Mail, Phone, MapPin, CheckCircle, Star, Sparkles } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import emailjs from "emailjs-com";
 
@@ -81,52 +81,53 @@ export const ContactUs = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validateForm()) return;
+
     setIsSubmitting(true);
 
     try {
+      const currentTime = new Date().toLocaleString();
+      const currentYear = new Date().getFullYear();
+
       const result = await emailjs.send(
-        "service_bva52eb",
-        "template_92ektbs",
+        "service_er14d93",
+        "template_1qstd6f",
         {
+          from_name: formData.name || "Anonymous",
+          time: new Date().toLocaleString(),
+            message: formData.message || "No message provided",
           to_name: "The Hidden Astrologer",
-          from_name: formData.name,
-          from_email: formData.email,
+          from_email: formData.email || "no-reply@hiddenastrologer.com",
           from_phone: formData.phone || "Not provided",
-          message: `Consultation Type: ${formData.consultationType}\nSubject: ${formData.subject || "N/A"}\n\n${formData.message}`,
+          year: new Date().getFullYear(),
         },
         "TifqqkMgwGUe0d1OD"
       );
+      
 
-      if (result.status === 200) {
+
+      if (result.text === "OK") {
         setIsSubmitted(true);
         toast({
           title: "Message Sent! 🌠",
-          description: "Your cosmic request has been delivered to the astrologer.",
+          description: "Your message has been successfully delivered to The Hidden Astrologer.",
         });
-
-        setTimeout(() => {
-          setIsSubmitted(false);
-          setFormData({
-            name: "",
-            email: "",
-            phone: "",
-            subject: "",
-            message: "",
-            consultationType: ""
-          });
-        }, 3000);
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          subject: "",
+          message: "",
+          consultationType: "",
+        });
       } else {
-        toast({
-          title: "Failed to send message.",
-          description: "Please try again or check your connection.",
-          variant: "destructive"
-        });
+        throw new Error("Email failed to send");
       }
     } catch (error) {
+      console.error("EmailJS Error:", error);
       toast({
         title: "Error",
         description: "A cosmic glitch occurred. Please try again.",
-        variant: "destructive"
+        variant: "destructive",
       });
     } finally {
       setIsSubmitting(false);
@@ -134,8 +135,7 @@ export const ContactUs = () => {
   };
 
   return (
-    <section className="py-24 px-4 relative overflow-hidden min-h-screen flex items-center justify-center">
-      {/* Cosmic Background */}
+    <section id="contact" className="py-24 px-4 relative overflow-hidden min-h-screen flex items-center justify-center">
       <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-blue-900/20 to-indigo-900/20">
         <div className="absolute inset-0">
           {[...Array(20)].map((_, i) => (
@@ -154,7 +154,6 @@ export const ContactUs = () => {
       </div>
 
       <div className="max-w-6xl mx-auto relative z-10 w-full">
-        {/* Header */}
         <div className="text-center mb-16 animate-fade-in-up">
           <div className="inline-flex items-center gap-2 mb-6">
             <Sparkles className="w-8 h-8 text-purple-400 animate-pulse" />
@@ -170,7 +169,7 @@ export const ContactUs = () => {
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-start">
-          {/* Info Section */}
+          {/* Info */}
           <div className="space-y-8 animate-fade-in-left">
             <Card className="p-8 bg-card/80 backdrop-blur-sm border-primary/30 shadow-cosmic">
               <h3 className="text-2xl font-bold mb-6 text-primary flex items-center gap-2">
@@ -190,11 +189,11 @@ export const ContactUs = () => {
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
                   <Mail className="w-5 h-5 text-purple-400" />
-                  <span className="text-muted-foreground">thehiddenastrologer@gmail.com</span>
+                  <span className="text-muted-foreground">thehiddenastrologer03@gmail.com</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <Phone className="w-5 h-5 text-purple-400" />
-                  <span className="text-muted-foreground">Available 24/7 for urgent consultations</span>
+                  <span className="text-muted-foreground">Available 24/7 for consultations</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <MapPin className="w-5 h-5 text-purple-400" />
@@ -204,7 +203,7 @@ export const ContactUs = () => {
             </Card>
           </div>
 
-          {/* Form Section */}
+          {/* Form */}
           <div className="animate-fade-in-right">
             <Card className="p-8 bg-card/80 backdrop-blur-sm border-primary/30 shadow-cosmic">
               {!isSubmitted ? (
@@ -212,30 +211,12 @@ export const ContactUs = () => {
                   <h3 className="text-2xl font-bold mb-6 text-primary">Book Your Session</h3>
 
                   <div className="grid md:grid-cols-2 gap-4">
-                    <Input
-                      name="name"
-                      placeholder="Full Name"
-                      value={formData.name}
-                      onChange={handleInputChange}
-                      required
-                    />
-                    <Input
-                      name="email"
-                      type="email"
-                      placeholder="Email Address"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      required
-                    />
+                    <Input name="name" placeholder="Full Name" value={formData.name} onChange={handleInputChange} required />
+                    <Input name="email" type="email" placeholder="Email Address" value={formData.email} onChange={handleInputChange} required />
                   </div>
 
                   <div className="grid md:grid-cols-2 gap-4">
-                    <Input
-                      name="phone"
-                      placeholder="Phone Number"
-                      value={formData.phone}
-                      onChange={handleInputChange}
-                    />
+                    <Input name="phone" placeholder="Phone Number" value={formData.phone} onChange={handleInputChange} />
                     <select
                       name="consultationType"
                       value={formData.consultationType}
@@ -252,38 +233,18 @@ export const ContactUs = () => {
                     </select>
                   </div>
 
-                  <Input
-                    name="subject"
-                    placeholder="Subject (optional)"
-                    value={formData.subject}
-                    onChange={handleInputChange}
-                  />
-                  <Textarea
-                    name="message"
-                    placeholder="Your message..."
-                    rows={6}
-                    value={formData.message}
-                    onChange={handleInputChange}
-                    required
-                  />
+                  <Input name="subject" placeholder="Subject (optional)" value={formData.subject} onChange={handleInputChange} />
+                  <Textarea name="message" placeholder="Your message..." rows={6} value={formData.message} onChange={handleInputChange} required />
 
-                  <Button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700"
-                  >
+                  <Button type="submit" disabled={isSubmitting} className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700">
                     {isSubmitting ? "Sending..." : "Send Consultation Request"}
                   </Button>
                 </form>
               ) : (
                 <div className="text-center py-12 animate-scale-in">
                   <CheckCircle className="w-16 h-16 text-green-400 mx-auto mb-4 animate-bounce" />
-                  <h3 className="text-2xl font-bold text-green-400 mb-2">
-                    Message Sent Successfully!
-                  </h3>
-                  <p className="text-muted-foreground mb-4">
-                    Thank you for reaching out. We’ll contact you within 24 hours.
-                  </p>
+                  <h3 className="text-2xl font-bold text-green-400 mb-2">Message Sent Successfully!</h3>
+                  <p className="text-muted-foreground mb-4">Thank you for reaching out. We’ll contact you soon.</p>
                 </div>
               )}
             </Card>
@@ -291,7 +252,6 @@ export const ContactUs = () => {
         </div>
       </div>
 
-      {/* Animations */}
       <style>{`
         @keyframes twinkle {
           0%, 100% { opacity: 0.3; transform: scale(1); }

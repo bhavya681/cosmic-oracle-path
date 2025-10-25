@@ -125,7 +125,7 @@ export const NakshatraJourney = () => {
   };
 
   return (
-    <section className={bgAstro}>
+    <section id="nakshatra" className={bgAstro}>
       {/* Deep-space Astrological Stars */}
       <div className="absolute inset-0 pointer-events-none select-none z-0">
         {renderAstroStars(132)}

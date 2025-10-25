@@ -3,7 +3,6 @@ import HiddenAstrologer from "../../public/hiddenastrologerlogo.jpg";
 import { useState } from "react";
 
 export const Footer = () => {
-  // For hover animation control (optional extra, helps retrigger animation)
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -84,12 +83,46 @@ export const Footer = () => {
               Explore
             </h3>
             <ul className="space-y-2 font-body text-foreground/70">
-              <li className="hover:text-primary transition-colors cursor-pointer">Tarot Readings</li>
-              <li className="hover:text-primary transition-colors cursor-pointer">Past Life Analysis</li>
-              <li className="hover:text-primary transition-colors cursor-pointer">Astrology Consultation</li>
-              <li className="hover:text-primary transition-colors cursor-pointer">Numerology</li>
-              <li className="hover:text-primary transition-colors cursor-pointer">Nakshatra Insights</li>
-              <li className="hover:text-primary transition-colors cursor-pointer">Spiritual Guidance</li>
+              <li>
+                <a href="#tarrot" className="hover:text-primary transition-colors cursor-pointer">
+                  Tarot Readings
+                </a>
+              </li>
+              <li>
+                <a href="#pastlife" className="hover:text-primary transition-colors cursor-pointer">
+                  Past Life Analysis
+                </a>
+              </li>
+              <li>
+                <a href="#contact" className="hover:text-primary transition-colors cursor-pointer">
+                  Astrology Consultation
+                </a>
+              </li>
+              <li>
+                <a href="#numerology" className="hover:text-primary transition-colors cursor-pointer">
+                  Numerology
+                </a>
+              </li>
+              <li>
+                <a href="#nakshatra" className="hover:text-primary transition-colors cursor-pointer">
+                  Nakshatra Insights
+                </a>
+              </li>
+              <li>
+                <a href="#palmistry" className="hover:text-primary transition-colors cursor-pointer">
+                  Palmistry
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://hanuman-mantra-scroll.vercel.app/"
+                  className="hover:text-primary transition-colors cursor-pointer"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Spirituality & Mantras
+                </a>
+              </li>
             </ul>
           </div>
 
@@ -100,18 +133,18 @@ export const Footer = () => {
             </h3>
             <div className="space-y-3">
               <a
-                href="mailto:contact@thehiddenastrologer.com"
+                href="mailto:thehiddenastrologer03@gmail.com"
                 className="flex items-center gap-3 font-body text-foreground/70 hover:text-primary transition-colors"
               >
                 <Mail className="w-5 h-5" />
-                contact@thehiddenastrologer.com
+                thehiddenastrologer03@gmail.com
               </a>
               <a
-                href="tel:+919999999999"
+                href="tel:+917798807904"
                 className="flex items-center gap-3 font-body text-foreground/70 hover:text-primary transition-colors"
               >
                 <Phone className="w-5 h-5" />
-                +91 99999 99999
+                +91 77988 07904
               </a>
             </div>
 
@@ -125,7 +158,7 @@ export const Footer = () => {
                 <Facebook className="w-5 h-5 text-primary" />
               </a>
               <a
-                href="https://instagram.com/thehiddenastrologer"
+                href="https://www.instagram.com/thehiddenastrologer/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full bg-card border border-primary/30 flex items-center justify-center hover:bg-primary/20 hover:scale-110 transition-all duration-300"
@@ -133,7 +166,7 @@ export const Footer = () => {
                 <Instagram className="w-5 h-5 text-primary" />
               </a>
               <a
-                href="https://youtube.com/@thehiddenastrologer"
+                href="https://www.youtube.com/@thehiddenastrologer-g9r8b"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full bg-card border border-primary/30 flex items-center justify-center hover:bg-primary/20 hover:scale-110 transition-all duration-300"

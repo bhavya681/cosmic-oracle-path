@@ -159,7 +159,7 @@ export const Palmistry = () => {
   );
 
   return (
-    <section
+    <section id="palmistry"
       className={`
         py-16 md:py-24 px-2 sm:px-4 relative overflow-hidden
         bg-[#100826] dark:bg-[#080310]

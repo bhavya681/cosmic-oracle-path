@@ -11,127 +11,127 @@ import groveImage from "@/assets/pastlife-grove.jpg";
 import renaissanceImage from "@/assets/pastlife-renaissance.jpg";
 import { MysticalNarrator } from './MysticalNarrator';
 
-// --- Ascendant-based past life astrology ---
+// --- Ascendant-based past life astrology (Simplified language) ---
 const ascendantData = {
   Aries: {
     image: vedicImage,
-    karma: "Highly spiritual life, possibly as a monk, healer, or philosopher.",
-    lesson: "Balance detachment with action and responsibility.",
-    carry: "Wisdom, intuition, but escapism.",
+    karma: "You lived a spiritual past life, maybe as a monk, healer, or thinker.",
+    lesson: "You are here to balance being calm with taking action.",
+    carry: "You have wisdom and intuition, but sometimes you want to escape.",
   },
   Taurus: {
     image: medievalImage,
-    karma: "Warrior or protector; lived with power and conflict.",
-    lesson: "Learn peace and patience.",
-    carry: "Courage, aggression, leadership.",
+    karma: "In your past life, you were a brave warrior or a protector who faced many struggles.",
+    lesson: "You need to learn to be more peaceful and patient now.",
+    carry: "You bring courage, leadership, and sometimes, strong reactions.",
   },
   Gemini: {
     image: silkroadImage,
-    karma: "Artistic or merchant soul; indulged in luxury and pleasure.",
-    lesson: "Detach from material attachments.",
-    carry: "Charm, eloquence, indulgence.",
+    karma: "You enjoyed arts or trading and loved nice things in your past life.",
+    lesson: "Try not to get too attached to material things this time.",
+    carry: "You have charm and are good with words, but can be indulgent.",
   },
   Cancer: {
     image: groveImage,
-    karma: "Scholar, writer, messenger.",
-    lesson: "Learn empathy and emotional intelligence.",
-    carry: "Analytical mind, communication karma.",
+    karma: "Your past life was about learning and sharing wisdom — maybe as a writer or messenger.",
+    lesson: "You are meant to feel and care more this life.",
+    carry: "You think deeply and have lessons in communication.",
   },
   Leo: {
     image: renaissanceImage,
-    karma: "Ruler or beloved leader.",
-    lesson: "Manage ego and emotions.",
-    carry: "Leadership, pride, attachment.",
+    karma: "You were a leader or someone people admired in a past life.",
+    lesson: "Learning to manage your pride and emotions matters now.",
+    carry: "You have leadership qualities, but sometimes feel attached to recognition.",
   },
   Virgo: {
     image: egyptImage,
-    karma: "Authority or priest; may have misused power.",
-    lesson: "Serve humbly, refine ego.",
-    carry: "Wisdom, control, self-focus.",
+    karma: "You had power or authority, perhaps as a priest, and sometimes used it too strongly.",
+    lesson: "Now, be humble and let go of ego.",
+    carry: "You have wisdom and like control, but focus mostly on yourself.",
   },
   Libra: {
     image: renaissanceImage,
-    karma: "Scholar or critic, seeking perfection.",
-    lesson: "Embrace spontaneity and love.",
-    carry: "Sharp intellect, worry, overthinking.",
+    karma: "You were a thinker or critic, always looking for perfection.",
+    lesson: "Open up to love and enjoy being spontaneous.",
+    carry: "You have a sharp mind but can worry or overthink.",
   },
   Scorpio: {
     image: groveImage,
-    karma: "Intense lover or artist, deep romantic karma.",
-    lesson: "Transform attachment into wisdom.",
-    carry: "Passion, secrecy, desire.",
+    karma: "You loved deeply and felt things strongly in your past life.",
+    lesson: "Turn strong attachments into wisdom this time.",
+    carry: "You are passionate and private, and you have powerful desires.",
   },
   Sagittarius: {
     image: silkroadImage,
-    karma: "Occultist or reformer betrayed by allies.",
-    lesson: "Develop faith and honesty.",
-    carry: "Power, mystery, psychic memory.",
+    karma: "You searched for hidden knowledge or tried to improve the world, but may have felt betrayed.",
+    lesson: "You are here to be open-hearted and honest.",
+    carry: "You bring mysterious power and strong inner memories.",
   },
   Capricorn: {
     image: vedicImage,
-    karma: "Philosopher or moral teacher.",
-    lesson: "Apply wisdom practically.",
-    carry: "Integrity, strictness, detachment.",
+    karma: "You shared wisdom or taught others how to live rightly.",
+    lesson: "Now, use your knowledge in real life.",
+    carry: "You value honesty and discipline, but sometimes keep distance.",
   },
   Aquarius: {
     image: medievalImage,
-    karma: "Social reformer or humanitarian.",
-    lesson: "Relearn empathy and connection.",
-    carry: "Burdened by collective karma.",
+    karma: "In your last life, you tried to help society and make things better.",
+    lesson: "This time, you must learn to connect more and care about others.",
+    carry: "You feel responsible for others and humanity.",
   },
   Pisces: {
     image: vedicImage,
-    karma: "Mystic or ascetic; withdrew from life.",
-    lesson: "Manifest ideals in real world.",
-    carry: "Deep sensitivity, escapism.",
+    karma: "You were a mystic or monk and lived quietly, away from the world.",
+    lesson: "Bring your dreams and ideals into everyday life now.",
+    carry: "You feel deeply but sometimes want to escape reality.",
   },
 };
 
-// --- Nakshatra-based past life readings ---
+// --- Nakshatra-based past life readings (Simplified language) ---
 const nakshatraData = {
-  Ashwini: "You were a healer or horseman; swift, brave, and driven by divine duty.",
-  Bharani: "You carried karmic weight of life and death; responsible for transformation.",
-  Krittika: "You wielded sacred fire — purifier, warrior, or protector of truth.",
-  Rohini: "Sensual artist or nurturer; attachment to beauty and creation.",
-  Mrigashira: "Restless seeker of truth, traveler or philosopher.",
-  Ardra: "Lived through suffering to purify emotions — karmic cleansing soul.",
-  Punarvasu: "Returned from exile or loss; reborn to teach hope and restoration.",
-  Pushya: "Priest, monk, or teacher serving divine institutions.",
-  Ashlesha: "Occultist or tantric master, faced karmic entanglements.",
-  Magha: "Royal ancestry; carried pride of past lineage.",
-  PurvaPhalguni: "Musician or performer; enjoyed worldly pleasures.",
-  UttaraPhalguni: "Philanthropist, supported others; karma of service.",
-  Hasta: "Craftsman or magician; skilled in manifestation.",
-  Chitra: "Architect or artist who shaped civilization aesthetics.",
-  Swati: "Wanderer soul; freedom-seeker learning grounding.",
-  Vishakha: "Devoted spiritual aspirant; tested by dual desires.",
-  Anuradha: "Devoted companion, loyalty karma; rebirth of devotion.",
-  Jyeshtha: "Elder soul; powerful, wise, may have misused authority.",
-  Mula: "Root-digger, destroyer of ignorance; intense transformative karma.",
-  PurvaAshadha: "Fighter for truth, social reformer with moral zeal.",
-  UttaraAshadha: "Sage or king who upheld dharma.",
-  Shravana: "Messenger, chronicler of divine words.",
-  Dhanishta: "Musician, wealth-bearer; karma tied to rhythm and charity.",
-  Shatabhisha: "Healer, mystic scientist, detached soul.",
-  PurvaBhadrapada: "Visionary mystic; guided souls through chaos.",
-  UttaraBhadrapada: "Spiritual anchor, taught stability in faith.",
-  Revati: "Guardian of travelers and souls, compassionate ancient being.",
+  Ashwini: "You helped people heal or cared for horses; you were quick, courageous, and wanted to do good.",
+  Bharani: "You dealt with big changes and helped others through tough times.",
+  Krittika: "You stood for truth and were strong, like a protector.",
+  Rohini: "You loved beauty, art, and caring for others.",
+  Mrigashira: "You were curious, a traveler or someone always looking for answers.",
+  Ardra: "You went through hard times to learn how to handle emotions and grow.",
+  Punarvasu: "You got a second chance at life and taught hope to others.",
+  Pushya: "You served as a priest, teacher, or helped in a community.",
+  Ashlesha: "You were interested in secrets or spirituality, and sometimes felt wrapped up in complications.",
+  Magha: "You came from a strong family background and were proud of your roots.",
+  PurvaPhalguni: "You loved music, performed, and enjoyed life's pleasures.",
+  UttaraPhalguni: "You gave to others and spent your life helping people.",
+  Hasta: "You were good with your hands like a craftsman or magician.",
+  Chitra: "You built beautiful things or were an artist who made things look better.",
+  Swati: "You wanted freedom, moved a lot, and are here to learn about settling down.",
+  Vishakha: "You were spiritual, but often felt torn between different choices.",
+  Anuradha: "You were a loyal friend and cared deeply about relationships.",
+  Jyeshtha: "You were wise and respected, but may have had too much power.",
+  Mula: "You helped remove problems for others and went through big changes.",
+  PurvaAshadha: "You fought for what was right and tried to help society.",
+  UttaraAshadha: "You were a wise leader or teacher who followed high morals.",
+  Shravana: "You spread messages and liked sharing stories or important news.",
+  Dhanishta: "You loved music and were generous with others.",
+  Shatabhisha: "You have a healer’s touch and liked to understand how things work.",
+  PurvaBhadrapada: "You helped guide others through difficult times.",
+  UttaraBhadrapada: "You gave people hope and taught them about faith.",
+  Revati: "You cared for travelers and helped those in need.",
 };
 
-// --- 12th House Rashi Past Life Karma ---
+// --- 12th House Rashi Past Life Karma (Simplified language) ---
 const twelfthHouseData = {
-  Aries: "Past life full of battles and assertion; carried warrior memories.",
-  Taurus: "Materially rich past; attached to comfort and possessions.",
-  Gemini: "Communicator, teacher, or scribe in ancient eras.",
-  Cancer: "Family and motherly karmas; emotional attachments still persist.",
-  Leo: "Royal or leadership karma; ego refinement continues.",
-  Virgo: "Servant, scholar, or healer; karmic debts from service roles.",
-  Libra: "Artist or lover; partnership-based karmas return.",
-  Scorpio: "Occult master; deep karmic transformation carried over.",
-  Sagittarius: "Preacher or philosopher; spiritual knowledge continues.",
-  Capricorn: "Strict ruler or disciplined ascetic; rigid karmic tendencies.",
-  Aquarius: "Social reformer, karma with collective humanity.",
-  Pisces: "Mystic, monk, or seer; spiritual unfinished business.",
+  Aries: "You had a life full of action and fights; memories of bravery remain.",
+  Taurus: "You enjoyed comfort and nice things; sometimes you felt too attached.",
+  Gemini: "You liked talking and sharing knowledge in ancient times.",
+  Cancer: "Family and strong emotions played a big part in your past life.",
+  Leo: "You were seen as a leader; learning to be humble is still important.",
+  Virgo: "You worked hard to help or heal others and have lessons from serving.",
+  Libra: "Relationships and love were central; old love stories may return.",
+  Scorpio: "You explored mysteries and deep changes that still affect you.",
+  Sagittarius: "You shared beliefs or taught spiritual lessons.",
+  Capricorn: "You led strictly or followed rules tightly in a past life.",
+  Aquarius: "You helped groups or society and cared about the world.",
+  Pisces: "You were a dreamer or spiritual person and still have unfinished goals.",
 };
 
 // All 12 Rashi in order, so 12th from any ascendant can be calculated:
@@ -194,13 +194,13 @@ export const PastLifePortal = () => {
       const tw12 = twelfthRashi ? twelfthHouseData[twelfthRashi] : undefined;
 
       if (asc && nak && tw12) {
-        const combinedMessage = `✨ In a previous incarnation, ${
+        const combinedMessage = `✨ In a past life, ${
           userName || "you"
         } ${asc.karma}
-🌙 Nakshatra (${nakshatra}) Influence: ${nak}
-🔥 12th House (${twelfthRashi}) Karma: ${tw12}
-🕉️ Lesson for this life: ${asc.lesson}
-💫 Carryover gifts & challenges: ${asc.carry}`;
+🌙 Nakshatra (${nakshatra}): ${nak}
+🔥 12th House (${twelfthRashi}): ${tw12}
+🕉️ Lesson for you now: ${asc.lesson}
+💫 Gifts & challenges that remain: ${asc.carry}`;
         setMessage(combinedMessage);
         setImage(asc.image);
       }

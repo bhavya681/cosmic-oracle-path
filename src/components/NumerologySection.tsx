@@ -6,45 +6,81 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Calculator, Sparkles, Star, Moon, Heart, Brain, Shield } from "lucide-react";
 
-interface NumerologyData {
-  lifePath: number;
-  destiny: number;
-  soulUrge: number;
-  personality: number;
-  maturity: number;
-  challenge: number;
-  pinnacle: number;
-  personalYear: number;
-  personalMonth: number;
-  personalDay: number;
-}
+// --- New: Vedic Numerology, with more detailed predictions ---
+const vedicPredictDict: { [key: number]: { label: string; desc: string } } = {
+  1: {
+    label: "Mulank 1 – Leader (Surya/Sun)",
+    desc: `You are a born leader, guided by the radiance of the Sun. Mulank 1 brings strong will, self-reliance, and courage. You have the power to inspire those around you, but must watch for tendencies towards ego, impatience, or dominance. People with Mulank 1 often prosper when embracing new challenges and taking initiative in both personal and professional spheres. Cultivating humility and sensitivity will magnify your impact.
 
-interface NumerologyInterpretation {
-  lifePath: {
-    number: number;
-    meaning: string;
-    traits: string[];
-    challenges: string[];
-    advice: string;
-  };
-  destiny: {
-    number: number;
-    meaning: string;
-    career: string[];
-    purpose: string;
-  };
-  soulUrge: {
-    number: number;
-    meaning: string;
-    desires: string[];
-    motivation: string;
-  };
-  personality: {
-    number: number;
-    meaning: string;
-    traits: string[];
-    appearance: string;
-  };
+Connection: Surya gives you a dynamic purpose—trust your inner light, but remember teamwork is just as vital as individual glory.`,
+  },
+  2: {
+    label: "Mulank 2 – Diplomat (Chandra/Moon)",
+    desc: `Your nature is empathetic and adaptive, ruled by the Moon’s changing light. You possess emotional intelligence, a calm presence, and a diplomatic spirit. Mulank 2s build bridges and harmonize relationships. However, moodiness or indecisiveness can cause inner conflict. Your gentle approach and ability to relate make you a cherished partner and friend.
+
+Connection: Chandra guides you to trust intuition, nurture bonds, and see the subtle beauty in cooperation.`,
+  },
+  3: {
+    label: "Mulank 3 – Creative (Jupiter/Guru)",
+    desc: `Blessed by Jupiter, you exude optimism, creativity, and enthusiasm. Communication and artistic talents come naturally, making you a source of inspiration to others. You love to encourage and uplift, but avoid overextending or scattering your energies. Mulank 3 is about joy, learning, and self-expression.
+
+Connection: Guru expands your wisdom—use creativity to illuminate, teach, and bring happiness, while grounding your dreams in reality.`,
+  },
+  4: {
+    label: "Mulank 4 – Builder (Rahu/Uranus)",
+    desc: `Steadfast and practical, you have the power to manifest lasting structures. Mulank 4’s gift is discipline, reliability, and strong work ethic. Rahu’s energy can sometimes make you feel restricted or stuck, yet your tenacity always prevails. Be open to new perspectives and guard against rigidity.
+
+Connection: Rahu inspires hard work and innovation—embrace systems but remain flexible to achieve breakthroughs.`,
+  },
+  5: {
+    label: "Mulank 5 – Communicator (Mercury/Budh)",
+    desc: `Versatile, quick-witted, and adventurous, you thrive on change and excitement. Mercury’s influence brings adaptability and expressiveness. You are a natural networker; however, restlessness and inconsistency can hold you back. Travel, learning, and communication are your strengths—use them wisely.
+
+Connection: Mercury helps you connect the world—explore, adapt, and channel curiosity into growth without losing focus.`,
+  },
+  6: {
+    label: "Mulank 6 – Harmonizer (Venus/Shukra)",
+    desc: `Ruled by Venus, you radiate warmth, care, and artistic appreciation. Family, love, and harmony hold great importance to you, but take care not to over-sacrifice for others. You are ideal for nurturing roles at home, work, or in the arts.
+
+Connection: Shukra’s touch brings beauty—foster balance in giving and receiving, and let love be the foundation of all you create.`,
+  },
+  7: {
+    label: "Mulank 7 – Thinker (Ketu/Neptune)",
+    desc: `Spiritual, analytical, and intuitive, you seek meaning beyond the obvious. Ketu’s energy draws you inward to contemplate and question life’s mysteries. Solitude rejuvenates you, yet excessive withdrawal can lead to isolation. Mulank 7s excel in research, healing, and spiritual pursuits.
+
+Connection: Ketu inspires self-reflection—embrace introspection, blend science and spirit, and trust your inner knowing.`,
+  },
+  8: {
+    label: "Mulank 8 – Achiever (Saturn/Shani)",
+    desc: `With Saturn’s discipline, you possess strength, ambition, and the will to overcome obstacles. You are drawn to power and responsibility, working hard for recognition and material security. Patience is your powerful ally—life’s rewards may be delayed, but are assured with persistence.
+
+Connection: Shani teaches through effort—use your resilience for higher good, and learn to release what you cannot control.`,
+  },
+  9: {
+    label: "Mulank 9 – Humanitarian (Mars/Mangal)",
+    desc: `Fiery Mars grants you passion, drive, and a deep desire to help others. Compassion and idealism define you, but watch for the pitfalls of anger or over-giving. Mulank 9’s path is one of service, creativity, and courage.
+
+Connection: Mangal energizes your purpose—lead through compassion, heal, and transform challenges into beauty for all.`,
+  },
+};
+
+function vedicMulank(dob: string): number {
+  if (!dob) return 1;
+  const parts = dob.split("-");
+  const day = parts.length === 3 ? parts[2] : "";
+  if (!day) return 1;
+  return reduceVedic(day);
+}
+function vedicBhagyank(dob: string): number {
+  if (!dob) return 1;
+  // dd-mm-yyyy all digits summed till 1-9
+  const digits = dob.replace(/-/g, "").split("");
+  return reduceVedic(digits.reduce((a, b) => a + parseInt(b, 10), 0));
+}
+function reduceVedic(n: string | number): number {
+  let num = typeof n === "number" ? n : parseInt(n, 10);
+  while (num > 9) { num = num.toString().split("").reduce((a, b) => a + parseInt(b, 10), 0); }
+  return num;
 }
 
 const numerologyCells = [
@@ -82,8 +118,6 @@ const numerologyCells = [
   },
 ];
 
-// --- Professional Numerology Logic ---
-
 const MASTER_NUMBERS = [11, 22, 33];
 const reduceNumber = (num: number): number => {
   while (!MASTER_NUMBERS.includes(num) && num > 9) {
@@ -96,8 +130,7 @@ const reduceNumber = (num: number): number => {
 };
 
 const calculateLifePath = (dob: string): number => {
-  // dob = yyyy-mm-dd
-  if (!dob || typeof dob !== 'string' || dob.split("-").length !== 3) return 1;
+  if (!dob || typeof dob !== "string" || dob.split("-").length !== 3) return 1;
   const [yearStr, monthStr, dayStr] = dob.split("-");
   if (!yearStr || !monthStr || !dayStr) return 1;
   const sumMonth = reduceNumber(Number(monthStr));
@@ -138,7 +171,6 @@ const calculateSoulUrge = (fullName: string): number => {
     if (char === "Y") {
       const prev = letters[i - 1] || "";
       const next = letters[i + 1] || "";
-      // Y is vowel if surrounded by consonants or at the word end after consonant
       const isVowelY =
         (!vowels.has(prev) && !vowels.has(next)) ||
         (i === letters.length - 1 && !vowels.has(prev));
@@ -171,7 +203,6 @@ const calculateMaturity = (lifePath: number, destiny: number): number => (
 );
 
 const calculatePinnaclesAndChallenges = (dob: string) => {
-  // Returns: { pinnacles: number[], challenges: number[] }
   const [yearStr, monthStr, dayStr] = dob.split("-");
   if (!yearStr || !monthStr || !dayStr) {
     return { pinnacles: [1,1,1,1], challenges: [0,0,0,0] };
@@ -212,17 +243,17 @@ const calculatePersonalYear = (dob: string): number => {
   const total = Number(monthStr) + Number(dayStr) + currentYear;
   return reduceNumber(total);
 };
-
 const calculatePersonalMonth = (personalYear: number): number => {
   const currentMonth = new Date().getMonth() + 1;
   return reduceNumber(personalYear + currentMonth);
 };
-
 const calculatePersonalDay = (personalMonth: number): number => {
   const currentDay = new Date().getDate();
   return reduceNumber(personalMonth + currentDay);
 };
 
+// Tabs - mode state! ("western" / "vedic")
+// Default mode is VEDIC & tab "Vedic" shows first!
 export default function NumerologySection() {
   const [formData, setFormData] = useState({
     fullName: "",
@@ -234,12 +265,12 @@ export default function NumerologySection() {
   const [showAnimation, setShowAnimation] = useState(false);
   const [animationFinished, setAnimationFinished] = useState(false);
   const [selectedDetail, setSelectedDetail] = useState<string | null>(null);
+  const [mode, setMode] = useState<"western" | "vedic">("vedic"); // Default to vedic, and tab appears first
 
-  // Interpretations remain unchanged
+  // Interpretations remain unchanged for Western
   const getInterpretation = (data: NumerologyData): NumerologyInterpretation => {
     // ...interpretations block...
     const interpretations: { [key: number]: any } = {
-      // ...interpretations here (unchanged for brevity)...
       1: {
         lifePath: {...{number: 1, meaning: "The Leader - You are a natural-born leader with strong willpower and determination.", traits: ["Independent", "Ambitious", "Pioneering", "Courageous", "Original"], challenges: ["Impatience", "Dominance", "Self-centeredness"], advice: "Focus on collaboration and consider others' perspectives. Your leadership will be most effective when you inspire rather than command."}},
         destiny: {...{number: 1, meaning: "You are destined to be a pioneer and leader in your chosen field.", career: ["Entrepreneur", "CEO", "Manager", "Inventor", "Politician"], purpose: "To lead and inspire others through your innovative ideas and strong determination."}},
@@ -304,32 +335,53 @@ export default function NumerologySection() {
     try {
       await new Promise(resolve => setTimeout(resolve, 1200));
 
-      const lifePath = calculateLifePath(formData.dateOfBirth);
-      const destiny = calculateDestiny(formData.fullName);
-      const soulUrge = calculateSoulUrge(formData.fullName);
-      const personality = calculatePersonality(formData.fullName);
-      const maturity = calculateMaturity(lifePath, destiny);
-      const { pinnacles, challenges } = calculatePinnaclesAndChallenges(formData.dateOfBirth);
+      if (mode === "western") {
+        const lifePath = calculateLifePath(formData.dateOfBirth);
+        const destiny = calculateDestiny(formData.fullName);
+        const soulUrge = calculateSoulUrge(formData.fullName);
+        const personality = calculatePersonality(formData.fullName);
+        const maturity = calculateMaturity(lifePath, destiny);
+        const { pinnacles, challenges } = calculatePinnaclesAndChallenges(formData.dateOfBirth);
 
-      const personalYear = calculatePersonalYear(formData.dateOfBirth);
-      const personalMonth = calculatePersonalMonth(personalYear);
-      const personalDay = calculatePersonalDay(personalMonth);
+        const personalYear = calculatePersonalYear(formData.dateOfBirth);
+        const personalMonth = calculatePersonalMonth(personalYear);
+        const personalDay = calculatePersonalDay(personalMonth);
 
-      const data: NumerologyData = {
-        lifePath,
-        destiny,
-        soulUrge,
-        personality,
-        maturity,
-        challenge: challenges[0] ?? 0,
-        pinnacle: pinnacles[0] ?? 0,
-        personalYear,
-        personalMonth,
-        personalDay,
-      };
+        const data: NumerologyData = {
+          lifePath,
+          destiny,
+          soulUrge,
+          personality,
+          maturity,
+          challenge: challenges[0] ?? 0,
+          pinnacle: pinnacles[0] ?? 0,
+          personalYear,
+          personalMonth,
+          personalDay,
+        };
 
-      setNumerologyData(data);
-      setInterpretation(getInterpretation(data));
+        setNumerologyData(data);
+        setInterpretation(getInterpretation(data));
+      } else {
+        // Vedic: mulank (day reduced), bhagyank (full dob digits reduced)
+        const mulank = vedicMulank(formData.dateOfBirth);
+        const bhagyank = vedicBhagyank(formData.dateOfBirth);
+
+        setNumerologyData({
+          lifePath: mulank,
+          destiny: bhagyank,
+          soulUrge: 0,
+          personality: 0,
+          maturity: 0,
+          challenge: 0,
+          pinnacle: 0,
+          personalYear: 0,
+          personalMonth: 0,
+          personalDay: 0,
+        });
+        setInterpretation(null); // not using "Western" object interpretation
+      }
+
       setTimeout(() => {
         setAnimationFinished(true);
       }, 450);
@@ -345,15 +397,12 @@ export default function NumerologySection() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Loader (unchanged)
   function CalculationOverlay() {
-    // Just an animated loader inside the form card area (centered)
     return (
       <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none">
         <div className="flex flex-col items-center space-y-3 py-12">
           <div className="relative w-24 h-24 flex items-center justify-center">
             <div className="absolute inset-0 rounded-full bg-gradient-to-br from-purple-400 via-pink-400 to-cyan-300 opacity-30 filter blur-xl animate-calc-glow z-0"></div>
-            {/* Animating Numbers */}
             <div className="absolute left-2 top-1/2 transform -translate-y-1/2 text-4xl font-black text-white/40 animate-calc-drift1 select-none">3</div>
             <div className="absolute right-2 top-4 text-3xl font-black text-purple-300/70 animate-calc-drift2 select-none">7</div>
             <div className="absolute left-1/2 bottom-2 transform -translate-x-1/2 text-2xl font-black text-pink-200/70 animate-calc-drift3 select-none">9</div>
@@ -361,7 +410,6 @@ export default function NumerologySection() {
             <span className="relative z-[1]">
               <Calculator className="w-12 h-12 mx-auto text-white/80 animate-calc-spin-move drop-shadow-lg" />
             </span>
-            {/* Sparkles */}
             <Sparkles className="w-6 h-6 text-purple-300 absolute left-[68%] top-5 animate-calc-sparkle2" />
             <Sparkles className="w-6 h-6 text-pink-300 absolute left-[14%] bottom-4 animate-calc-sparkle3" />
             <Sparkles className="w-6 h-6 text-cyan-300 absolute left-[46%] top-1 animate-calc-sparkle1" />
@@ -375,9 +423,10 @@ export default function NumerologySection() {
   }
 
   function ResultReveal({ children }: { children: React.ReactNode }) {
-    // Animate reveal of results after calculation overlay
     return <div className="animate-calc-resultReveal">{children}</div>;
   }
+
+  // --- BEGIN UI ---
 
   return (
     <section
@@ -386,7 +435,7 @@ export default function NumerologySection() {
         background: "radial-gradient(ellipse 120% 120% at 50% 20%, #141027 68%, #190034 88%, #090017 100%)"
       }}
     >
-      {/* Responsive galaxy background layers */}
+      {/* Galaxy BG unchanged */}
       <div className="pointer-events-none absolute inset-0 z-0">
         <div
           className="absolute inset-0"
@@ -441,8 +490,8 @@ export default function NumerologySection() {
       <div className="pointer-events-none absolute inset-0 z-0">
         <div className="absolute left-[12%] top-[17%] w-28 h-[2px] bg-gradient-to-r from-white/70 to-transparent rounded-full blur-sm opacity-40 animate-astro-streak"></div>
       </div>
-      {/* End: BG */}
 
+      {/* HEADER */}
       <div className="container mx-auto px-2 sm:px-4 relative z-10">
         <div className="text-center mb-8 sm:mb-12">
           <div className="inline-flex items-center gap-2 bg-black/50 backdrop-blur-md rounded-full px-3 sm:px-6 py-2 mb-5 shadow-sm ring-1 ring-purple-900">
@@ -456,21 +505,45 @@ export default function NumerologySection() {
             </span>
           </h2>
           <p className="text-base sm:text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
-            Unlock the mystical power of numbers to reveal your life path, destiny, and soul's purpose.<br />
+            Unlock the mystical power of numbers to reveal your {mode === "vedic" ? "Mulank &amp; Bhagyank (Vedic)" : "Life Path, Destiny, and Soul's Purpose (Western)"}.
+            <br />
             <span className="text-purple-400 block mt-2 text-xs sm:text-base">
-              (Life Path calculated: reduce birth <b>month, day, year</b> separately, add, reduce, and honor master numbers.)
+              {mode === "western"
+                ? "(Life Path calculated: reduce birth month, day, year separately, add, reduce, and honor master numbers.)"
+                : "(Vedic: Mulank = sum of birth day digits; Bhagyank = sum of all digits in DOB; reduced to 1-9 each. Mulank, your source energy; Bhagyank, your fate and major transitions.)"}
             </span>
           </p>
         </div>
 
+        {/* Tabs for Mode: Vedic first, default selected */}
+        <div className="flex justify-center mb-8 sm:mb-10">
+          <div className="flex gap-2 rounded-lg bg-black/50 p-1 ring-1 ring-purple-900/60 max-w-sm mx-auto">
+            <button
+              type="button"
+              className={`px-4 py-2 text-base rounded-md font-semibold transition-all ${mode === "vedic" ? "bg-gradient-to-r from-yellow-500 to-orange-400 text-black shadow-md" : "text-yellow-300 hover:bg-black/30"}`}
+              onClick={() => setMode("vedic")}
+              disabled={mode === "vedic"}
+            >
+              Vedic Numerology
+            </button>
+            <button
+              type="button"
+              className={`px-4 py-2 text-base rounded-md font-semibold transition-all ${mode === "western" ? "bg-gradient-to-r from-purple-700 to-pink-500 text-white shadow-md" : "text-purple-300 hover:bg-black/30"}`}
+              onClick={() => setMode("western")}
+              disabled={mode === "western"}
+            >
+              Western Numerology
+            </button>
+          </div>
+        </div>
+
         <div className="max-w-md sm:max-w-2xl md:max-w-4xl mx-auto relative">
-          {/* Calculation overlay (non-blocking, no background) */}
           {showAnimation && isCalculating && <CalculationOverlay />}
           <Card className="bg-black/85 backdrop-blur-2xl border-purple-900 shadow-[0_0_140px_0_rgba(149,70,255,0.18)] ring-2 ring-purple-900/40 relative overflow-hidden">
             <CardHeader className="text-center">
               <CardTitle className="text-xl sm:text-2xl text-white flex items-center justify-center gap-2">
                 <Sparkles className="w-6 h-6 text-purple-400 animate-pulse animate-astro-shine" />
-                Numerology Calculator
+                Numerology Calculator{mode === "vedic" ? " (Vedic)" : ""}
               </CardTitle>
               <CardDescription className="text-slate-300">
                 Enter your full name and date of birth to discover your numerological profile
@@ -478,7 +551,6 @@ export default function NumerologySection() {
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSubmit} className="space-y-6">
-                {/* Responsive: 1 column on small, 2 on md+ */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <label className="text-sm font-medium text-slate-300">Full Name</label>
@@ -488,7 +560,8 @@ export default function NumerologySection() {
                       value={formData.fullName}
                       onChange={handleChange}
                       className="bg-black/30 border-purple-900 text-white placeholder-slate-400 focus:ring-2 focus:ring-purple-400/60"
-                      required
+                      required={mode === "western"}
+                      disabled={mode === "vedic"}
                     />
                   </div>
                   <div className="space-y-2">
@@ -516,7 +589,7 @@ export default function NumerologySection() {
                   ) : (
                     <div className="flex items-center gap-2">
                       <Calculator className="w-4 h-4" />
-                      Calculate My Numerology
+                      {mode === "vedic" ? "Calculate My Vedic Numerology" : "Calculate My Numerology"}
                     </div>
                   )}
                 </Button>
@@ -524,207 +597,263 @@ export default function NumerologySection() {
             </CardContent>
           </Card>
           {/* Result: animated reveal after calculation */}
-          {(numerologyData && interpretation) && animationFinished && (
+          {(numerologyData && animationFinished) && (
             <ResultReveal>
               <div className="mt-8 sm:mt-10 space-y-6">
-                {/* Number Dashboard Overview */}
-                <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
-                  {numerologyCells.map((cell) => {
-                    const NumIcon = cell.icon;
-                    return (
-                      <button
-                        key={cell.key}
-                        type="button"
-                        onClick={() => setSelectedDetail(cell.key)}
-                        className={`w-full rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-purple-500
-                          hover:scale-105 group relative overflow-hidden shadow-lg
-                          bg-gradient-to-br ${cell.bg} border-2 py-5 sm:py-6`}
-                        style={{
-                          boxShadow: selectedDetail === cell.key
-                            ? "0 0 42px 3px rgba(184,70,255,0.28)"
-                            : undefined,
-                          zIndex: selectedDetail === cell.key ? 2 : 1,
-                          position: "relative"
-                        }}
-                      >
-                        {selectedDetail === cell.key && (
-                          <div className="absolute -inset-1 pointer-events-none bg-gradient-radial from-white/10 to-transparent animate-astro-glow rounded-xl"></div>
-                        )}
-                        <div className={`w-11 h-11 sm:w-12 sm:h-12 mx-auto mb-2 rounded-full flex items-center justify-center
-                                bg-black/40 border ${selectedDetail === cell.key ? "border-purple-400" : "border-black/30"}
-                                transition`}>
-                          <NumIcon className={`w-7 h-7 text-white group-hover:scale-110 transition-transform duration-300`} />
-                        </div>
-                        <h3 className="text-lg font-semibold text-white mb-1">{cell.label}</h3>
-                        <div className={`text-2xl sm:text-3xl font-bold ${cell.text} mb-1`}>
-                          {(numerologyData as any)[cell.key]}
-                        </div>
-                        <p className={`text-xs ${cell.text} opacity-70 leading-tight`}>{cell.desc}</p>
-                        <div
-                          className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-purple-400/30 to-transparent blur-sm opacity-0 group-hover:opacity-80 group-hover:h-2 transition-all duration-300"
-                        ></div>
-                      </button>
-                    );
-                  })}
-                </div>
-                {/* DETAILED INTERPRETATION */}
-                {selectedDetail && (
+                {/* -- VEDIC MODE: Mulank + Bhagyank Only -- */}
+                {mode === "vedic" && (
                   <div className="space-y-6 animate-fade-in">
-                    {selectedDetail === "lifePath" && (
-                      <Card className="bg-black/90 border-purple-900 shadow-cosmic backdrop-blur-2xl">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      {/* Mulank Card */}
+                      <Card className="bg-black/80 border-yellow-800 shadow-cosmic backdrop-blur-2xl">
                         <CardHeader>
-                          <CardTitle className="text-lg sm:text-xl text-white flex items-center gap-2 galaxy-title-glow">
-                            <Star className="w-5 h-5 text-purple-400" />
-                            Life Path Number {numerologyData.lifePath}
+                          <CardTitle className="text-lg sm:text-xl text-yellow-300 flex items-center gap-2 galaxy-title-glow">
+                            <Star className="w-5 h-5 text-yellow-300" />
+                            Mulank (Birth Number): {numerologyData.lifePath}
                           </CardTitle>
-                          <CardDescription className="text-purple-400">
-                            {interpretation.lifePath.meaning}
+                          <CardDescription className="text-yellow-200">
+                            {vedicPredictDict[numerologyData.lifePath]?.label}
                           </CardDescription>
                         </CardHeader>
-                        <CardContent className="space-y-6">
-                          <div>
-                            <h4 className="text-base sm:text-lg font-semibold text-white mb-3">Your Traits</h4>
-                            <div className="flex flex-wrap gap-2">
-                              {interpretation.lifePath.traits.map((trait, index) => (
-                                <Badge key={index} variant="secondary" className="bg-purple-900/50 text-purple-200 border-purple-700">{trait}</Badge>
-                              ))}
-                            </div>
-                          </div>
-                          <div>
-                            <h4 className="text-base sm:text-lg font-semibold text-white mb-3">Challenges to Overcome</h4>
-                            <div className="flex flex-wrap gap-2">
-                              {interpretation.lifePath.challenges.map((challenge, index) => (
-                                <Badge key={index} variant="outline" className="border-orange-400 text-orange-200">{challenge}</Badge>
-                              ))}
-                            </div>
-                          </div>
-                          <div className="bg-black/60 rounded-lg p-4 border border-purple-900">
-                            <h4 className="text-base sm:text-lg font-semibold text-white mb-2">Spiritual Guidance</h4>
-                            <p className="text-purple-200">{interpretation.lifePath.advice}</p>
+                        <CardContent>
+                          <div className="mb-2 text-yellow-100 text-sm">
+                            {vedicPredictDict[numerologyData.lifePath]?.desc}
                           </div>
                         </CardContent>
                       </Card>
-                    )}
-                    {selectedDetail === "destiny" && (
-                      <Card className="bg-black/90 border-blue-900 shadow-cosmic backdrop-blur-2xl">
+                      {/* Bhagyank Card */}
+                      <Card className="bg-black/80 border-orange-700 shadow-cosmic backdrop-blur-2xl">
                         <CardHeader>
-                          <CardTitle className="text-lg sm:text-xl text-white flex items-center gap-2 galaxy-title-glow">
-                            <Moon className="w-5 h-5 text-blue-400" />
-                            Destiny Number {numerologyData.destiny}
+                          <CardTitle className="text-lg sm:text-xl text-orange-300 flex items-center gap-2 galaxy-title-glow">
+                            <Moon className="w-5 h-5 text-orange-300" />
+                            Bhagyank (Destiny Number): {numerologyData.destiny}
                           </CardTitle>
-                          <CardDescription className="text-blue-300">
-                            {interpretation.destiny.meaning}
+                          <CardDescription className="text-orange-200">
+                            {vedicPredictDict[numerologyData.destiny]?.label}
                           </CardDescription>
                         </CardHeader>
-                        <CardContent className="space-y-6">
-                          <div>
-                            <h4 className="text-base sm:text-lg font-semibold text-white mb-3">Career Paths</h4>
-                            <div className="flex flex-wrap gap-2">
-                              {interpretation.destiny.career.map((career, index) => (
-                                <Badge key={index} variant="secondary" className="bg-blue-900/50 text-blue-200 border-blue-700">{career}</Badge>
-                              ))}
+                        <CardContent>
+                          <div className="mb-2 text-orange-100 text-sm">
+                            {/* Explanation with more detail and connection */}
+                            <b>Deeper Insight:</b> {vedicPredictDict[numerologyData.destiny]?.desc}
+                            <div className="mt-3 text-orange-200 text-xs">
+                              The Bhagyank reveals how your overall destiny and life lessons will unfold—where fate calls and major turning points arise along your journey. Observe both Mulank and Bhagyank to understand how your personality and life path combine for holistic growth.
                             </div>
-                          </div>
-                          <div className="bg-black/60 rounded-lg p-4 border border-blue-900">
-                            <h4 className="text-base sm:text-lg font-semibold text-white mb-2">Your Life's Purpose</h4>
-                            <p className="text-blue-200">{interpretation.destiny.purpose}</p>
                           </div>
                         </CardContent>
                       </Card>
-                    )}
-                    {selectedDetail === "soulUrge" && (
-                      <Card className="bg-black/90 border-pink-900 shadow-cosmic backdrop-blur-2xl">
-                        <CardHeader>
-                          <CardTitle className="text-lg sm:text-xl text-white flex items-center gap-2 galaxy-title-glow">
-                            <Heart className="w-5 h-5 text-pink-400" />
-                            Soul Urge Number {numerologyData.soulUrge}
-                          </CardTitle>
-                          <CardDescription className="text-pink-300">
-                            {interpretation.soulUrge.meaning}
-                          </CardDescription>
-                        </CardHeader>
-                        <CardContent className="space-y-6">
-                          <div>
-                            <h4 className="text-base sm:text-lg font-semibold text-white mb-3">Your Deepest Desires</h4>
-                            <div className="flex flex-wrap gap-2">
-                              {interpretation.soulUrge.desires.map((desire, index) => (
-                                <Badge key={index} variant="secondary" className="bg-pink-900/50 text-pink-200 border-pink-700">{desire}</Badge>
-                              ))}
-                            </div>
-                          </div>
-                          <div className="bg-black/60 rounded-lg p-4 border border-pink-900">
-                            <h4 className="text-base sm:text-lg font-semibold text-white mb-2">Inner Motivation</h4>
-                            <p className="text-pink-200">{interpretation.soulUrge.motivation}</p>
-                          </div>
-                        </CardContent>
-                      </Card>
-                    )}
-                    {selectedDetail === "personality" && (
-                      <Card className="bg-black/90 border-green-900 shadow-cosmic backdrop-blur-2xl">
-                        <CardHeader>
-                          <CardTitle className="text-lg sm:text-xl text-white flex items-center gap-2 galaxy-title-glow">
-                            <Brain className="w-5 h-5 text-green-400" />
-                            Personality Number {numerologyData.personality}
-                          </CardTitle>
-                          <CardDescription className="text-green-300">
-                            {interpretation.personality.meaning}
-                          </CardDescription>
-                        </CardHeader>
-                        <CardContent className="space-y-6">
-                          <div>
-                            <h4 className="text-base sm:text-lg font-semibold text-white mb-3">How Others See You</h4>
-                            <div className="flex flex-wrap gap-2">
-                              {interpretation.personality.traits.map((trait, index) => (
-                                <Badge key={index} variant="secondary" className="bg-green-900/50 text-green-200 border-green-700">{trait}</Badge>
-                              ))}
-                            </div>
-                          </div>
-                          <div className="bg-black/60 rounded-lg p-4 border border-green-900">
-                            <h4 className="text-base sm:text-lg font-semibold text-white mb-2">Your Appearance</h4>
-                            <p className="text-green-200">{interpretation.personality.appearance}</p>
-                          </div>
-                        </CardContent>
-                      </Card>
-                    )}
-                    <Button
-                      variant="ghost"
-                      className="block mx-auto mt-3 text-purple-400 hover:text-white"
-                      onClick={() => setSelectedDetail(null)}
-                    >
-                      Back to Overview
-                    </Button>
+                    </div>
+                    <div className="text-center pt-4 text-xs text-slate-400">
+                      <span className="block font-semibold text-yellow-200 pb-0.5">Mulank</span>
+                      Derived from your birth day. Represents your soul’s core energy, vital strengths, and the way you initiate life’s experiences.<br />
+                      <span className="block font-semibold text-orange-200 pt-3 pb-0.5">Bhagyank</span>
+                      The sum of all digits of your complete birth date (DDMMYYYY). It uncovers your destiny, overall journey, and fateful opportunities—often pointing to your greatest life transitions and soul lessons.
+                    </div>
                   </div>
                 )}
-                {/* ADDITIONAL INSIGHTS */}
-                {selectedDetail === null && (
-                  <Card className="bg-black/85 border-yellow-900 shadow-cosmic backdrop-blur-2xl">
-                    <CardHeader>
-                      <CardTitle className="text-lg sm:text-xl text-yellow-300 flex items-center gap-2 galaxy-title-glow">
-                        <Shield className="w-5 h-5 text-yellow-400" />
-                        Additional Insights
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-                        <div className="text-center">
-                          <div className="text-xl sm:text-2xl font-bold text-yellow-200 mb-2">{numerologyData.personalYear}</div>
-                          <div className="text-xs sm:text-sm text-yellow-200/80">Personal Year</div>
-                        </div>
-                        <div className="text-center">
-                          <div className="text-xl sm:text-2xl font-bold text-yellow-200 mb-2">{numerologyData.personalMonth}</div>
-                          <div className="text-xs sm:text-sm text-yellow-200/80">Personal Month</div>
-                        </div>
-                        <div className="text-center">
-                          <div className="text-xl sm:text-2xl font-bold text-yellow-200 mb-2">{numerologyData.personalDay}</div>
-                          <div className="text-xs sm:text-sm text-yellow-200/80">Personal Day</div>
-                        </div>
-                        <div className="text-center">
-                          <div className="text-xl sm:text-2xl font-bold text-yellow-200 mb-2">{numerologyData.challenge}</div>
-                          <div className="text-xs sm:text-sm text-yellow-200/80">Life Challenge</div>
-                        </div>
+                {/* -- WESTERN DASHBOARD & INTERPRETATION -- */}
+                {mode === "western" && (
+                  <>
+                    {/* Number Dashboard Overview */}
+                    <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+                      {numerologyCells.map((cell) => {
+                        const NumIcon = cell.icon;
+                        return (
+                          <button
+                            key={cell.key}
+                            type="button"
+                            onClick={() => setSelectedDetail(cell.key)}
+                            className={`w-full rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-purple-500
+                              hover:scale-105 group relative overflow-hidden shadow-lg
+                              bg-gradient-to-br ${cell.bg} border-2 py-5 sm:py-6`}
+                            style={{
+                              boxShadow: selectedDetail === cell.key
+                                ? "0 0 42px 3px rgba(184,70,255,0.28)"
+                                : undefined,
+                              zIndex: selectedDetail === cell.key ? 2 : 1,
+                              position: "relative"
+                            }}
+                          >
+                            {selectedDetail === cell.key && (
+                              <div className="absolute -inset-1 pointer-events-none bg-gradient-radial from-white/10 to-transparent animate-astro-glow rounded-xl"></div>
+                            )}
+                            <div className={`w-11 h-11 sm:w-12 sm:h-12 mx-auto mb-2 rounded-full flex items-center justify-center
+                                  bg-black/40 border ${selectedDetail === cell.key ? "border-purple-400" : "border-black/30"}
+                                  transition`}>
+                              <NumIcon className={`w-7 h-7 text-white group-hover:scale-110 transition-transform duration-300`} />
+                            </div>
+                            <h3 className="text-lg font-semibold text-white mb-1">{cell.label}</h3>
+                            <div className={`text-2xl sm:text-3xl font-bold ${cell.text} mb-1`}>
+                              {(numerologyData as any)[cell.key]}
+                            </div>
+                            <p className={`text-xs ${cell.text} opacity-70 leading-tight`}>{cell.desc}</p>
+                            <div
+                              className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-purple-400/30 to-transparent blur-sm opacity-0 group-hover:opacity-80 group-hover:h-2 transition-all duration-300"
+                            ></div>
+                          </button>
+                        );
+                      })}
+                    </div>
+                    {/* DETAILED INTERPRETATION */}
+                    {selectedDetail && interpretation && (
+                      <div className="space-y-6 animate-fade-in">
+                        {selectedDetail === "lifePath" && (
+                          <Card className="bg-black/90 border-purple-900 shadow-cosmic backdrop-blur-2xl">
+                            <CardHeader>
+                              <CardTitle className="text-lg sm:text-xl text-white flex items-center gap-2 galaxy-title-glow">
+                                <Star className="w-5 h-5 text-purple-400" />
+                                Life Path Number {numerologyData.lifePath}
+                              </CardTitle>
+                              <CardDescription className="text-purple-400">
+                                {interpretation.lifePath.meaning}
+                              </CardDescription>
+                            </CardHeader>
+                            <CardContent className="space-y-6">
+                              <div>
+                                <h4 className="text-base sm:text-lg font-semibold text-white mb-3">Your Traits</h4>
+                                <div className="flex flex-wrap gap-2">
+                                  {interpretation.lifePath.traits.map((trait, index) => (
+                                    <Badge key={index} variant="secondary" className="bg-purple-900/50 text-purple-200 border-purple-700">{trait}</Badge>
+                                  ))}
+                                </div>
+                              </div>
+                              <div>
+                                <h4 className="text-base sm:text-lg font-semibold text-white mb-3">Challenges to Overcome</h4>
+                                <div className="flex flex-wrap gap-2">
+                                  {interpretation.lifePath.challenges.map((challenge, index) => (
+                                    <Badge key={index} variant="outline" className="border-orange-400 text-orange-200">{challenge}</Badge>
+                                  ))}
+                                </div>
+                              </div>
+                              <div className="bg-black/60 rounded-lg p-4 border border-purple-900">
+                                <h4 className="text-base sm:text-lg font-semibold text-white mb-2">Spiritual Guidance</h4>
+                                <p className="text-purple-200">{interpretation.lifePath.advice}</p>
+                              </div>
+                            </CardContent>
+                          </Card>
+                        )}
+                        {selectedDetail === "destiny" && (
+                          <Card className="bg-black/90 border-blue-900 shadow-cosmic backdrop-blur-2xl">
+                            <CardHeader>
+                              <CardTitle className="text-lg sm:text-xl text-white flex items-center gap-2 galaxy-title-glow">
+                                <Moon className="w-5 h-5 text-blue-400" />
+                                Destiny Number {numerologyData.destiny}
+                              </CardTitle>
+                              <CardDescription className="text-blue-300">
+                                {interpretation.destiny.meaning}
+                              </CardDescription>
+                            </CardHeader>
+                            <CardContent className="space-y-6">
+                              <div>
+                                <h4 className="text-base sm:text-lg font-semibold text-white mb-3">Career Paths</h4>
+                                <div className="flex flex-wrap gap-2">
+                                  {interpretation.destiny.career.map((career, index) => (
+                                    <Badge key={index} variant="secondary" className="bg-blue-900/50 text-blue-200 border-blue-700">{career}</Badge>
+                                  ))}
+                                </div>
+                              </div>
+                              <div className="bg-black/60 rounded-lg p-4 border border-blue-900">
+                                <h4 className="text-base sm:text-lg font-semibold text-white mb-2">Your Life's Purpose</h4>
+                                <p className="text-blue-200">{interpretation.destiny.purpose}</p>
+                              </div>
+                            </CardContent>
+                          </Card>
+                        )}
+                        {selectedDetail === "soulUrge" && (
+                          <Card className="bg-black/90 border-pink-900 shadow-cosmic backdrop-blur-2xl">
+                            <CardHeader>
+                              <CardTitle className="text-lg sm:text-xl text-white flex items-center gap-2 galaxy-title-glow">
+                                <Heart className="w-5 h-5 text-pink-400" />
+                                Soul Urge Number {numerologyData.soulUrge}
+                              </CardTitle>
+                              <CardDescription className="text-pink-300">
+                                {interpretation.soulUrge.meaning}
+                              </CardDescription>
+                            </CardHeader>
+                            <CardContent className="space-y-6">
+                              <div>
+                                <h4 className="text-base sm:text-lg font-semibold text-white mb-3">Your Deepest Desires</h4>
+                                <div className="flex flex-wrap gap-2">
+                                  {interpretation.soulUrge.desires.map((desire, index) => (
+                                    <Badge key={index} variant="secondary" className="bg-pink-900/50 text-pink-200 border-pink-700">{desire}</Badge>
+                                  ))}
+                                </div>
+                              </div>
+                              <div className="bg-black/60 rounded-lg p-4 border border-pink-900">
+                                <h4 className="text-base sm:text-lg font-semibold text-white mb-2">Inner Motivation</h4>
+                                <p className="text-pink-200">{interpretation.soulUrge.motivation}</p>
+                              </div>
+                            </CardContent>
+                          </Card>
+                        )}
+                        {selectedDetail === "personality" && (
+                          <Card className="bg-black/90 border-green-900 shadow-cosmic backdrop-blur-2xl">
+                            <CardHeader>
+                              <CardTitle className="text-lg sm:text-xl text-white flex items-center gap-2 galaxy-title-glow">
+                                <Brain className="w-5 h-5 text-green-400" />
+                                Personality Number {numerologyData.personality}
+                              </CardTitle>
+                              <CardDescription className="text-green-300">
+                                {interpretation.personality.meaning}
+                              </CardDescription>
+                            </CardHeader>
+                            <CardContent className="space-y-6">
+                              <div>
+                                <h4 className="text-base sm:text-lg font-semibold text-white mb-3">How Others See You</h4>
+                                <div className="flex flex-wrap gap-2">
+                                  {interpretation.personality.traits.map((trait, index) => (
+                                    <Badge key={index} variant="secondary" className="bg-green-900/50 text-green-200 border-green-700">{trait}</Badge>
+                                  ))}
+                                </div>
+                              </div>
+                              <div className="bg-black/60 rounded-lg p-4 border border-green-900">
+                                <h4 className="text-base sm:text-lg font-semibold text-white mb-2">Your Appearance</h4>
+                                <p className="text-green-200">{interpretation.personality.appearance}</p>
+                              </div>
+                            </CardContent>
+                          </Card>
+                        )}
+                        <Button
+                          variant="ghost"
+                          className="block mx-auto mt-3 text-purple-400 hover:text-white"
+                          onClick={() => setSelectedDetail(null)}
+                        >
+                          Back to Overview
+                        </Button>
                       </div>
-                    </CardContent>
-                  </Card>
+                    )}
+                    {/* ADDITIONAL INSIGHTS */}
+                    {selectedDetail === null && (
+                      <Card className="bg-black/85 border-yellow-900 shadow-cosmic backdrop-blur-2xl">
+                        <CardHeader>
+                          <CardTitle className="text-lg sm:text-xl text-yellow-300 flex items-center gap-2 galaxy-title-glow">
+                            <Shield className="w-5 h-5 text-yellow-400" />
+                            Additional Insights
+                          </CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+                            <div className="text-center">
+                              <div className="text-xl sm:text-2xl font-bold text-yellow-200 mb-2">{numerologyData.personalYear}</div>
+                              <div className="text-xs sm:text-sm text-yellow-200/80">Personal Year</div>
+                            </div>
+                            <div className="text-center">
+                              <div className="text-xl sm:text-2xl font-bold text-yellow-200 mb-2">{numerologyData.personalMonth}</div>
+                              <div className="text-xs sm:text-sm text-yellow-200/80">Personal Month</div>
+                            </div>
+                            <div className="text-center">
+                              <div className="text-xl sm:text-2xl font-bold text-yellow-200 mb-2">{numerologyData.personalDay}</div>
+                              <div className="text-xs sm:text-sm text-yellow-200/80">Personal Day</div>
+                            </div>
+                            <div className="text-center">
+                              <div className="text-xl sm:text-2xl font-bold text-yellow-200 mb-2">{numerologyData.challenge}</div>
+                              <div className="text-xs sm:text-sm text-yellow-200/80">Life Challenge</div>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    )}
+                  </>
                 )}
               </div>
             </ResultReveal>
@@ -735,7 +864,6 @@ export default function NumerologySection() {
       {/* Custom CSS Animations for space (if using Tailwind, else drop here, else reference global styles) */}
       <style jsx global>{`
         /* ...CSS unchanged... */
-        /* Loader position fix for non-blocking version */
         .calculation-loader {
           pointer-events: none;
         }

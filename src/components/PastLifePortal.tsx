@@ -210,6 +210,14 @@ export const PastLifePortal = () => {
     }, 3500);
   };
 
+  // Reset function for start new
+  const resetPastLife = () => {
+    setShowMessage(false);
+    setMessage("");
+    setImage("");
+    // Note: You could also clear input values if you wish, but we keep them for "start new"
+  };
+
   return (
     <section id="pastlife" className="py-16 md:py-24 px-2 md:px-4 relative overflow-hidden min-h-screen flex items-center justify-center">
       {/* ---- Cosmic Animation Layer ---- */}
@@ -401,22 +409,34 @@ export const PastLifePortal = () => {
                     ✨ This wisdom whispers through lifetimes{userDOB ? ` since ${userDOB}` : ''}.
                   </p>
                 </div>
+                {/* Reset Button to start new after one prediction */}
+                <div className="flex justify-center mt-6">
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    onClick={resetPastLife}
+                    className="shadow-glow border-primary/40 rounded-full px-8 py-3 font-semibold text-primary"
+                  >
+                    Start New
+                  </Button>
+                </div>
               </div>
             )}
 
-            <Button
-              size="lg"
-              onClick={explorePastLife}
-              disabled={isExploring || (!showMessage && !validInput)}
-              className="w-full sm:w-auto bg-secondary hover:bg-secondary/90 text-secondary-foreground font-semibold px-8 py-4 md:px-12 md:py-6 rounded-full shadow-glow transition-all duration-500 hover:scale-105 animate-pulse-glow"
-            >
-              <Clock className="w-5 h-5 mr-2" />
-              {isExploring
-                ? "Traveling..."
-                : showMessage
-                ? "Explore Another Life"
-                : "Reveal Past Life"}
-            </Button>
+            {/* Only allow reveal/explore before a result is shown or while exploring */}
+            {!showMessage && (
+              <Button
+                size="lg"
+                onClick={explorePastLife}
+                disabled={isExploring || (!showMessage && !validInput)}
+                className="w-full sm:w-auto bg-secondary hover:bg-secondary/90 text-secondary-foreground font-semibold px-8 py-4 md:px-12 md:py-6 rounded-full shadow-glow transition-all duration-500 hover:scale-105 animate-pulse-glow"
+              >
+                <Clock className="w-5 h-5 mr-2" />
+                {isExploring
+                  ? "Traveling..."
+                  : "Reveal Past Life"}
+              </Button>
+            )}
 
             {!showMessage && !isExploring && !validInput && (
               <div className="text-xs md:text-sm text-red-600 animate-fade-in">

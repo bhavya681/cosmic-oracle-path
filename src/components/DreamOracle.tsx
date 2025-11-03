@@ -90,7 +90,7 @@ export const DreamOracle = () => {
   };
 
   return (
-    <section className="py-12 sm:py-20 md:py-24 px-2 xs:px-3 sm:px-4 relative overflow-hidden bg-gradient-to-br from-indigo-950 via-purple-900 to-violet-950">
+    <section className="py-12 sm:py-20 md:py-24 px-2 xs:px-3 sm:px-4 relative overflow-hidden bg-gradient-to-b from-indigo-950 via-purple-950 to-black">
       {/* Dreamy floating clouds */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {[...Array(15)].map((_, i) => (

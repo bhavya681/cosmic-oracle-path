@@ -6,6 +6,49 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Calculator, Sparkles, Star, Moon, Heart, Brain, Shield } from "lucide-react";
 
+// --- Type Definitions ---
+interface NumerologyData {
+  lifePath: number;
+  destiny: number;
+  soulUrge: number;
+  personality: number;
+  maturity?: number;
+  pinnacles?: number[];
+  challenges?: number[];
+  personalYear?: number;
+  personalMonth?: number;
+  personalDay?: number;
+  challenge?: number;
+}
+
+interface NumerologyInterpretation {
+  lifePath: {
+    number: number;
+    meaning: string;
+    traits: string[];
+    challenges: string[];
+    advice: string;
+  };
+  destiny: {
+    number: number;
+    meaning: string;
+    career: string[];
+    purpose: string;
+  };
+  soulUrge: {
+    number: number;
+    meaning: string;
+    desires: string[];
+    motivation: string;
+  };
+  personality: {
+    number: number;
+    meaning: string;
+    traits: string[];
+    appearance: string;
+  };
+}
+
 // --- New: Vedic Numerology, with more detailed predictions ---
 const vedicPredictDict: { [key: number]: { label: string; desc: string } } = {
   1: {
@@ -354,7 +397,7 @@ export default function NumerologySection() {
           personality,
           maturity,
           challenge: challenges[0] ?? 0,
-          pinnacle: pinnacles[0] ?? 0,
+          pinnacles,
           personalYear,
           personalMonth,
           personalDay,
@@ -374,7 +417,7 @@ export default function NumerologySection() {
           personality: 0,
           maturity: 0,
           challenge: 0,
-          pinnacle: 0,
+          pinnacles: [],
           personalYear: 0,
           personalMonth: 0,
           personalDay: 0,
@@ -861,14 +904,6 @@ export default function NumerologySection() {
         </div>
       </div>
 
-      {/* Custom CSS Animations for space (if using Tailwind, else drop here, else reference global styles) */}
-      <style jsx global>{`
-        /* ...CSS unchanged... */
-        .calculation-loader {
-          pointer-events: none;
-        }
-      `}
-      </style>
     </section>
   );
 }

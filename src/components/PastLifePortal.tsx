@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -9,81 +8,88 @@ import vedicImage from "@/assets/pastlife-vedic.jpg";
 import silkroadImage from "@/assets/pastlife-silkroad.jpg";
 import groveImage from "@/assets/pastlife-grove.jpg";
 import renaissanceImage from "@/assets/pastlife-renaissance.jpg";
+import atlantisImage from "@/assets/pastlife-atlantis.jpg";
+import mayanImage from "@/assets/pastlife-mayan.jpg";
+import samuraiImage from "@/assets/pastlife-samurai.jpg";
+import persianImage from "@/assets/pastlife-persian.jpg";
+import norseImage from "@/assets/pastlife-norse.jpg";
+import tibetanImage from "@/assets/pastlife-tibetan.jpg";
+import greeceImage from "@/assets/pastlife-greece.png";
 import { MysticalNarrator } from './MysticalNarrator';
 
-// --- Ascendant-based past life astrology (Simplified language) ---
-const ascendantData = {
+// --- Ascendant-based past life astrology with expanded scenarios ---
+const ascendantData: Record<string, {image: string; karma: string; lesson: string; carry: string}> = {
   Aries: {
-    image: vedicImage,
-    karma: "You lived a spiritual past life, maybe as a monk, healer, or thinker.",
-    lesson: "You are here to balance being calm with taking action.",
-    carry: "You have wisdom and intuition, but sometimes you want to escape.",
+    image: atlantisImage,
+    karma: "You lived in Atlantis as a crystal healer and energy worker, harnessing sacred knowledge to heal and guide souls through dimensional portals.",
+    lesson: "You are here to balance ancient wisdom with grounded action, channeling spiritual power into tangible transformation.",
+    carry: "You possess intuitive healing gifts and mystical insights, yet must learn patience in manifestation.",
   },
   Taurus: {
     image: medievalImage,
-    karma: "In your past life, you were a brave warrior or a protector who faced many struggles.",
-    lesson: "You need to learn to be more peaceful and patient now.",
-    carry: "You bring courage, leadership, and sometimes, strong reactions.",
+    karma: "In your past life, you were a valiant knight or castle guardian protecting sacred lands and noble causes during medieval times.",
+    lesson: "You need to cultivate inner peace and learn that true strength comes from gentleness and patience.",
+    carry: "You bring unwavering courage and protective instincts, but must soften your warrior nature.",
   },
   Gemini: {
     image: silkroadImage,
-    karma: "You enjoyed arts or trading and loved nice things in your past life.",
-    lesson: "Try not to get too attached to material things this time.",
-    carry: "You have charm and are good with words, but can be indulgent.",
+    karma: "You traversed the Silk Road as a merchant and storyteller, exchanging exotic goods and precious wisdom across ancient civilizations.",
+    lesson: "Learn to value spiritual wealth over material treasures and find contentment in simplicity.",
+    carry: "You have natural charm and eloquence, but must transcend attachment to worldly pleasures.",
   },
   Cancer: {
-    image: groveImage,
-    karma: "Your past life was about learning and sharing wisdom — maybe as a writer or messenger.",
-    lesson: "You are meant to feel and care more this life.",
-    carry: "You think deeply and have lessons in communication.",
+    image: greeceImage,
+    karma: "Your soul walked as a Greek philosopher and scribe, documenting eternal truths and teaching the mysteries of the cosmos.",
+    lesson: "You are meant to open your heart and let emotions flow freely, balancing intellect with feeling.",
+    carry: "Deep wisdom and communication gifts, yet must learn to embrace vulnerability.",
   },
   Leo: {
-    image: renaissanceImage,
-    karma: "You were a leader or someone people admired in a past life.",
-    lesson: "Learning to manage your pride and emotions matters now.",
-    carry: "You have leadership qualities, but sometimes feel attached to recognition.",
+    image: egyptImage,
+    karma: "You were a revered pharaoh or high priest in ancient Egypt, commanding respect and wielding divine authority over sacred rituals.",
+    lesson: "Learning humility and managing ego are essential—true royalty serves rather than rules.",
+    carry: "Natural leadership and magnetic presence, but attachment to recognition can cloud your path.",
   },
   Virgo: {
-    image: egyptImage,
-    karma: "You had power or authority, perhaps as a priest, and sometimes used it too strongly.",
-    lesson: "Now, be humble and let go of ego.",
-    carry: "You have wisdom and like control, but focus mostly on yourself.",
+    image: mayanImage,
+    karma: "You served as a Mayan priest-astronomer, interpreting celestial wisdom and performing sacred ceremonies for your civilization.",
+    lesson: "Now, release the need for control and perfection; embrace humility and the beauty of imperfection.",
+    carry: "You possess profound analytical wisdom but must learn to surrender and trust the flow.",
   },
   Libra: {
     image: renaissanceImage,
-    karma: "You were a thinker or critic, always looking for perfection.",
-    lesson: "Open up to love and enjoy being spontaneous.",
-    carry: "You have a sharp mind but can worry or overthink.",
+    karma: "You were a Renaissance artist and aesthete, devoted to creating beauty and seeking ideal forms in art and philosophy.",
+    lesson: "Open your heart to passionate love and spontaneous joy rather than perpetual perfectionism.",
+    carry: "You have refined taste and a brilliant mind, but overthinking can paralyze your heart.",
   },
   Scorpio: {
-    image: groveImage,
-    karma: "You loved deeply and felt things strongly in your past life.",
-    lesson: "Turn strong attachments into wisdom this time.",
-    carry: "You are passionate and private, and you have powerful desires.",
+    image: persianImage,
+    karma: "You lived as a Persian mystic and alchemist, exploring deep mysteries of transformation and the hidden powers of the soul.",
+    lesson: "Transform intense attachments and desires into transcendent wisdom and spiritual mastery.",
+    carry: "You are intensely passionate and powerful, carrying ancient secrets that demand conscious integration.",
   },
   Sagittarius: {
-    image: silkroadImage,
-    karma: "You searched for hidden knowledge or tried to improve the world, but may have felt betrayed.",
-    lesson: "You are here to be open-hearted and honest.",
-    carry: "You bring mysterious power and strong inner memories.",
+    image: samuraiImage,
+    karma: "You walked the path of the samurai warrior-philosopher in feudal Japan, seeking honor, truth, and the way of Bushido.",
+    lesson: "You are here to be transparently honest and cultivate an open heart without defensive armor.",
+    carry: "You carry warrior discipline and deep codes of honor, along with memories of betrayal to heal.",
   },
   Capricorn: {
-    image: vedicImage,
-    karma: "You shared wisdom or taught others how to live rightly.",
-    lesson: "Now, use your knowledge in real life.",
-    carry: "You value honesty and discipline, but sometimes keep distance.",
+    image: tibetanImage,
+    karma: "You spent lifetimes as a Tibetan monk in mountain monasteries, dedicating yourself to meditation, dharma, and enlightenment.",
+    lesson: "Bring your spiritual practices into worldly service; ground your wisdom in practical action.",
+    carry: "You value discipline and spiritual integrity, but can become detached from human connection.",
   },
   Aquarius: {
-    image: medievalImage,
-    karma: "In your last life, you tried to help society and make things better.",
-    lesson: "This time, you must learn to connect more and care about others.",
-    carry: "You feel responsible for others and humanity.",
+    image: norseImage,
+    karma: "In your last life, you were a Norse visionary and community leader, striving to build better societies under the northern lights.",
+    lesson: "This time, learn to connect intimately with individuals rather than focusing solely on collective ideals.",
+    carry: "You feel deep responsibility for humanity's evolution and carry visions of future possibilities.",
   },
   Pisces: {
     image: vedicImage,
-    karma: "You were a mystic or monk and lived quietly, away from the world.",
-    lesson: "Bring your dreams and ideals into everyday life now.",
-    carry: "You feel deeply but sometimes want to escape reality.",
+    karma: "You were a Vedic sage and renunciate, living in ashrams and forests, immersed in meditation and union with the Divine.",
+    lesson: "Bring your mystical dreams and spiritual visions into earthly reality; serve the world while staying connected.",
+    carry: "You possess boundless compassion and psychic sensitivity, yet must anchor yourself in the present.",
   },
 };
 
@@ -112,7 +118,7 @@ const nakshatraData = {
   UttaraAshadha: "You were a wise leader or teacher who followed high morals.",
   Shravana: "You spread messages and liked sharing stories or important news.",
   Dhanishta: "You loved music and were generous with others.",
-  Shatabhisha: "You have a healer’s touch and liked to understand how things work.",
+  Shatabhisha: "You have a healer's touch and liked to understand how things work.",
   PurvaBhadrapada: "You helped guide others through difficult times.",
   UttaraBhadrapada: "You gave people hope and taught them about faith.",
   Revati: "You cared for travelers and helped those in need.",
@@ -399,9 +405,6 @@ export const PastLifePortal = () => {
                   <div className="w-full animate-fade-in space-y-8">
                     <MysticalNarrator 
                       message={message}
-                      tone="pastlife"
-                      avatar="oracle"
-                      intro="Let me peer into your soul’s echoes across time..."
                     />
                   </div>
 
@@ -535,22 +538,22 @@ export const PastLifePortal = () => {
           .border-8, .border-4 {
             border-width: 2px !important;
           }
-          .w-[400px], .h-[400px], .md\\:w-\\[400px\\], .md\\:h-\\[400px\\] {
+          .w-[400px], .h-[400px], .md\:w-\[400px\], .md\:h-\[400px\] {
             width: 180px !important;
             height: 180px !important;
             min-width: unset;
             min-height: unset;
           }
-          .p-8, .md\\:p-12, .sm\\:p-6 {
+          .p-8, .md\:p-12, .sm\:p-6 {
             padding: 1rem !important;
           }
           .max-w-4xl, .max-w-md {
             max-width: 100vw !important;
           }
-          h2, .text-4xl, .md\\:text-6xl {
+          h2, .text-4xl, .md\:text-6xl {
             font-size: 2rem !important;
           }
-          .w-full, .w-\\[400px\\] {
+          .w-full, .w-\[400px\] {
             width: 100% !important;
           }
         }

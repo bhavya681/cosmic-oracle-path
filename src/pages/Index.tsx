@@ -14,6 +14,13 @@ import NumerologySection from '@/components/NumerologySection';
 import { MysticExperience } from '@/components/MysticExperience';
 import { ContactUs } from '@/components/ContactUs';
 import { Footer } from '@/components/Footer';
+import { ChineseAstrology } from '@/components/ChineseAstrology';
+import { IChing } from '@/components/IChing';
+import { PendulumDowsing } from '@/components/PendulumDowsing';
+import { AngelCards } from '@/components/AngelCards';
+import { CrystalBallScrying } from '@/components/CrystalBallScrying';
+import { FengShui } from '@/components/FengShui';
+import { KabbalahDivination } from '@/components/KabbalahDivination';
 
 const Index = () => {
   return (
@@ -27,6 +34,13 @@ const Index = () => {
       <NakshatraJourney />
       <MysticExperience />
       <Palmistry />
+      <ChineseAstrology />
+      <IChing />
+      <PendulumDowsing />
+      <AngelCards />
+      <CrystalBallScrying />
+      <FengShui />
+      <KabbalahDivination />
       {/* <SpiritAnimalSummoner /> 
       <DreamOracle />
       <ElementalAlchemy />

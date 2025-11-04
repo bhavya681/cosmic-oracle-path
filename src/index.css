@@ -8,63 +8,66 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Cosmic Background Colors */
-    --background: 248 60% 8%;
-    --foreground: 280 20% 95%;
+    /* Mystic Professional Theme - Deep Cosmic Palette */
+    --background: 225 45% 5%;
+    --foreground: 0 0% 98%;
 
     /* Card & Surface Colors */
-    --card: 250 45% 12%;
-    --card-foreground: 280 20% 95%;
+    --card: 248 35% 8%;
+    --card-foreground: 0 0% 98%;
 
-    --popover: 250 45% 12%;
-    --popover-foreground: 280 20% 95%;
+    --popover: 248 35% 8%;
+    --popover-foreground: 0 0% 98%;
 
-    /* Primary - Rose Gold Glow */
-    --primary: 340 75% 68%;
-    --primary-foreground: 248 60% 8%;
+    /* Primary - Metallic Gold */
+    --primary: 43 74% 52%;
+    --primary-foreground: 225 45% 5%;
 
-    /* Secondary - Cosmic Purple */
-    --secondary: 270 50% 50%;
-    --secondary-foreground: 280 20% 95%;
+    /* Secondary - Royal Purple */
+    --secondary: 267 55% 26%;
+    --secondary-foreground: 0 0% 98%;
 
-    /* Muted - Deep Space */
-    --muted: 250 35% 20%;
-    --muted-foreground: 280 10% 65%;
+    /* Muted - Deep Mystic */
+    --muted: 240 30% 12%;
+    --muted-foreground: 240 5% 65%;
 
-    /* Accent - Celestial Teal */
-    --accent: 180 65% 55%;
-    --accent-foreground: 248 60% 8%;
+    /* Accent - Crystal White Glow */
+    --accent: 0 0% 95%;
+    --accent-foreground: 225 45% 5%;
 
     /* Destructive */
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 280 20% 95%;
+    --destructive-foreground: 0 0% 98%;
 
     /* Borders & Inputs */
-    --border: 270 30% 25%;
-    --input: 270 30% 25%;
-    --ring: 340 75% 68%;
+    --border: 267 30% 20%;
+    --input: 267 30% 20%;
+    --ring: 43 74% 52%;
 
     --radius: 1rem;
 
-    /* Custom Cosmic Tokens */
-    --cosmic-purple: 270 50% 50%;
-    --lavender-glow: 280 60% 70%;
-    --rose-gold: 340 75% 68%;
-    --celestial-teal: 180 65% 55%;
-    --deep-indigo: 248 60% 15%;
+    /* Sacred Mystical Tokens */
+    --midnight-blue: 225 45% 5%;
+    --royal-purple: 267 55% 26%;
+    --metallic-gold: 43 74% 52%;
+    --crystal-white: 0 0% 95%;
+    --deep-mystic: 240 30% 12%;
+    --mystic-glow: 267 70% 40%;
     
     /* Gradients */
-    --gradient-cosmic: linear-gradient(135deg, hsl(270 50% 50% / 0.3), hsl(340 75% 68% / 0.3));
-    --gradient-galaxy: linear-gradient(180deg, hsl(248 60% 8%), hsl(270 50% 20%));
-    --gradient-glow: radial-gradient(circle, hsl(340 75% 68% / 0.3), transparent);
+    --gradient-mystic: linear-gradient(135deg, hsl(267 55% 26% / 0.6), hsl(225 45% 5% / 0.8));
+    --gradient-gold: linear-gradient(135deg, hsl(43 74% 52% / 0.3), hsl(43 74% 62% / 0.5));
+    --gradient-sacred: radial-gradient(circle, hsl(267 70% 40% / 0.4), transparent);
+    --gradient-divine: linear-gradient(180deg, hsl(225 45% 5%), hsl(267 55% 10%));
     
     /* Shadows & Glows */
-    --shadow-glow: 0 0 40px hsl(340 75% 68% / 0.5);
-    --shadow-cosmic: 0 20px 60px hsl(270 50% 20% / 0.6);
+    --shadow-gold: 0 0 40px hsl(43 74% 52% / 0.6);
+    --shadow-mystic: 0 20px 60px hsl(267 55% 26% / 0.8);
+    --shadow-divine: 0 0 60px hsl(267 70% 40% / 0.5);
     
     /* Animations */
-    --transition-cosmic: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-smooth: all 0.3s ease-in-out;
+    --transition-sacred: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-smooth: all 0.4s ease-in-out;
   }
 }
 
@@ -94,5 +97,19 @@ All colors MUST be HSL.
   .rotate-y-180 {
     transform: rotateY(180deg);
   }
-}
 
+  .mystic-glow {
+    box-shadow: var(--shadow-gold);
+  }
+
+  .sacred-shimmer {
+    animation: shimmer 3s linear infinite;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      hsl(43 74% 52% / 0.3) 50%,
+      transparent 100%
+    );
+    background-size: 200% 100%;
+  }
+}

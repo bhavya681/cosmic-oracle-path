@@ -20,12 +20,12 @@ export const FengShui = () => {
   const [selectedArea, setSelectedArea] = useState<typeof baguaAreas[0] | null>(null);
 
   return (
-    <section className="relative py-24 px-4 overflow-hidden bg-gradient-to-b from-background via-emerald-950/10 to-background">
+    <section className="relative py-32 px-4 overflow-hidden bg-gradient-divine">
       <div className="absolute inset-0">
         {[...Array(8)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-32 h-32 border border-emerald-500/10 rounded-full"
+            className="absolute w-32 h-32 border border-mystic-gold/10 rounded-full"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
@@ -49,47 +49,52 @@ export const FengShui = () => {
         viewport={{ once: true }}
         className="container mx-auto max-w-6xl relative z-10"
       >
-        <div className="text-center mb-16">
+        <div className="text-center mb-20">
           <motion.div
             animate={{ rotate: [0, 360] }}
             transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-            className="inline-block mb-4"
+            className="inline-block mb-6"
           >
-            <Wind className="w-12 h-12 text-emerald-500 mx-auto" />
+            <Wind className="w-16 h-16 text-mystic-gold mx-auto drop-shadow-[0_0_20px_hsl(43,74%,52%)]" />
           </motion.div>
-          <h2 className="font-heading text-4xl md:text-5xl mb-4 bg-gradient-to-r from-emerald-500 via-green-500 to-emerald-500 bg-clip-text text-transparent">
+          <h2 className="font-heading text-5xl md:text-7xl mb-6 bg-gradient-to-r from-mystic-gold via-mystic-white to-mystic-gold bg-clip-text text-transparent tracking-wide">
             Vastu & Feng Shui
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Harmonize your space with ancient wisdom for prosperity and peace
+          <p className="text-muted-foreground text-xl max-w-2xl mx-auto font-light">
+            Harmonize your sacred space with ancient wisdom for prosperity and peace
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 items-start">
+        <div className="grid md:grid-cols-2 gap-12 items-start">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="space-y-6"
+            transition={{ duration: 0.8 }}
+            className="space-y-8"
           >
             <img 
               src={fengShuiImg} 
               alt="Feng Shui Bagua" 
-              className="rounded-2xl shadow-2xl w-full h-auto"
+              className="rounded-2xl shadow-mystic w-full h-auto"
             />
             
-            <Card className="p-6 backdrop-blur-sm bg-card/50 border-emerald-500/20">
-              <h3 className="font-heading text-xl mb-4 flex items-center gap-2">
-                <Home className="w-5 h-5 text-emerald-500" />
+            <Card className="p-8 backdrop-blur-xl bg-card/40 border-mystic-gold/30 shadow-mystic">
+              <h3 className="font-heading text-2xl mb-6 flex items-center gap-3 text-mystic-gold">
+                <Home className="w-6 h-6" />
                 Bagua Map Areas
               </h3>
-              <div className="grid grid-cols-2 gap-2">
+              <div className="grid grid-cols-2 gap-3">
                 {baguaAreas.map((area) => (
                   <Button
                     key={area.name}
                     onClick={() => setSelectedArea(area)}
                     variant={selectedArea?.name === area.name ? "default" : "outline"}
-                    className="text-xs h-auto py-2 px-3"
+                    className={`text-sm h-auto py-3 px-4 font-heading ${
+                      selectedArea?.name === area.name
+                        ? 'bg-gradient-to-r from-mystic-gold to-mystic-purple shadow-gold'
+                        : 'border-mystic-gold/30 hover:border-mystic-gold/60'
+                    }`}
                   >
                     {area.name.split('&')[0]}
                   </Button>
@@ -102,48 +107,50 @@ export const FengShui = () => {
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
           >
             {selectedArea ? (
               <motion.div
                 key={selectedArea.name}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
               >
-                <Card className="p-8 backdrop-blur-sm bg-card/50 border-emerald-500/20">
-                  <div className="space-y-6">
+                <Card className="p-10 backdrop-blur-xl bg-card/40 border-mystic-gold/30 shadow-mystic">
+                  <div className="space-y-8">
                     <div>
-                      <h3 className="font-heading text-2xl text-emerald-400 mb-2">
+                      <h3 className="font-heading text-3xl text-mystic-gold mb-3 tracking-wide">
                         {selectedArea.name}
                       </h3>
-                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <Sparkles className="w-4 h-4" />
-                        <span>Direction: {selectedArea.direction}</span>
+                      <div className="flex items-center gap-2 text-muted-foreground">
+                        <Sparkles className="w-5 h-5 text-mystic-gold" />
+                        <span className="text-lg">Direction: {selectedArea.direction}</span>
                       </div>
                     </div>
 
                     <div className="grid grid-cols-2 gap-4">
-                      <div className="p-4 bg-emerald-500/10 rounded-lg border border-emerald-500/20">
-                        <p className="text-xs text-muted-foreground mb-1">Element</p>
-                        <p className="font-semibold text-emerald-400">{selectedArea.element}</p>
+                      <div className="p-6 bg-gradient-to-br from-mystic-purple/20 to-mystic-gold/10 rounded-xl border border-mystic-gold/30">
+                        <p className="text-sm text-muted-foreground mb-2">Element</p>
+                        <p className="font-heading text-xl text-mystic-gold">{selectedArea.element}</p>
                       </div>
-                      <div className="p-4 bg-emerald-500/10 rounded-lg border border-emerald-500/20">
-                        <p className="text-xs text-muted-foreground mb-1">Color</p>
-                        <p className="font-semibold text-emerald-400">{selectedArea.color}</p>
+                      <div className="p-6 bg-gradient-to-br from-mystic-purple/20 to-mystic-gold/10 rounded-xl border border-mystic-gold/30">
+                        <p className="text-sm text-muted-foreground mb-2">Color</p>
+                        <p className="font-heading text-xl text-mystic-gold">{selectedArea.color}</p>
                       </div>
                     </div>
 
-                    <div className="p-6 bg-gradient-to-br from-emerald-500/10 to-green-500/10 rounded-xl border border-emerald-500/20">
-                      <p className="text-sm font-semibold text-emerald-400 mb-2">Enhancement Tip</p>
-                      <p className="text-foreground/90">{selectedArea.tip}</p>
+                    <div className="p-8 bg-gradient-to-br from-mystic-purple/20 to-mystic-gold/10 rounded-2xl border border-mystic-gold/40 shadow-divine backdrop-blur-sm">
+                      <p className="text-sm font-heading text-mystic-gold mb-4">Enhancement Tip</p>
+                      <p className="text-foreground/90 text-lg leading-relaxed">{selectedArea.tip}</p>
                     </div>
                   </div>
                 </Card>
               </motion.div>
             ) : (
-              <Card className="p-8 backdrop-blur-sm bg-card/50 border-emerald-500/20 h-full flex items-center justify-center">
+              <Card className="p-10 backdrop-blur-xl bg-card/40 border-mystic-gold/30 shadow-mystic h-full flex items-center justify-center">
                 <div className="text-center text-muted-foreground">
-                  <Wind className="w-16 h-16 mx-auto mb-4 text-emerald-500/30" />
-                  <p>Select a Bagua area to see harmonization tips</p>
+                  <Wind className="w-20 h-20 mx-auto mb-6 text-mystic-gold/40" />
+                  <p className="text-lg font-light">Select a Bagua area to see harmonization tips</p>
                 </div>
               </Card>
             )}

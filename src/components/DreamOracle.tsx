@@ -90,77 +90,86 @@ export const DreamOracle = () => {
   };
 
   return (
-    <section className="py-12 sm:py-20 md:py-24 px-2 xs:px-3 sm:px-4 relative overflow-hidden bg-gradient-to-b from-indigo-950 via-purple-950 to-black">
-      {/* Dreamy floating clouds */}
+    <section className="py-32 px-4 relative overflow-hidden bg-gradient-divine">
+      {/* Dreamy floating orbs */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {[...Array(15)].map((_, i) => (
-          <div
+          <motion.div
             key={i}
-            className="absolute bg-white/5 rounded-full blur-3xl animate-float"
+            className="absolute rounded-full blur-3xl bg-mystic-gold/10"
             style={{
               width: `${Math.random() * 130 + 100}px`,
               height: `${Math.random() * 60 + 80}px`,
               top: `${Math.random() * 100}%`,
               left: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 10}s`,
-              animationDuration: `${Math.random() * 20 + 20}s`,
+            }}
+            animate={{
+              y: [0, -30, 0],
+              opacity: [0.1, 0.3, 0.1],
+            }}
+            transition={{
+              duration: Math.random() * 10 + 10,
+              repeat: Infinity,
+              delay: Math.random() * 5,
             }}
           />
         ))}
       </div>
 
-      {/* Flowing light patterns */}
-      <div className="absolute inset-0 opacity-20">
-        <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 via-purple-500/20 to-pink-500/20 animate-pulse-glow" 
-          style={{ animationDuration: '8s' }}
-        />
-      </div>
-
-      <div className="w-full max-w-4xl lg:max-w-3xl mx-auto relative z-10">
-        <div className="text-center mb-12 md:mb-16 animate-fade-in">
-          <h2 className="font-heading text-2xl xs:text-3xl sm:text-4xl md:text-6xl font-bold mb-5 sm:mb-6 text-white flex items-center justify-center gap-2 md:gap-4">
-            <Moon className="w-8 h-8 xs:w-9 xs:h-9 sm:w-12 sm:h-12 text-cyan-300 animate-pulse" />
-            <span>Dream Oracle</span>
-            <Eye className="w-8 h-8 xs:w-9 xs:h-9 sm:w-12 sm:h-12 text-purple-300 animate-pulse" />
+      <div className="w-full max-w-4xl mx-auto relative z-10">
+        <div className="text-center mb-20 animate-fade-in">
+          <motion.div
+            animate={{ rotate: [0, 5, 0, -5, 0] }}
+            transition={{ duration: 4, repeat: Infinity }}
+            className="inline-block mb-6"
+          >
+            <Moon className="w-16 h-16 text-mystic-gold drop-shadow-[0_0_20px_hsl(43,74%,52%)] animate-pulse" />
+          </motion.div>
+          <h2 className="font-heading text-5xl md:text-7xl mb-6 bg-gradient-to-r from-mystic-gold via-mystic-white to-mystic-gold bg-clip-text text-transparent tracking-wide">
+            Dream Oracle
           </h2>
-          <p className="font-body text-base xs:text-lg md:text-xl text-white/90 max-w-xl sm:max-w-2xl mx-auto">
-            🌙 Unveil the hidden wisdom of your nocturnal visions 🌙
+          <p className="text-muted-foreground text-xl max-w-2xl mx-auto font-light">
+            Unveil the hidden wisdom encoded in your nocturnal visions
           </p>
         </div>
 
         {!result && !isAnalyzing && (
-          <Card className="p-4 xs:p-6 sm:p-8 md:p-12 bg-white/10 backdrop-blur-md border-white/20 shadow-cosmic animate-scale-in">
-            <div className="space-y-7 md:space-y-8">
-              <div className="text-center space-y-3 md:space-y-4">
-                <div className="relative w-20 h-20 xs:w-28 xs:h-28 sm:w-32 sm:h-32 mx-auto mb-4 xs:mb-5 sm:mb-6">
-                  <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/50 to-purple-500/50 rounded-full animate-pulse-glow" />
-                  <div className="absolute inset-2 xs:inset-3 sm:inset-4 bg-indigo-900/80 rounded-full flex items-center justify-center backdrop-blur-sm">
-                    <Eye className="w-10 h-10 xs:w-12 xs:h-12 sm:w-16 sm:h-16 text-cyan-300 animate-pulse" />
+          <Card className="p-12 backdrop-blur-xl bg-card/40 border-mystic-gold/30 shadow-mystic animate-scale-in">
+            <div className="space-y-8">
+              <div className="text-center space-y-4">
+                <div className="relative w-32 h-32 mx-auto mb-6">
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-br from-mystic-gold/40 to-mystic-purple/40 rounded-full"
+                    animate={{ scale: [1, 1.2, 1] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                  />
+                  <div className="absolute inset-4 bg-card rounded-full flex items-center justify-center backdrop-blur-sm border border-mystic-gold/30">
+                    <Eye className="w-16 h-16 text-mystic-gold animate-pulse" />
                   </div>
                 </div>
                 
-                <p className="text-white text-lg xs:text-xl font-semibold">
-                  The priestess awaits your dream...
+                <p className="text-foreground text-xl font-heading">
+                  The Oracle awaits your dream...
                 </p>
-                <p className="text-white/80 text-xs xs:text-sm">
+                <p className="text-muted-foreground">
                   Describe your dream in detail. Include any symbols, emotions, or vivid imagery.
                 </p>
               </div>
 
-              <div className="space-y-3 xs:space-y-4">
+              <div className="space-y-4">
                 <Textarea
                   value={dream}
                   onChange={(e) => setDream(e.target.value)}
                   placeholder="I dreamed that I was walking through a misty forest when I encountered a glowing door..."
-                  className="min-h-[120px] xs:min-h-[160px] sm:min-h-[180px] md:min-h-[200px] bg-white/10 border-white/30 text-white placeholder:text-white/50 focus:border-cyan-400 focus:ring-cyan-400/50 resize-none text-base xs:text-lg"
+                  className="min-h-[200px] backdrop-blur-sm bg-muted/30 border-mystic-gold/30 text-foreground placeholder:text-muted-foreground focus:border-mystic-gold focus:ring-mystic-gold/50 resize-none text-lg"
                 />
                 
                 <Button
                   onClick={analyzeDream}
                   disabled={!dream.trim()}
-                  className="w-full bg-gradient-to-r from-cyan-500 to-purple-500 hover:from-cyan-600 hover:to-purple-600 text-white font-semibold py-4 xs:py-5 md:py-6 rounded-full shadow-glow transition-all duration-500 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed text-base xs:text-lg"
+                  className="w-full bg-gradient-to-r from-mystic-gold to-mystic-purple hover:from-mystic-purple hover:to-mystic-gold text-lg py-8 font-heading tracking-wider shadow-gold transition-all duration-500 disabled:opacity-50"
                 >
-                  <Sparkles className="w-5 h-5 mr-2" />
+                  <Sparkles className="w-6 h-6 mr-3" />
                   Consult the Oracle
                 </Button>
               </div>
@@ -169,30 +178,34 @@ export const DreamOracle = () => {
         )}
 
         {isAnalyzing && (
-          <Card className="p-7 xs:p-8 sm:p-10 md:p-12 bg-white/10 backdrop-blur-md border-white/20 shadow-cosmic animate-scale-in">
-            <div className="text-center space-y-6 xs:space-y-7 sm:space-y-8">
-              <div className="relative w-24 h-24 xs:w-32 xs:h-32 sm:w-40 sm:h-40 mx-auto">
+          <Card className="p-12 backdrop-blur-xl bg-card/40 border-mystic-gold/30 shadow-mystic animate-scale-in">
+            <div className="text-center space-y-8">
+              <div className="relative w-40 h-40 mx-auto">
                 {[...Array(3)].map((_, i) => (
-                  <div
+                  <motion.div
                     key={i}
-                    className="absolute inset-0 rounded-full border-2 xs:border-3 sm:border-4 border-cyan-400/30 animate-spin"
+                    className="absolute inset-0 rounded-full border-4 border-mystic-gold/30"
+                    animate={{ rotate: 360 }}
+                    transition={{
+                      duration: (i + 1) * 2,
+                      repeat: Infinity,
+                      ease: "linear",
+                    }}
                     style={{
-                      margin: `${i * 8 + 5}px`,
-                      animationDuration: `${(i + 1) * 2}s`,
-                      animationDirection: i % 2 === 0 ? 'normal' : 'reverse'
+                      margin: `${i * 10}px`,
                     }}
                   />
                 ))}
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <Eye className="w-12 h-12 xs:w-16 xs:h-16 sm:w-20 sm:h-20 text-cyan-300 animate-pulse" />
+                  <Eye className="w-20 h-20 text-mystic-gold animate-pulse" />
                 </div>
               </div>
 
-              <div className="space-y-2 xs:space-y-3 sm:space-y-4 text-white">
-                <p className="text-xl xs:text-2xl font-semibold animate-pulse">
-                  The priestess channels ancient wisdom...
+              <div className="space-y-4 text-foreground">
+                <p className="text-2xl font-heading animate-pulse">
+                  Consulting ancient wisdom...
                 </p>
-                <p className="text-base xs:text-lg opacity-80">
+                <p className="text-lg text-muted-foreground">
                   Decoding the symbols of your unconscious
                 </p>
               </div>
@@ -201,36 +214,40 @@ export const DreamOracle = () => {
         )}
 
         {result && !isAnalyzing && (
-          <div className="space-y-7 xs:space-y-8 animate-scale-in">
-            <Card className="p-4 xs:p-6 sm:p-8 md:p-12 bg-gradient-to-br from-cyan-900/40 to-purple-900/40 backdrop-blur-md border-cyan-400/30 shadow-cosmic relative overflow-hidden">
-              {/* Mystical avatar glow */}
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 xs:w-28 xs:h-28 sm:w-32 sm:h-32 bg-cyan-400/30 rounded-full blur-3xl animate-pulse-glow" />
+          <div className="space-y-8 animate-scale-in">
+            <Card className="p-12 bg-gradient-to-br from-mystic-purple/20 to-mystic-gold/10 backdrop-blur-xl border-mystic-gold/40 shadow-divine relative overflow-hidden">
+              {/* Mystical glow */}
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-mystic-gold/30 rounded-full blur-3xl animate-pulse-glow" />
               
-              <div className="relative z-10 space-y-6 xs:space-y-8">
-                {/* Priestess Avatar */}
+              <div className="relative z-10 space-y-8">
+                {/* Oracle Avatar */}
                 <div className="text-center">
-                  <div className="relative w-16 h-16 xs:w-20 xs:h-20 sm:w-24 sm:h-24 mx-auto mb-2 xs:mb-3 sm:mb-4">
-                    <div className="absolute inset-0 bg-gradient-to-br from-cyan-400 to-purple-500 rounded-full animate-pulse-glow" />
-                    <div className="absolute inset-1 xs:inset-2 sm:inset-2 bg-indigo-950 rounded-full flex items-center justify-center">
-                      <Eye className="w-8 h-8 xs:w-10 xs:h-10 sm:w-12 sm:h-12 text-cyan-300" />
+                  <div className="relative w-24 h-24 mx-auto mb-4">
+                    <motion.div
+                      className="absolute inset-0 bg-gradient-to-br from-mystic-gold to-mystic-purple rounded-full"
+                      animate={{ scale: [1, 1.1, 1] }}
+                      transition={{ duration: 2, repeat: Infinity }}
+                    />
+                    <div className="absolute inset-2 bg-card rounded-full flex items-center justify-center">
+                      <Eye className="w-12 h-12 text-mystic-gold" />
                     </div>
                   </div>
-                  <h3 className="text-lg xs:text-xl sm:text-2xl font-bold text-white mb-0.5 xs:mb-1 sm:mb-2">The Oracle Speaks</h3>
-                  <div className="w-20 xs:w-28 sm:w-32 h-0.5 sm:h-1 bg-gradient-to-r from-transparent via-cyan-400 to-transparent mx-auto" />
+                  <h3 className="text-2xl font-heading text-mystic-gold mb-2">The Oracle Speaks</h3>
+                  <div className="w-32 h-1 bg-gradient-to-r from-transparent via-mystic-gold to-transparent mx-auto" />
                 </div>
 
                 {/* Symbols Found */}
                 {result.symbols.length > 0 && (
-                  <div className="p-4 xs:p-5 sm:p-6 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20">
-                    <h4 className="text-base xs:text-lg font-semibold text-cyan-300 mb-2 xs:mb-3 flex items-center gap-1 xs:gap-2">
-                      <Sparkles className="w-4 h-4 xs:w-5 xs:h-5" />
+                  <div className="p-6 backdrop-blur-sm bg-muted/20 rounded-2xl border border-mystic-gold/30">
+                    <h4 className="text-lg font-heading text-mystic-gold mb-3 flex items-center gap-2">
+                      <Sparkles className="w-5 h-5" />
                       Sacred Symbols Detected
                     </h4>
-                    <div className="flex flex-wrap gap-1.5 xs:gap-2">
+                    <div className="flex flex-wrap gap-2">
                       {result.symbols.map((symbol, i) => (
                         <span
                           key={i}
-                          className="px-2 py-1 xs:px-3 xs:py-1.5 sm:px-4 sm:py-2 bg-gradient-to-r from-cyan-500/30 to-purple-500/30 rounded-full text-white text-xs xs:text-sm font-medium border border-cyan-400/30"
+                          className="px-4 py-2 bg-gradient-to-r from-mystic-gold/20 to-mystic-purple/20 rounded-full text-foreground text-sm font-medium border border-mystic-gold/40"
                         >
                           {symbol}
                         </span>
@@ -240,25 +257,25 @@ export const DreamOracle = () => {
                 )}
 
                 {/* Interpretation */}
-                <div className="p-4 xs:p-6 sm:p-8 bg-gradient-to-br from-indigo-900/50 to-purple-900/50 rounded-2xl border border-cyan-400/20 space-y-4 xs:space-y-6">
+                <div className="p-8 bg-gradient-to-br from-mystic-purple/20 to-card/50 rounded-2xl border border-mystic-gold/30 space-y-6 backdrop-blur-sm">
                   <div>
-                    <h4 className="text-base xs:text-lg sm:text-xl font-semibold text-cyan-300 mb-3 xs:mb-4">Dream Interpretation</h4>
-                    <p className="text-white/90 text-base xs:text-lg leading-relaxed italic">
+                    <h4 className="text-xl font-heading text-mystic-gold mb-4">Dream Interpretation</h4>
+                    <p className="text-foreground/90 text-lg leading-relaxed italic">
                       "{result.interpretation}"
                     </p>
                   </div>
 
-                  <div className="pt-4 xs:pt-6 border-t border-white/10">
-                    <h4 className="text-base xs:text-lg sm:text-xl font-semibold text-purple-300 mb-3 xs:mb-4">Divine Guidance</h4>
-                    <p className="text-white/90 text-base xs:text-lg leading-relaxed">
+                  <div className="pt-6 border-t border-mystic-gold/20">
+                    <h4 className="text-xl font-heading text-mystic-purple mb-4">Divine Guidance</h4>
+                    <p className="text-foreground/90 text-lg leading-relaxed">
                       {result.guidance}
                     </p>
                   </div>
                 </div>
 
-                <div className="text-center pt-2 xs:pt-4">
-                  <p className="text-white/60 text-xs xs:text-sm italic">
-                    ✨ May your dreams continue to illuminate your path ✨
+                <div className="text-center pt-4">
+                  <p className="text-muted-foreground text-sm italic">
+                    ✨ May your dreams continue to illuminate your sacred path ✨
                   </p>
                 </div>
               </div>
@@ -267,7 +284,7 @@ export const DreamOracle = () => {
             <div className="text-center">
               <Button
                 onClick={reset}
-                className="bg-white/20 hover:bg-white/30 text-white backdrop-blur-sm border border-white/30 font-semibold px-6 xs:px-8 sm:px-12 py-3 xs:py-5 sm:py-6 rounded-full shadow-glow transition-all duration-500 hover:scale-105 text-base xs:text-lg"
+                className="bg-muted/40 hover:bg-muted/60 backdrop-blur-sm border border-mystic-gold/30 font-heading px-12 py-6 shadow-gold transition-all duration-500 hover:scale-105 text-lg"
               >
                 <Moon className="w-5 h-5 mr-2" />
                 Interpret Another Dream

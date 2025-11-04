@@ -14,10 +14,10 @@ const questions = [
 ];
 
 const answers = [
-  { text: 'Yes', color: 'from-emerald-500 to-green-600', angle: -25, glow: 'hsl(160 84% 39%)' },
-  { text: 'No', color: 'from-red-500 to-rose-600', angle: 25, glow: 'hsl(0 72% 51%)' },
-  { text: 'Maybe', color: 'from-amber-500 to-yellow-600', angle: 0, glow: 'hsl(45 93% 47%)' },
-  { text: 'Ask Again', color: 'from-mystic-purple to-purple-600', angle: 50, glow: 'hsl(267 55% 26%)' },
+  { text: 'Yes', color: 'from-green-500 to-emerald-500', angle: -30 },
+  { text: 'No', color: 'from-red-500 to-rose-500', angle: 30 },
+  { text: 'Maybe', color: 'from-yellow-500 to-amber-500', angle: 0 },
+  { text: 'Ask Again', color: 'from-purple-500 to-violet-500', angle: 60 },
 ];
 
 export const PendulumDowsing = () => {
@@ -31,7 +31,7 @@ export const PendulumDowsing = () => {
     setIsSwinging(true);
     setAnswer(null);
     
-    await new Promise(resolve => setTimeout(resolve, 3500));
+    await new Promise(resolve => setTimeout(resolve, 3000));
     
     const randomAnswer = answers[Math.floor(Math.random() * answers.length)];
     setAnswer(randomAnswer);
@@ -39,74 +39,55 @@ export const PendulumDowsing = () => {
   };
 
   return (
-    <section className="relative py-32 px-4 overflow-hidden bg-gradient-divine">
-      {/* Sacred Geometry Background */}
-      <div className="absolute inset-0 opacity-10">
-        <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <pattern id="sacred-grid" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
-              <circle cx="50" cy="50" r="40" fill="none" stroke="hsl(43 74% 52%)" strokeWidth="0.5" />
-              <circle cx="50" cy="50" r="20" fill="none" stroke="hsl(267 55% 26%)" strokeWidth="0.5" />
-              <line x1="50" y1="10" x2="50" y2="90" stroke="hsl(43 74% 52%)" strokeWidth="0.5" />
-              <line x1="10" y1="50" x2="90" y2="50" stroke="hsl(43 74% 52%)" strokeWidth="0.5" />
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#sacred-grid)" />
-        </svg>
-      </div>
-
+    <section className="relative py-24 px-4 overflow-hidden bg-gradient-to-b from-background via-teal-950/10 to-background">
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         className="container mx-auto max-w-6xl relative z-10"
       >
-        <div className="text-center mb-20">
+        <div className="text-center mb-16">
           <motion.div
             animate={{ rotate: isSwinging ? 360 : 0 }}
-            transition={{ duration: 3, repeat: isSwinging ? Infinity : 0, ease: "linear" }}
-            className="inline-block mb-6"
+            transition={{ duration: 2, repeat: isSwinging ? Infinity : 0 }}
+            className="inline-block mb-4"
           >
-            <Circle className="w-16 h-16 text-mystic-gold mx-auto drop-shadow-[0_0_20px_hsl(43,74%,52%)]" />
+            <Circle className="w-12 h-12 text-teal-500 mx-auto" />
           </motion.div>
-          <h2 className="font-heading text-5xl md:text-7xl mb-6 bg-gradient-to-r from-mystic-gold via-mystic-white to-mystic-gold bg-clip-text text-transparent tracking-wide">
+          <h2 className="font-heading text-4xl md:text-5xl mb-4 bg-gradient-to-r from-teal-500 via-cyan-500 to-teal-500 bg-clip-text text-transparent">
             Pendulum Dowsing
           </h2>
-          <p className="text-muted-foreground text-xl max-w-2xl mx-auto font-light">
-            Seek divine guidance through the ancient art of pendulum divination
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+            Seek guidance from the ancient art of pendulum divination
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          {/* Question Selection Card */}
+        <div className="grid md:grid-cols-2 gap-8 items-center">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
           >
-            <Card className="p-10 backdrop-blur-xl bg-card/40 border-mystic-gold/30 shadow-mystic">
-              <div className="space-y-8">
+            <Card className="p-8 backdrop-blur-sm bg-card/50 border-teal-500/20">
+              <div className="space-y-6">
                 <div>
-                  <label className="text-lg font-heading mb-4 block flex items-center gap-3 text-mystic-gold">
-                    <HelpCircle className="w-5 h-5" />
-                    Choose Your Sacred Question
+                  <label className="text-sm font-medium mb-3 block flex items-center gap-2">
+                    <HelpCircle className="w-4 h-4" />
+                    Choose Your Question
                   </label>
-                  <div className="space-y-3">
+                  <div className="space-y-2">
                     {questions.map((q) => (
-                      <motion.button
+                      <button
                         key={q}
                         onClick={() => setSelectedQuestion(q)}
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                        className={`w-full text-left p-4 rounded-xl transition-all duration-300 ${
+                        className={`w-full text-left p-3 rounded-lg transition-all ${
                           selectedQuestion === q
-                            ? 'bg-mystic-gold/20 border-2 border-mystic-gold/60 shadow-gold'
-                            : 'bg-muted/30 border border-mystic-purple/20 hover:bg-muted/50 hover:border-mystic-gold/30'
+                            ? 'bg-teal-500/20 border-teal-500/50 border'
+                            : 'bg-muted/30 hover:bg-muted/50'
                         }`}
                       >
-                        <span className="font-light">{q}</span>
-                      </motion.button>
+                        {q}
+                      </button>
                     ))}
                   </div>
                 </div>
@@ -114,35 +95,22 @@ export const PendulumDowsing = () => {
                 <Button
                   onClick={swingPendulum}
                   disabled={isSwinging || !selectedQuestion}
-                  className="w-full bg-gradient-to-r from-mystic-gold to-mystic-purple hover:from-mystic-purple hover:to-mystic-gold text-lg py-8 font-heading tracking-wider shadow-gold transition-all duration-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full bg-gradient-to-r from-teal-500 to-cyan-500 text-lg py-6"
                 >
-                  {isSwinging ? 'Consulting the Divine...' : 'Consult Sacred Pendulum'}
+                  {isSwinging ? 'Pendulum Swinging...' : 'Consult Pendulum'}
                 </Button>
 
                 <AnimatePresence mode="wait">
                   {answer && (
                     <motion.div
                       key={answer.text}
-                      initial={{ opacity: 0, scale: 0.8, y: 20 }}
-                      animate={{ opacity: 1, scale: 1, y: 0 }}
-                      exit={{ opacity: 0, scale: 0.8, y: -20 }}
-                      transition={{ duration: 0.6 }}
-                      className={`p-8 bg-gradient-to-br ${answer.color} bg-opacity-20 rounded-2xl border-2 border-current/40 text-center shadow-divine backdrop-blur-sm`}
-                      style={{
-                        boxShadow: `0 0 40px ${answer.glow}40`,
-                      }}
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.8 }}
+                      className={`p-6 bg-gradient-to-br ${answer.color} bg-opacity-10 rounded-xl border border-current/20 text-center`}
                     >
-                      <motion.h3
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        transition={{ delay: 0.2, type: "spring" }}
-                        className="font-heading text-4xl mb-4 tracking-wide"
-                      >
-                        {answer.text}
-                      </motion.h3>
-                      <p className="text-sm text-muted-foreground font-light">
-                        Your question: <span className="italic">"{selectedQuestion}"</span>
-                      </p>
+                      <h3 className="font-heading text-3xl mb-2">{answer.text}</h3>
+                      <p className="text-sm text-muted-foreground">Your question: {selectedQuestion}</p>
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -150,87 +118,28 @@ export const PendulumDowsing = () => {
             </Card>
           </motion.div>
 
-          {/* Pendulum Visualization */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
             className="relative"
           >
             <div className="relative">
-              {/* Sacred Sigil Board Background */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <motion.div
-                  animate={isSwinging ? {
-                    rotate: [0, 360],
-                    scale: [1, 1.1, 1],
-                  } : {}}
-                  transition={{ duration: 10, repeat: isSwinging ? Infinity : 0 }}
-                  className="w-96 h-96 rounded-full border-4 border-mystic-gold/20"
-                >
-                  {/* Directional markers */}
-                  <div className="absolute top-4 left-1/2 -translate-x-1/2 text-mystic-gold font-heading text-sm">YES</div>
-                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-mystic-gold font-heading text-sm">NO</div>
-                  <div className="absolute left-4 top-1/2 -translate-y-1/2 text-mystic-gold font-heading text-sm">MAYBE</div>
-                  <div className="absolute right-4 top-1/2 -translate-y-1/2 text-mystic-gold font-heading text-sm">ASK AGAIN</div>
-                  
-                  {/* Inner sacred circle */}
-                  <div className="absolute inset-12 rounded-full border-2 border-mystic-purple/30" />
-                  <div className="absolute inset-24 rounded-full border border-mystic-gold/20" />
-                </motion.div>
-              </div>
-
-              {/* Main Image */}
               <img 
                 src={pendulumImg} 
                 alt="Pendulum Dowsing" 
-                className="rounded-2xl shadow-mystic w-full h-auto relative z-10"
+                className="rounded-2xl shadow-2xl w-full h-auto"
               />
-
-              {/* Animated Pendulum */}
-              <div className="absolute top-16 left-1/2 -translate-x-1/2 z-20">
-                <motion.div
-                  animate={isSwinging ? {
-                    rotate: [0, answer?.angle || 20, 0, -(answer?.angle || 20), 0],
-                  } : {}}
-                  transition={{ 
-                    duration: 1.8, 
-                    repeat: isSwinging ? Infinity : 0,
-                    ease: "easeInOut",
-                  }}
-                  className="w-1 h-40 bg-gradient-to-b from-mystic-gold/80 to-transparent origin-top relative"
-                  style={{ transformOrigin: 'top center' }}
-                >
-                  {/* Pendulum bob */}
-                  <motion.div
-                    animate={isSwinging ? {
-                      boxShadow: [
-                        `0 0 20px ${answer?.glow || 'hsl(43 74% 52%)'}60`,
-                        `0 0 40px ${answer?.glow || 'hsl(43 74% 52%)'}90`,
-                        `0 0 20px ${answer?.glow || 'hsl(43 74% 52%)'}60`,
-                      ],
-                    } : {}}
-                    transition={{ duration: 1, repeat: isSwinging ? Infinity : 0 }}
-                    className="absolute bottom-0 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-gradient-to-br from-mystic-gold to-mystic-purple shadow-gold"
-                  />
-                </motion.div>
-              </div>
-
-              {/* Sacred pulse aura during swing */}
-              {isSwinging && (
-                <motion.div
-                  className="absolute inset-0 rounded-2xl"
-                  animate={{
-                    boxShadow: [
-                      '0 0 40px hsl(43 74% 52% / 0.3)',
-                      '0 0 80px hsl(267 55% 26% / 0.5)',
-                      '0 0 40px hsl(43 74% 52% / 0.3)',
-                    ],
-                  }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                />
-              )}
+              <motion.div
+                animate={isSwinging ? {
+                  rotate: [0, answer?.angle || 15, 0, -(answer?.angle || 15), 0],
+                } : {}}
+                transition={{ duration: 1.5, repeat: isSwinging ? Infinity : 0 }}
+                className="absolute top-8 left-1/2 w-1 h-32 bg-gradient-to-b from-teal-500 to-transparent origin-top"
+                style={{ transformOrigin: 'top center' }}
+              >
+                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-6 rounded-full bg-gradient-to-br from-teal-400 to-cyan-600 shadow-lg shadow-teal-500/50" />
+              </motion.div>
             </div>
           </motion.div>
         </div>

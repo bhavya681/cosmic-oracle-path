@@ -34,7 +34,7 @@ export const ChineseAstrology = () => {
   };
 
   return (
-    <section className="relative py-32 px-4 overflow-hidden bg-gradient-divine">
+    <section className="relative py-24 px-4 overflow-hidden bg-gradient-to-b from-background via-background/95 to-background">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-red-900/20 via-background to-background" />
       
       <motion.div
@@ -52,10 +52,10 @@ export const ChineseAstrology = () => {
           >
             <Sparkles className="w-12 h-12 text-red-500 mx-auto" />
           </motion.div>
-          <h2 className="font-heading text-5xl md:text-7xl mb-6 bg-gradient-to-r from-mystic-gold via-mystic-white to-mystic-gold bg-clip-text text-transparent tracking-wide">
-            Chinese Astrology
+          <h2 className="font-heading text-4xl md:text-5xl mb-4 bg-gradient-to-r from-red-500 via-yellow-500 to-red-500 bg-clip-text text-transparent">
+            Chinese Astrology & Face Reading
           </h2>
-          <p className="text-muted-foreground text-xl max-w-2xl mx-auto font-light">
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             Discover your Chinese zodiac animal and the ancient wisdom of your birth year
           </p>
         </div>

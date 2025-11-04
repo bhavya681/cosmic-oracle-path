@@ -34,7 +34,7 @@ export const KabbalahDivination = () => {
   };
 
   return (
-    <section className="relative py-32 px-4 overflow-hidden bg-gradient-divine">
+    <section className="relative py-24 px-4 overflow-hidden bg-gradient-to-b from-background via-violet-950/10 to-background">
       <div className="absolute inset-0">
         {[...Array(10)].map((_, i) => (
           <motion.div
@@ -76,11 +76,11 @@ export const KabbalahDivination = () => {
           >
             <Star className="w-12 h-12 text-violet-500 mx-auto fill-violet-500/20" />
           </motion.div>
-          <h2 className="font-heading text-5xl md:text-7xl mb-6 bg-gradient-to-r from-mystic-gold via-mystic-white to-mystic-gold bg-clip-text text-transparent tracking-wide">
+          <h2 className="font-heading text-4xl md:text-5xl mb-4 bg-gradient-to-r from-violet-500 via-purple-500 to-violet-500 bg-clip-text text-transparent">
             Kabbalistic Divination
           </h2>
-          <p className="text-muted-foreground text-xl max-w-2xl mx-auto font-light">
-            Receive sacred wisdom from the mystical Tree of Life
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+            Receive mystical wisdom from the Tree of Life
           </p>
         </div>
 

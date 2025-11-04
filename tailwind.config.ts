@@ -47,13 +47,12 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        mystic: {
-          midnight: "hsl(var(--midnight-blue))",
-          purple: "hsl(var(--royal-purple))",
-          gold: "hsl(var(--metallic-gold))",
-          white: "hsl(var(--crystal-white))",
-          deep: "hsl(var(--deep-mystic))",
-          glow: "hsl(var(--mystic-glow))",
+        cosmic: {
+          purple: "hsl(var(--cosmic-purple))",
+          lavender: "hsl(var(--lavender-glow))",
+          rose: "hsl(var(--rose-gold))",
+          teal: "hsl(var(--celestial-teal))",
+          indigo: "hsl(var(--deep-indigo))",
         },
       },
       borderRadius: {
@@ -62,19 +61,17 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        heading: ['Cinzel Decorative', 'serif'],
+        heading: ['Playfair Display', 'serif'],
         body: ['Inter', 'sans-serif'],
       },
       backgroundImage: {
-        'gradient-mystic': 'var(--gradient-mystic)',
-        'gradient-gold': 'var(--gradient-gold)',
-        'gradient-sacred': 'var(--gradient-sacred)',
-        'gradient-divine': 'var(--gradient-divine)',
+        'gradient-cosmic': 'var(--gradient-cosmic)',
+        'gradient-galaxy': 'var(--gradient-galaxy)',
+        'gradient-glow': 'var(--gradient-glow)',
       },
       boxShadow: {
-        'gold': 'var(--shadow-gold)',
-        'mystic': 'var(--shadow-mystic)',
-        'divine': 'var(--shadow-divine)',
+        'glow': 'var(--shadow-glow)',
+        'cosmic': 'var(--shadow-cosmic)',
       },
       keyframes: {
         "accordion-down": {
@@ -109,23 +106,6 @@ export default {
           '0%': { opacity: '0', transform: 'scale(0.9)' },
           '100%': { opacity: '1', transform: 'scale(1)' },
         },
-        "mystic-glow": {
-          '0%, 100%': { boxShadow: '0 0 20px hsl(43 74% 52% / 0.3)' },
-          '50%': { boxShadow: '0 0 60px hsl(43 74% 52% / 0.8)' },
-        },
-        "sacred-pulse": {
-          '0%, 100%': { opacity: '0.5', transform: 'scale(1)' },
-          '50%': { opacity: '1', transform: 'scale(1.1)' },
-        },
-        "particle-rise": {
-          '0%': { opacity: '0', transform: 'translateY(20px)' },
-          '50%': { opacity: '1' },
-          '100%': { opacity: '0', transform: 'translateY(-50px)' },
-        },
-        "orbit": {
-          '0%': { transform: 'rotate(0deg) translateX(100px) rotate(0deg)' },
-          '100%': { transform: 'rotate(360deg) translateX(100px) rotate(-360deg)' },
-        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -136,10 +116,6 @@ export default {
         "rotate-slow": "rotate-slow 30s linear infinite",
         "fade-in": "fade-in 0.6s ease-out",
         "scale-in": "scale-in 0.5s ease-out",
-        "mystic-glow": "mystic-glow 3s ease-in-out infinite",
-        "sacred-pulse": "sacred-pulse 2s ease-in-out infinite",
-        "particle-rise": "particle-rise 4s ease-in-out infinite",
-        "orbit": "orbit 20s linear infinite",
       },
     },
   },

@@ -116,102 +116,62 @@ export const CrystalBallScrying = () => {
                 viewport={{ once: true }}
                 className="relative flex items-center justify-center min-h-[400px]"
               >
-                <div className="relative w-80 h-80">
-                  {/* Multi-layered Glow Aura */}
+                <div className="relative w-72 h-72">
+                  {/* Outer Glow Aura */}
                   <motion.div
                     animate={isScrying ? {
-                      scale: [1, 1.4, 1],
-                      opacity: [0.2, 0.5, 0.2],
-                    } : { scale: 1, opacity: 0.2 }}
-                    transition={{ duration: 4, repeat: isScrying ? Infinity : 0 }}
-                    className="absolute -inset-8 rounded-full bg-gradient-to-r from-indigo-500/30 via-purple-500/30 to-blue-500/30 blur-[60px]"
-                  />
-                  <motion.div
-                    animate={isScrying ? {
-                      scale: [1, 1.2, 1],
-                      opacity: [0.3, 0.7, 0.3],
+                      scale: [1, 1.3, 1],
+                      opacity: [0.3, 0.6, 0.3],
                     } : { scale: 1, opacity: 0.3 }}
-                    transition={{ duration: 3, repeat: isScrying ? Infinity : 0, delay: 0.5 }}
-                    className="absolute -inset-4 rounded-full bg-mystic-gold/20 blur-[40px]"
+                    transition={{ duration: 3, repeat: isScrying ? Infinity : 0 }}
+                    className="absolute inset-0 rounded-full bg-gradient-oracle blur-3xl"
                   />
                   
-                  {/* Crystal Ball Sphere with Advanced Glass Effect */}
-                  <div className="absolute inset-4 rounded-full overflow-hidden shadow-[0_20px_80px_rgba(0,0,0,0.9),inset_0_0_60px_rgba(255,255,255,0.1)]">
-                    {/* Outer Glass Layer with Gradient */}
-                    <div className="absolute inset-0 rounded-full bg-gradient-to-br from-blue-900/60 via-indigo-950/80 to-black/95 backdrop-blur-xl border border-white/10" />
+                  {/* Crystal Ball Sphere */}
+                  <div className="absolute inset-8 rounded-full overflow-hidden shadow-aura">
+                    {/* Glass Effect Base */}
+                    <div className="absolute inset-0 rounded-full bg-gradient-to-b from-indigo-900/40 via-purple-800/60 to-black/80 backdrop-blur-sm" />
                     
-                    {/* Inner Atmospheric Depth Layers */}
+                    {/* Inner Swirling Mist */}
                     <motion.div
-                      animate={{ 
-                        rotate: 360,
-                        scale: [1, 1.05, 1]
-                      }}
-                      transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-                      className="absolute inset-0 rounded-full opacity-40"
-                    >
-                      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_30%,rgba(147,112,219,0.4)_0%,transparent_50%)]" />
-                      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_60%,rgba(99,102,241,0.3)_0%,transparent_60%)]" />
-                    </motion.div>
-
-                    {/* Swirling Mystic Smoke/Mist */}
-                    <motion.div
-                      animate={{ rotate: -360 }}
-                      transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-                      className="absolute inset-6 rounded-full"
-                    >
-                      <div className="absolute inset-0 bg-gradient-to-tr from-purple-600/30 via-transparent to-blue-500/20 blur-2xl" />
-                    </motion.div>
-                    <motion.div
-                      animate={{ 
-                        rotate: 360,
-                        opacity: [0.3, 0.6, 0.3]
-                      }}
+                      animate={{ rotate: 360 }}
                       transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                      className="absolute inset-8 rounded-full bg-gradient-crystal blur-xl"
-                    />
+                      className="absolute inset-0 rounded-full opacity-50"
+                    >
+                      <div className="absolute inset-0 bg-gradient-crystal animate-swirl" />
+                    </motion.div>
 
-                    {/* Central Glowing Core */}
+                    {/* Breathing Inner Light */}
                     <motion.div
                       animate={{ 
-                        scale: [1, 1.2, 1],
-                        opacity: [0.5, 0.8, 0.5]
+                        scale: [1, 1.15, 1],
+                        opacity: [0.4, 0.7, 0.4]
                       }}
-                      transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                      className="absolute inset-[30%] rounded-full bg-[radial-gradient(circle,rgba(212,175,55,0.5)_0%,rgba(147,112,219,0.3)_40%,transparent_70%)] blur-md"
+                      transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+                      className="absolute inset-12 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.4)_0%,rgba(147,112,219,0.2)_50%,transparent_80%)]"
                     />
 
-                    {/* Glass Highlight - Top Left */}
-                    <div className="absolute top-6 left-6 w-24 h-24 rounded-full bg-gradient-to-br from-white/50 via-white/20 to-transparent blur-2xl" />
-                    <div className="absolute top-8 left-8 w-16 h-16 rounded-full bg-white/60 blur-lg" />
+                    {/* Light Refraction Highlight */}
+                    <div className="absolute top-8 left-8 w-20 h-20 rounded-full bg-white/30 blur-xl" />
+                    <div className="absolute top-12 left-12 w-12 h-12 rounded-full bg-white/50 blur-md" />
 
-                    {/* Glass Shadow - Bottom Right */}
-                    <div className="absolute bottom-4 right-4 w-32 h-32 rounded-full bg-black/40 blur-3xl" />
-
-                    {/* Scrying Active Pulse Effect */}
+                    {/* Scrying Active Effect */}
                     {isScrying && (
-                      <>
-                        <motion.div
-                          className="absolute inset-0 rounded-full"
-                          animate={{
-                            background: [
-                              'radial-gradient(circle, rgba(212, 175, 55, 0.6) 0%, transparent 50%)',
-                              'radial-gradient(circle, rgba(147, 112, 219, 0.6) 0%, transparent 50%)',
-                              'radial-gradient(circle, rgba(99, 102, 241, 0.6) 0%, transparent 50%)',
-                              'radial-gradient(circle, rgba(212, 175, 55, 0.6) 0%, transparent 50%)',
-                            ],
-                          }}
-                          transition={{ duration: 3, repeat: Infinity }}
-                        />
-                        <motion.div
-                          animate={{ scale: [0.8, 1.2, 0.8], opacity: [0, 0.6, 0] }}
-                          transition={{ duration: 2, repeat: Infinity }}
-                          className="absolute inset-0 rounded-full border-2 border-mystic-gold/50"
-                        />
-                      </>
+                      <motion.div
+                        className="absolute inset-0 rounded-full"
+                        animate={{
+                          background: [
+                            'radial-gradient(circle, rgba(212, 175, 55, 0.5) 0%, transparent 60%)',
+                            'radial-gradient(circle, rgba(147, 112, 219, 0.5) 0%, transparent 60%)',
+                            'radial-gradient(circle, rgba(212, 175, 55, 0.5) 0%, transparent 60%)',
+                          ],
+                        }}
+                        transition={{ duration: 2, repeat: Infinity }}
+                      />
                     )}
                   </div>
 
-                  {/* Orbiting Mystical Runes */}
+                  {/* Orbiting Runes (appears after vision) */}
                   {vision && !isScrying && (
                     <>
                       {runeSymbols.map((rune, index) => (
@@ -220,39 +180,22 @@ export const CrystalBallScrying = () => {
                           initial={{ opacity: 0, scale: 0 }}
                           animate={{ 
                             opacity: [0, 1, 1],
-                            scale: [0, 1.2, 1],
+                            scale: [0, 1, 1],
                           }}
-                          transition={{ delay: index * 0.15, duration: 0.5 }}
-                          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+                          transition={{ delay: index * 0.2, duration: 0.6 }}
+                          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
                           style={{ 
-                            animation: `orbit ${10 + index * 2}s linear infinite`,
-                            animationDelay: `${index * 1.2}s`
+                            animation: `orbit ${12 + index}s linear infinite`,
+                            animationDelay: `${index * 1.5}s`
                           }}
                         >
-                          <motion.span 
-                            animate={{ rotate: 360 }}
-                            transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-                            className="text-4xl text-mystic-gold drop-shadow-[0_0_12px_rgba(212,175,55,0.8)] font-bold filter blur-[0.5px]"
-                          >
+                          <span className="text-3xl text-mystic-gold drop-shadow-divine">
                             {rune}
-                          </motion.span>
+                          </span>
                         </motion.div>
                       ))}
                     </>
                   )}
-
-                  {/* Marble/Crystal Base Stand */}
-                  <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-32 h-8">
-                    <div className="w-full h-full bg-gradient-to-b from-gray-700 via-gray-800 to-gray-900 rounded-[50%] shadow-[0_8px_20px_rgba(0,0,0,0.7)]" />
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent rounded-[50%]" />
-                  </div>
-                  
-                  {/* Floor Reflection */}
-                  <motion.div
-                    animate={isScrying ? { opacity: [0.1, 0.3, 0.1] } : { opacity: 0.15 }}
-                    transition={{ duration: 3, repeat: Infinity }}
-                    className="absolute -bottom-12 left-1/2 -translate-x-1/2 w-64 h-24 bg-gradient-radial from-indigo-900/20 via-purple-900/10 to-transparent rounded-full blur-2xl"
-                  />
                 </div>
               </motion.div>
 

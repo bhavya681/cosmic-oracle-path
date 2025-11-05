@@ -140,162 +140,87 @@ export const PendulumDowsing = () => {
             viewport={{ once: true }}
             className="relative flex items-center justify-center"
           >
-            <div className="relative w-96 h-[500px] flex items-center justify-center">
-              {/* Sacred Sigil Board */}
-              <div className="absolute bottom-12 w-72 h-72">
-                {/* Outer Glow Ring */}
+            <div className="relative w-80 h-96 flex items-center justify-center">
+              {/* Sacred Circle Board */}
+              <div className="absolute bottom-8 w-64 h-64 rounded-full border-2 border-mystic-gold/40 shadow-[0_0_40px_rgba(212,175,55,0.3)]">
+                {/* Directional Markers */}
                 <motion.div
-                  animate={answer ? { 
-                    boxShadow: [
-                      '0 0 30px rgba(212,175,55,0.3)',
-                      '0 0 60px rgba(212,175,55,0.6)',
-                      '0 0 30px rgba(212,175,55,0.3)'
-                    ]
-                  } : {}}
+                  animate={answer ? { opacity: [0.3, 0.8, 0.3] } : { opacity: 0.3 }}
                   transition={{ duration: 2, repeat: Infinity }}
-                  className="absolute inset-0 rounded-full border-2 border-mystic-gold/40 shadow-[0_0_40px_rgba(212,175,55,0.3)]"
-                />
-                
-                {/* Inner Sacred Geometry */}
-                <div className="absolute inset-0 rounded-full bg-gradient-to-br from-cyan-950/20 via-transparent to-mystic-purple/20" />
-                <div className="absolute inset-8 rounded-full border border-mystic-gold/30" />
-                <div className="absolute inset-16 rounded-full border border-mystic-gold/20" />
-                <div className="absolute inset-24 rounded-full border border-mystic-gold/10" />
-
-                {/* Directional Answer Labels */}
-                <motion.div
-                  animate={answer ? { opacity: [0.4, 1, 0.4] } : { opacity: 0.4 }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                  className="absolute inset-0"
+                  className="absolute inset-0 rounded-full"
                 >
-                  <div className="absolute top-2 left-1/2 -translate-x-1/2 px-4 py-1 bg-green-500/20 rounded-full border border-green-400/50">
-                    <span className="text-green-300 text-sm font-bold tracking-wide">YES</span>
-                  </div>
-                  <div className="absolute bottom-2 left-1/2 -translate-x-1/2 px-4 py-1 bg-red-500/20 rounded-full border border-red-400/50">
-                    <span className="text-red-300 text-sm font-bold tracking-wide">NO</span>
-                  </div>
-                  <div className="absolute top-1/2 left-2 -translate-y-1/2 px-4 py-1 bg-yellow-500/20 rounded-full border border-yellow-400/50">
-                    <span className="text-yellow-300 text-sm font-bold tracking-wide">MAYBE</span>
-                  </div>
-                  <div className="absolute top-1/2 right-2 -translate-y-1/2 px-4 py-1 bg-purple-500/20 rounded-full border border-purple-400/50">
-                    <span className="text-purple-300 text-sm font-bold tracking-wide">UNCLEAR</span>
-                  </div>
+                  <div className="absolute top-4 left-1/2 -translate-x-1/2 text-green-400 text-sm font-semibold">Yes</div>
+                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-red-400 text-sm font-semibold">No</div>
+                  <div className="absolute top-1/2 left-4 -translate-y-1/2 text-yellow-400 text-sm font-semibold">Maybe</div>
+                  <div className="absolute top-1/2 right-4 -translate-y-1/2 text-purple-400 text-sm font-semibold">Ask Again</div>
                 </motion.div>
                 
-                {/* Center Point */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-mystic-gold shadow-divine animate-glow-pulse" />
+                {/* Sacred Geometry Pattern */}
+                <div className="absolute inset-8 rounded-full border border-mystic-gold/20" />
+                <div className="absolute inset-16 rounded-full border border-mystic-gold/10" />
+                
+                {/* Center Dot */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-mystic-gold shadow-divine" />
               </div>
 
               {/* Pendulum Assembly */}
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 flex flex-col items-center" style={{ transformStyle: 'preserve-3d' }}>
-                {/* Suspension Fixture */}
-                <div className="relative w-8 h-6 mb-1">
-                  <div className="absolute inset-0 bg-gradient-to-b from-gray-600 via-gray-700 to-gray-800 rounded-t-lg shadow-lg" />
-                  <div className="absolute top-1 left-1 right-1 h-2 bg-gradient-to-r from-transparent via-white/30 to-transparent rounded-t-lg" />
-                  <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-mystic-gold shadow-divine" />
-                </div>
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1 h-40 flex flex-col items-center">
+                {/* Suspension Point */}
+                <div className="w-4 h-4 rounded-full bg-mystic-gold/80 shadow-divine mb-2" />
                 
-                {/* Chain/Thread with Realistic Physics */}
+                {/* Pendulum Chain/String */}
                 <motion.div
                   animate={isSwinging ? {
-                    rotate: [0, answer?.angle || 22, 0, -(answer?.angle || 22), 0],
+                    rotate: [0, answer?.angle || 20, 0, -(answer?.angle || 20), 0],
                   } : {}}
                   transition={{ 
-                    duration: 2.2,
+                    duration: 2, 
                     repeat: isSwinging ? Infinity : 0,
-                    ease: [0.45, 0.05, 0.55, 0.95] // Realistic pendulum easing
+                    ease: "easeInOut"
                   }}
-                  className="relative"
-                  style={{ 
-                    transformOrigin: 'top center',
-                    height: '180px'
-                  }}
+                  className="w-0.5 h-32 bg-gradient-to-b from-gray-300 to-gray-600 origin-top"
+                  style={{ transformOrigin: 'top center' }}
                 >
-                  {/* Metal Chain Links */}
-                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-0.5 h-full bg-gradient-to-b from-gray-400 via-gray-500 to-gray-700">
-                    {/* Chain highlight */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent w-full" />
-                  </div>
-
-                  {/* Crystal Pendulum Bob */}
+                  {/* Pendulum Bob (Crystal) */}
                   <motion.div
                     animate={isSwinging ? {
                       boxShadow: [
-                        '0 6px 25px rgba(212, 175, 55, 0.4), 0 0 15px rgba(212, 175, 55, 0.3)',
-                        '0 8px 35px rgba(212, 175, 55, 0.7), 0 0 25px rgba(212, 175, 55, 0.5)',
-                        '0 6px 25px rgba(212, 175, 55, 0.4), 0 0 15px rgba(212, 175, 55, 0.3)',
+                        '0 4px 20px rgba(212, 175, 55, 0.4)',
+                        '0 4px 40px rgba(212, 175, 55, 0.7)',
+                        '0 4px 20px rgba(212, 175, 55, 0.4)',
                       ],
                     } : {}}
                     transition={{ duration: 1.5, repeat: isSwinging ? Infinity : 0 }}
-                    className="absolute -bottom-3 left-1/2 -translate-x-1/2"
+                    className="absolute -bottom-2 left-1/2 -translate-x-1/2"
                   >
-                    {/* Diamond Crystal Shape */}
-                    <div className="relative w-10 h-14">
-                      {/* Main Crystal Body */}
-                      <div className="absolute inset-0 bg-gradient-to-br from-yellow-200 via-mystic-gold to-amber-700 shadow-[0_8px_30px_rgba(212,175,55,0.6)]" 
-                           style={{ 
-                             clipPath: 'polygon(50% 0%, 100% 30%, 100% 70%, 50% 100%, 0% 70%, 0% 30%)'
-                           }} 
-                      />
-                      
-                      {/* Crystal Facets & Reflections */}
-                      <div className="absolute inset-1 bg-gradient-to-br from-white/70 via-yellow-100/40 to-transparent"
-                           style={{ 
-                             clipPath: 'polygon(50% 5%, 95% 32%, 95% 68%, 50% 95%, 5% 68%, 5% 32%)'
-                           }}
-                      />
-                      <div className="absolute top-2 left-2 w-4 h-4 bg-white/80 blur-sm rounded-full" />
-                      <div className="absolute top-1 right-2 w-2 h-3 bg-white/60 blur-[2px]" />
-                      
-                      {/* Inner Glow */}
-                      <motion.div
-                        animate={{ opacity: [0.4, 0.8, 0.4] }}
-                        transition={{ duration: 2, repeat: Infinity }}
-                        className="absolute inset-2 bg-mystic-gold/40 blur-md"
-                        style={{ 
-                          clipPath: 'polygon(50% 10%, 90% 35%, 90% 65%, 50% 90%, 10% 65%, 10% 35%)'
-                        }}
-                      />
+                    <div className="w-8 h-10 bg-gradient-to-br from-mystic-gold via-yellow-300 to-amber-600 clip-path-diamond shadow-divine">
+                      {/* Crystal Facets */}
+                      <div className="absolute inset-1 bg-gradient-to-br from-white/40 to-transparent" />
+                      <div className="absolute top-1 left-1 w-3 h-3 bg-white/60 blur-sm rounded-full" />
                     </div>
                   </motion.div>
-
-                  {/* Motion Blur Trail Effect */}
-                  {isSwinging && (
-                    <motion.div
-                      animate={{
-                        opacity: [0, 0.3, 0],
-                        scaleX: [1, 1.5, 1]
-                      }}
-                      transition={{ duration: 1, repeat: Infinity }}
-                      className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-12 h-16 bg-mystic-gold/20 blur-xl"
-                      style={{ 
-                        clipPath: 'polygon(50% 0%, 100% 30%, 100% 70%, 50% 100%, 0% 70%, 0% 30%)'
-                      }}
-                    />
-                  )}
                 </motion.div>
 
-                {/* Shadow Projection */}
+                {/* Reflection Shadow */}
                 <motion.div
                   animate={isSwinging ? {
-                    opacity: [0.15, 0.35, 0.15],
-                    scale: [1, 1.15, 1],
-                    x: answer ? [0, (answer.angle || 20), 0, -(answer.angle || 20), 0] : 0
+                    opacity: [0.2, 0.4, 0.2],
+                    scale: [1, 1.1, 1],
                   } : { opacity: 0.2 }}
-                  transition={{ duration: 2.2, repeat: isSwinging ? Infinity : 0 }}
-                  className="absolute bottom-[-200px] w-20 h-10 bg-black/30 rounded-full blur-xl"
+                  transition={{ duration: 2, repeat: isSwinging ? Infinity : 0 }}
+                  className="absolute bottom-[-140px] w-16 h-8 bg-black/20 rounded-full blur-lg"
                 />
               </div>
 
-              {/* Answer Revelation */}
+              {/* Answer Glow Effect */}
               {answer && !isSwinging && (
                 <motion.div
-                  initial={{ opacity: 0, scale: 0.8, y: 20 }}
-                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                  className="absolute bottom-0 left-1/2 -translate-x-1/2"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="absolute bottom-4 left-1/2 -translate-x-1/2"
                 >
-                  <div className={`px-8 py-4 rounded-2xl bg-gradient-to-r ${answer.color} shadow-[0_0_40px_rgba(212,175,55,0.6)] backdrop-blur-md border-2 border-white/40`}>
-                    <span className="font-heading text-3xl text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] tracking-wide">{answer.text}</span>
+                  <div className={`px-6 py-3 rounded-full bg-gradient-to-r ${answer.color} shadow-divine backdrop-blur-sm border border-white/30`}>
+                    <span className="font-heading text-2xl text-white drop-shadow-lg">{answer.text}</span>
                   </div>
                 </motion.div>
               )}

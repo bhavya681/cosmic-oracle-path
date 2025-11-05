@@ -20,7 +20,7 @@ export const FengShui = () => {
   const [selectedArea, setSelectedArea] = useState<typeof baguaAreas[0] | null>(null);
 
   return (
-    <section className="relative py-24 px-4 overflow-hidden bg-gradient-to-b from-background via-emerald-950/10 to-background">
+    <section className="relative py-24 px-4 overflow-hidden bg-gradient-sacred">
       <div className="absolute inset-0">
         {[...Array(8)].map((_, i) => (
           <motion.div
@@ -109,7 +109,7 @@ export const FengShui = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
               >
-                <Card className="p-8 backdrop-blur-sm bg-card/50 border-emerald-500/20">
+                <Card className="p-8 backdrop-blur-md bg-card/60 border-emerald-500/30 shadow-mystic">
                   <div className="space-y-6">
                     <div>
                       <h3 className="font-heading text-2xl text-emerald-400 mb-2">
@@ -132,7 +132,7 @@ export const FengShui = () => {
                       </div>
                     </div>
 
-                    <div className="p-6 bg-gradient-to-br from-emerald-500/10 to-green-500/10 rounded-xl border border-emerald-500/20">
+                    <div className="p-6 bg-gradient-to-br from-emerald-500/20 to-mystic-gold/10 rounded-xl border border-emerald-500/30 shadow-divine backdrop-blur-sm">
                       <p className="text-sm font-semibold text-emerald-400 mb-2">Enhancement Tip</p>
                       <p className="text-foreground/90">{selectedArea.tip}</p>
                     </div>

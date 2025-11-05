@@ -47,12 +47,12 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        cosmic: {
-          purple: "hsl(var(--cosmic-purple))",
-          lavender: "hsl(var(--lavender-glow))",
-          rose: "hsl(var(--rose-gold))",
-          teal: "hsl(var(--celestial-teal))",
-          indigo: "hsl(var(--deep-indigo))",
+        mystic: {
+          midnight: "hsl(var(--midnight-blue))",
+          purple: "hsl(var(--royal-purple))",
+          gold: "hsl(var(--metallic-gold))",
+          crystal: "hsl(var(--crystal-white))",
+          violet: "hsl(var(--deep-violet))",
         },
       },
       borderRadius: {
@@ -61,17 +61,19 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        heading: ['Playfair Display', 'serif'],
+        heading: ['Cinzel Decorative', 'serif'],
         body: ['Inter', 'sans-serif'],
       },
       backgroundImage: {
-        'gradient-cosmic': 'var(--gradient-cosmic)',
-        'gradient-galaxy': 'var(--gradient-galaxy)',
-        'gradient-glow': 'var(--gradient-glow)',
+        'gradient-mystic': 'var(--gradient-mystic)',
+        'gradient-sacred': 'var(--gradient-sacred)',
+        'gradient-oracle': 'var(--gradient-oracle)',
+        'gradient-crystal': 'var(--gradient-crystal)',
       },
       boxShadow: {
-        'glow': 'var(--shadow-glow)',
-        'cosmic': 'var(--shadow-cosmic)',
+        'divine': 'var(--shadow-divine)',
+        'mystic': 'var(--shadow-mystic)',
+        'aura': 'var(--shadow-aura)',
       },
       keyframes: {
         "accordion-down": {
@@ -106,6 +108,27 @@ export default {
           '0%': { opacity: '0', transform: 'scale(0.9)' },
           '100%': { opacity: '1', transform: 'scale(1)' },
         },
+        "breathe": {
+          '0%, 100%': { transform: 'scale(1)', opacity: '0.4' },
+          '50%': { transform: 'scale(1.1)', opacity: '0.7' },
+        },
+        "swirl": {
+          '0%': { transform: 'rotate(0deg) scale(1)' },
+          '50%': { transform: 'rotate(180deg) scale(1.05)' },
+          '100%': { transform: 'rotate(360deg) scale(1)' },
+        },
+        "pendulum-swing": {
+          '0%, 100%': { transform: 'rotate(-25deg)' },
+          '50%': { transform: 'rotate(25deg)' },
+        },
+        "glow-pulse": {
+          '0%, 100%': { boxShadow: '0 0 20px rgba(212, 175, 55, 0.3)' },
+          '50%': { boxShadow: '0 0 60px rgba(212, 175, 55, 0.6)' },
+        },
+        "orbit": {
+          '0%': { transform: 'rotate(0deg) translateX(80px) rotate(0deg)' },
+          '100%': { transform: 'rotate(360deg) translateX(80px) rotate(-360deg)' },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -116,6 +139,11 @@ export default {
         "rotate-slow": "rotate-slow 30s linear infinite",
         "fade-in": "fade-in 0.6s ease-out",
         "scale-in": "scale-in 0.5s ease-out",
+        "breathe": "breathe 6s ease-in-out infinite",
+        "swirl": "swirl 20s linear infinite",
+        "pendulum-swing": "pendulum-swing 3s ease-in-out infinite",
+        "glow-pulse": "glow-pulse 3s ease-in-out infinite",
+        "orbit": "orbit 12s linear infinite",
       },
     },
   },

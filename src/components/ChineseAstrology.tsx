@@ -80,7 +80,7 @@ export const ChineseAstrology = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <Card className="p-8 backdrop-blur-sm bg-card/50 border-red-500/20">
+            <Card className="p-8 backdrop-blur-md bg-card/60 border-red-500/30 shadow-mystic">
               <div className="space-y-6">
                 <div>
                   <label className="text-sm font-medium mb-2 block">Enter Your Birth Year</label>
@@ -108,7 +108,7 @@ export const ChineseAstrology = () => {
                       exit={{ opacity: 0, y: -20 }}
                       className="space-y-4"
                     >
-                      <div className="text-center p-6 bg-gradient-to-br from-red-500/10 to-yellow-500/10 rounded-xl border border-red-500/20">
+                      <div className="text-center p-6 bg-gradient-to-br from-red-500/20 to-mystic-gold/10 rounded-xl border border-red-500/30 shadow-divine backdrop-blur-sm">
                         <h3 className="font-heading text-3xl mb-2 text-red-500">
                           {result.animal}
                         </h3>

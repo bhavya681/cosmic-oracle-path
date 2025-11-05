@@ -34,7 +34,7 @@ export const KabbalahDivination = () => {
   };
 
   return (
-    <section className="relative py-24 px-4 overflow-hidden bg-gradient-to-b from-background via-violet-950/10 to-background">
+    <section className="relative py-24 px-4 overflow-hidden bg-gradient-sacred">
       <div className="absolute inset-0">
         {[...Array(10)].map((_, i) => (
           <motion.div
@@ -76,7 +76,7 @@ export const KabbalahDivination = () => {
           >
             <Star className="w-12 h-12 text-violet-500 mx-auto fill-violet-500/20" />
           </motion.div>
-          <h2 className="font-heading text-4xl md:text-5xl mb-4 bg-gradient-to-r from-violet-500 via-purple-500 to-violet-500 bg-clip-text text-transparent">
+          <h2 className="font-heading text-4xl md:text-5xl mb-4 bg-gradient-to-r from-blue-400 via-mystic-gold to-blue-400 bg-clip-text text-transparent">
             Kabbalistic Divination
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
@@ -111,7 +111,7 @@ export const KabbalahDivination = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <Card className="p-8 backdrop-blur-sm bg-card/50 border-violet-500/20">
+            <Card className="p-8 backdrop-blur-md bg-card/60 border-blue-500/30 shadow-mystic">
               <div className="space-y-6">
                 <p className="text-muted-foreground text-center">
                   Focus your intention and connect with the ancient wisdom of Kabbalah. 
@@ -121,7 +121,7 @@ export const KabbalahDivination = () => {
                 <Button
                   onClick={revealSephira}
                   disabled={isRevealing}
-                  className="w-full bg-gradient-to-r from-violet-500 to-purple-500 text-lg py-6"
+                  className="w-full bg-gradient-to-r from-blue-500 to-mystic-gold hover:shadow-divine text-lg py-6 transition-all duration-500"
                 >
                   <Sparkles className={`w-5 h-5 mr-2 ${isRevealing ? 'animate-pulse' : ''}`} />
                   {isRevealing ? 'Revealing Sacred Wisdom...' : 'Reveal Sephira'}
@@ -136,7 +136,7 @@ export const KabbalahDivination = () => {
                       exit={{ opacity: 0, scale: 0.8 }}
                       className="space-y-4"
                     >
-                      <div className="p-6 bg-gradient-to-br from-violet-500/10 to-purple-500/10 rounded-xl border border-violet-500/20 text-center">
+                      <div className="p-6 bg-gradient-to-br from-blue-500/20 to-mystic-gold/10 rounded-xl border border-blue-500/30 shadow-divine backdrop-blur-sm text-center">
                         <div className="text-5xl mb-3">{selectedSephira.hebrew}</div>
                         <h3 className="font-heading text-2xl text-violet-400 mb-2">
                           {selectedSephira.name}

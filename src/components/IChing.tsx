@@ -32,7 +32,7 @@ export const IChing = () => {
   };
 
   return (
-    <section className="relative py-24 px-4 overflow-hidden bg-gradient-to-b from-background via-purple-950/10 to-background">
+    <section className="relative py-24 px-4 overflow-hidden bg-gradient-sacred">
       <div className="absolute inset-0">
         {[...Array(6)].map((_, i) => (
           <motion.div
@@ -71,7 +71,7 @@ export const IChing = () => {
           >
             <Sparkles className="w-12 h-12 text-purple-500 mx-auto" />
           </motion.div>
-          <h2 className="font-heading text-4xl md:text-5xl mb-4 bg-gradient-to-r from-purple-500 via-amber-500 to-purple-500 bg-clip-text text-transparent">
+          <h2 className="font-heading text-4xl md:text-5xl mb-4 bg-gradient-to-r from-mystic-gold via-yellow-300 to-mystic-gold bg-clip-text text-transparent">
             I-Ching Oracle
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
@@ -85,7 +85,7 @@ export const IChing = () => {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
           >
-            <Card className="p-8 backdrop-blur-sm bg-card/50 border-purple-500/20">
+            <Card className="p-8 backdrop-blur-md bg-card/60 border-amber-500/30 shadow-mystic">
               <div className="text-center space-y-6">
                 <img 
                   src={ichingImg} 
@@ -96,7 +96,7 @@ export const IChing = () => {
                 <Button
                   onClick={throwCoins}
                   disabled={isThrowingCoins}
-                  className="w-full bg-gradient-to-r from-purple-500 to-amber-500 text-lg py-6"
+                  className="w-full bg-gradient-to-r from-amber-500 to-mystic-gold hover:shadow-divine text-lg py-6 transition-all duration-500"
                 >
                   <Coins className={`w-5 h-5 mr-2 ${isThrowingCoins ? 'animate-spin' : ''}`} />
                   {isThrowingCoins ? 'Casting Coins...' : 'Cast the Coins'}
@@ -111,7 +111,7 @@ export const IChing = () => {
                       exit={{ opacity: 0, y: -20 }}
                       className="space-y-4"
                     >
-                      <div className="p-6 bg-gradient-to-br from-purple-500/10 to-amber-500/10 rounded-xl border border-purple-500/20">
+                      <div className="p-6 bg-gradient-to-br from-amber-500/20 to-mystic-gold/10 rounded-xl border border-mystic-gold/30 shadow-divine backdrop-blur-sm">
                         <div className="text-6xl mb-2">{hexagram.chinese}</div>
                         <h3 className="font-heading text-2xl text-purple-400 mb-1">
                           Hexagram {hexagram.number}

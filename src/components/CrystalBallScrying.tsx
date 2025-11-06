@@ -109,115 +109,144 @@ export const CrystalBallScrying = () => {
         <div className="max-w-5xl mx-auto">
           <Card className="p-8 md:p-12 backdrop-blur-xl bg-card/40 border-primary/20 shadow-2xl">
             <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
-              {/* 3D Crystal Ball */}
+              {/* Professional 3D Crystal Ball */}
               <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 className="relative flex items-center justify-center min-h-[400px] md:min-h-[500px]"
               >
-                <div className="relative w-full max-w-[320px] aspect-square">
-                  {/* Outer Ethereal Glow - Multiple Layers */}
+                <div className="relative w-full max-w-[380px] aspect-square" style={{ perspective: '1200px' }}>
+                  {/* Ambient Glow Base - Subtle and Professional */}
                   <motion.div
                     animate={isScrying ? {
-                      scale: [1, 1.4, 1],
-                      opacity: [0.2, 0.5, 0.2],
+                      scale: [1, 1.25, 1],
+                      opacity: [0.15, 0.35, 0.15],
+                    } : { scale: 1, opacity: 0.15 }}
+                    transition={{ duration: 5, repeat: isScrying ? Infinity : 0, ease: "easeInOut" }}
+                    className="absolute inset-[-10%] rounded-full bg-gradient-to-r from-indigo-600/30 via-violet-600/30 to-indigo-600/30 blur-[80px]"
+                  />
+                  
+                  {/* Secondary Glow Layer */}
+                  <motion.div
+                    animate={isScrying ? {
+                      scale: [1, 1.15, 1],
+                      opacity: [0.2, 0.4, 0.2],
                     } : { scale: 1, opacity: 0.2 }}
-                    transition={{ duration: 4, repeat: isScrying ? Infinity : 0, ease: "easeInOut" }}
-                    className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-500 via-blue-500 to-purple-500 blur-[60px]"
+                    transition={{ duration: 4, repeat: isScrying ? Infinity : 0, ease: "easeInOut", delay: 0.5 }}
+                    className="absolute inset-[5%] rounded-full bg-gradient-to-br from-blue-500/25 via-purple-500/25 to-pink-500/20 blur-[50px]"
                   />
                   
-                  <motion.div
-                    animate={isScrying ? {
-                      scale: [1, 1.2, 1],
-                      opacity: [0.3, 0.6, 0.3],
-                    } : { scale: 1, opacity: 0.3 }}
-                    transition={{ duration: 3, repeat: isScrying ? Infinity : 0, ease: "easeInOut", delay: 0.5 }}
-                    className="absolute inset-4 rounded-full bg-gradient-to-br from-pink-500 via-purple-500 to-blue-500 blur-[40px]"
-                  />
+                  {/* Wooden/Stone Stand Base */}
+                  <div className="absolute bottom-[8%] left-1/2 -translate-x-1/2 w-[45%] h-[12%] bg-gradient-to-b from-amber-900/80 to-amber-950/90 rounded-[50%] shadow-[0_15px_35px_rgba(0,0,0,0.7)] border-t-2 border-amber-800/40" />
+                  <div className="absolute bottom-[6%] left-1/2 -translate-x-1/2 w-[52%] h-[8%] bg-gradient-to-b from-stone-800 to-stone-900 rounded-[50%] shadow-[0_20px_40px_rgba(0,0,0,0.8)]" style={{ background: 'linear-gradient(to bottom, #1c1917, #0c0a09)' }} />
                   
-                  {/* Crystal Ball Sphere Container */}
-                  <div className="absolute inset-8 rounded-full overflow-hidden shadow-[0_20px_80px_rgba(0,0,0,0.6)]">
-                    {/* Base Glass Sphere with Gradient */}
-                    <div className="absolute inset-0 rounded-full bg-gradient-to-br from-indigo-950/60 via-purple-900/70 to-black/90 backdrop-blur-sm border border-white/5" />
+                  {/* Crystal Ball Glass Sphere - Professional Grade */}
+                  <div className="absolute inset-[10%] rounded-full overflow-visible shadow-[0_30px_90px_rgba(0,0,0,0.7),0_15px_50px_rgba(99,102,241,0.2)]" style={{ transformStyle: 'preserve-3d' }}>
+                    {/* Main Glass Sphere with Realistic Gradient */}
+                    <div className="absolute inset-0 rounded-full bg-gradient-to-br from-slate-900/40 via-indigo-950/70 to-black/95 backdrop-blur-sm border-2 border-white/[0.07] shadow-[inset_0_-20px_60px_rgba(99,102,241,0.15),inset_0_20px_40px_rgba(255,255,255,0.05)]" />
                     
-                    {/* Atmospheric Depth Layers */}
+                    {/* Deep Inner Atmosphere - Smoky Depth */}
                     <motion.div
                       animate={{ 
-                        rotate: 360,
-                        scale: [1, 1.05, 1]
+                        rotate: [0, 360],
+                        scale: [1, 1.03, 1]
                       }}
                       transition={{ 
-                        rotate: { duration: 25, repeat: Infinity, ease: "linear" },
-                        scale: { duration: 8, repeat: Infinity, ease: "easeInOut" }
+                        rotate: { duration: 40, repeat: Infinity, ease: "linear" },
+                        scale: { duration: 10, repeat: Infinity, ease: "easeInOut" }
                       }}
-                      className="absolute inset-0 rounded-full opacity-60"
+                      className="absolute inset-[8%] rounded-full opacity-50"
                     >
-                      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_30%,rgba(147,51,234,0.4)_0%,transparent_50%)]" />
-                      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_70%,rgba(59,130,246,0.3)_0%,transparent_50%)]" />
+                      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_35%_30%,rgba(99,102,241,0.25)_0%,transparent_55%)]" />
+                      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_65%_65%,rgba(139,92,246,0.2)_0%,transparent_50%)]" />
+                      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_50%,rgba(59,130,246,0.15)_0%,transparent_60%)]" />
                     </motion.div>
 
-                    {/* Swirling Cosmic Mist */}
+                    {/* Mystical Smoke/Mist - Multiple Layers */}
                     <motion.div
                       animate={{ rotate: -360 }}
-                      transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-                      className="absolute inset-0 rounded-full opacity-40"
+                      transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
+                      className="absolute inset-[12%] rounded-full opacity-35"
                     >
-                      <div className="absolute inset-0 bg-[conic-gradient(from_0deg,transparent_0deg,rgba(168,85,247,0.4)_90deg,transparent_180deg,rgba(59,130,246,0.4)_270deg,transparent_360deg)]" />
+                      <div className="absolute inset-0 bg-[conic-gradient(from_0deg,transparent_0deg,rgba(139,92,246,0.3)_60deg,transparent_120deg,rgba(99,102,241,0.25)_200deg,transparent_280deg)]" />
                     </motion.div>
 
-                    {/* Pulsing Inner Core */}
+                    <motion.div
+                      animate={{ rotate: 360 }}
+                      transition={{ duration: 35, repeat: Infinity, ease: "linear" }}
+                      className="absolute inset-[15%] rounded-full opacity-30"
+                    >
+                      <div className="absolute inset-0 bg-[conic-gradient(from_90deg,transparent_0deg,rgba(168,85,247,0.25)_90deg,transparent_180deg,rgba(147,51,234,0.2)_270deg,transparent_360deg)]" />
+                    </motion.div>
+
+                    {/* Core Energy Center - Subtle Glow */}
                     <motion.div
                       animate={{ 
-                        scale: [1, 1.2, 1],
-                        opacity: [0.5, 0.8, 0.5]
+                        scale: [1, 1.15, 1],
+                        opacity: [0.4, 0.65, 0.4]
                       }}
-                      transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                      className="absolute inset-[25%] rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.6)_0%,rgba(168,85,247,0.3)_40%,transparent_70%)]"
+                      transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+                      className="absolute inset-[30%] rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.4)_0%,rgba(139,92,246,0.25)_35%,transparent_65%)]"
                     />
 
-                    {/* Light Refraction - Top Highlight */}
-                    <div className="absolute top-[15%] left-[20%] w-[35%] h-[35%] rounded-full bg-white/40 blur-2xl" />
-                    <div className="absolute top-[20%] left-[25%] w-[25%] h-[25%] rounded-full bg-white/60 blur-xl" />
-                    
-                    {/* Secondary Reflection */}
-                    <div className="absolute bottom-[25%] right-[20%] w-[20%] h-[20%] rounded-full bg-purple-300/20 blur-lg" />
+                    {/* Glass Caustics - Light Refraction Effect */}
+                    <motion.div
+                      animate={{ 
+                        rotate: [0, 120, 240, 360],
+                        opacity: [0.3, 0.5, 0.3]
+                      }}
+                      transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+                      className="absolute inset-[10%] rounded-full"
+                    >
+                      <div className="absolute top-[20%] left-[15%] w-[25%] h-[25%] bg-white/20 rounded-full blur-xl" />
+                      <div className="absolute bottom-[30%] right-[20%] w-[18%] h-[18%] bg-blue-300/15 rounded-full blur-lg" />
+                    </motion.div>
 
-                    {/* Scrying Active State - Energy Pulse */}
+                    {/* Primary Light Refraction - Top Highlight (Sun Spot) */}
+                    <div className="absolute top-[18%] left-[25%] w-[30%] h-[30%] rounded-full bg-gradient-radial from-white/70 via-white/40 to-transparent blur-[8px] shadow-[0_0_30px_rgba(255,255,255,0.5)]" />
+                    <div className="absolute top-[22%] left-[28%] w-[20%] h-[20%] rounded-full bg-white/80 blur-[6px]" />
+                    <div className="absolute top-[25%] left-[30%] w-[12%] h-[12%] rounded-full bg-white blur-[3px]" />
+                    
+                    {/* Secondary Reflection - Bottom Right */}
+                    <div className="absolute bottom-[28%] right-[22%] w-[15%] h-[15%] rounded-full bg-purple-200/20 blur-md" />
+                    <div className="absolute bottom-[20%] right-[15%] w-[10%] h-[10%] rounded-full bg-indigo-200/15 blur-sm" />
+
+                    {/* Scrying Active State - Professional Energy Pulse */}
                     {isScrying && (
                       <>
                         <motion.div
                           className="absolute inset-0 rounded-full"
                           animate={{
                             background: [
-                              'radial-gradient(circle, rgba(168,85,247,0.6) 0%, transparent 70%)',
-                              'radial-gradient(circle, rgba(59,130,246,0.6) 0%, transparent 70%)',
-                              'radial-gradient(circle, rgba(236,72,153,0.6) 0%, transparent 70%)',
-                              'radial-gradient(circle, rgba(168,85,247,0.6) 0%, transparent 70%)',
+                              'radial-gradient(circle, rgba(99,102,241,0.4) 0%, transparent 65%)',
+                              'radial-gradient(circle, rgba(139,92,246,0.4) 0%, transparent 65%)',
+                              'radial-gradient(circle, rgba(59,130,246,0.35) 0%, transparent 65%)',
+                              'radial-gradient(circle, rgba(99,102,241,0.4) 0%, transparent 65%)',
                             ],
                           }}
-                          transition={{ duration: 2.5, repeat: Infinity }}
+                          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
                         />
                         
-                        {/* Energy Particles */}
-                        {[...Array(8)].map((_, i) => (
+                        {/* Subtle Energy Particles */}
+                        {[...Array(12)].map((_, i) => (
                           <motion.div
                             key={i}
-                            className="absolute w-1 h-1 bg-white rounded-full"
+                            className="absolute w-1 h-1 bg-white/70 rounded-full shadow-[0_0_4px_rgba(255,255,255,0.8)]"
                             style={{
                               left: '50%',
                               top: '50%',
                             }}
                             animate={{
-                              x: [0, Math.cos(i * Math.PI / 4) * 80],
-                              y: [0, Math.sin(i * Math.PI / 4) * 80],
-                              opacity: [1, 0],
-                              scale: [1, 0.5]
+                              x: [0, Math.cos((i * Math.PI) / 6) * 90],
+                              y: [0, Math.sin((i * Math.PI) / 6) * 90],
+                              opacity: [0.8, 0],
+                              scale: [1, 0.3]
                             }}
                             transition={{
-                              duration: 2,
+                              duration: 2.5,
                               repeat: Infinity,
-                              delay: i * 0.2,
+                              delay: i * 0.15,
                               ease: "easeOut"
                             }}
                           />
@@ -225,8 +254,12 @@ export const CrystalBallScrying = () => {
                       </>
                     )}
                     
-                    {/* Glass Edge Shine */}
-                    <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/10 via-transparent to-transparent" />
+                    {/* Glass Surface Shine - Realistic Edge Lighting */}
+                    <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/[0.12] via-transparent via-40% to-transparent" />
+                    <div className="absolute inset-0 rounded-full bg-gradient-to-tl from-white/[0.08] via-transparent via-60% to-transparent" />
+                    
+                    {/* Bottom Shadow Inside Glass */}
+                    <div className="absolute inset-x-[15%] bottom-[5%] h-[30%] bg-gradient-to-t from-black/30 to-transparent rounded-full blur-sm" />
                   </div>
 
                   {/* Orbiting Mystical Runes */}

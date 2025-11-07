@@ -39,15 +39,15 @@ export const PendulumDowsing = () => {
   };
 
   return (
-    <section className="relative py-24 px-4 overflow-hidden bg-gradient-to-b from-background via-blue-950/10 to-background">
+    <section className="relative py-12 sm:py-16 md:py-20 lg:py-24 px-3 sm:px-4 md:px-6 overflow-hidden bg-gradient-to-b from-background via-purple-950/10 to-background">
       {/* Animated Ethereal Background */}
       <div className="absolute inset-0 opacity-30">
         <motion.div
           animate={{
             background: [
-              'radial-gradient(circle at 30% 40%, hsl(var(--accent) / 0.2) 0%, transparent 60%)',
-              'radial-gradient(circle at 70% 60%, hsl(var(--secondary) / 0.2) 0%, transparent 60%)',
-              'radial-gradient(circle at 30% 40%, hsl(var(--accent) / 0.2) 0%, transparent 60%)',
+              'radial-gradient(circle at 30% 40%, hsl(var(--primary) / 0.2) 0%, transparent 60%)',
+              'radial-gradient(circle at 70% 60%, hsl(var(--mystic-purple) / 0.2) 0%, transparent 60%)',
+              'radial-gradient(circle at 30% 40%, hsl(var(--primary) / 0.2) 0%, transparent 60%)',
             ],
           }}
           transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
@@ -59,35 +59,36 @@ export const PendulumDowsing = () => {
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
-        className="container mx-auto max-w-6xl relative z-10"
+        className="container mx-auto max-w-6xl relative z-10 px-2 sm:px-4"
       >
-        <div className="text-center mb-16">
+        <div className="text-center mb-8 sm:mb-12 md:mb-16">
           <motion.div
             animate={isSwinging ? { rotate: [0, 360] } : {}}
             transition={{ duration: 2, repeat: isSwinging ? Infinity : 0 }}
-            className="inline-block mb-4"
+            className="inline-block mb-3 sm:mb-4"
           >
-            <Circle className="w-12 h-12 text-accent mx-auto drop-shadow-[0_0_20px_hsl(var(--accent)/0.6)]" />
+            <Circle className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-mystic-gold mx-auto drop-shadow-[0_0_20px_hsl(var(--primary)/0.6)]" />
           </motion.div>
-          <h2 className="font-heading text-4xl md:text-5xl mb-4 bg-gradient-to-r from-accent via-primary to-accent bg-clip-text text-transparent">
+          <h2 className="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-3 sm:mb-4 bg-gradient-to-r from-mystic-gold via-mystic-purple to-mystic-gold bg-clip-text text-transparent">
             Pendulum Dowsing
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+          <p className="text-muted-foreground text-sm sm:text-base md:text-lg max-w-2xl mx-auto px-4">
             Seek guidance from the ancient art of pendulum divination
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center max-w-5xl mx-auto">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
+            className="order-2 md:order-1"
           >
-            <Card className="p-8 backdrop-blur-xl bg-card/40 border-accent/20 shadow-2xl">
-              <div className="space-y-6">
+            <Card className="p-4 sm:p-6 md:p-8 backdrop-blur-xl bg-card/40 border-mystic-gold/20 shadow-2xl">
+              <div className="space-y-4 sm:space-y-6">
                 <div>
-                  <label className="text-sm font-medium mb-3 block flex items-center gap-2">
-                    <HelpCircle className="w-4 h-4 text-accent" />
+                  <label className="text-xs sm:text-sm font-medium mb-2 sm:mb-3 block flex items-center gap-2">
+                    <HelpCircle className="w-3 h-3 sm:w-4 sm:h-4 text-mystic-gold" />
                     Choose Your Question
                   </label>
                   <div className="space-y-2">
@@ -95,9 +96,9 @@ export const PendulumDowsing = () => {
                       <button
                         key={q}
                         onClick={() => setSelectedQuestion(q)}
-                        className={`w-full text-left p-3 rounded-lg transition-all duration-300 ${
+                        className={`w-full text-left p-2.5 sm:p-3 rounded-lg transition-all duration-300 text-xs sm:text-sm md:text-base ${
                           selectedQuestion === q
-                            ? 'bg-accent/20 border-accent/50 border shadow-[0_0_20px_hsl(var(--accent)/0.3)]'
+                            ? 'bg-mystic-gold/20 border-mystic-gold/50 border shadow-[0_0_20px_hsl(var(--primary)/0.3)]'
                             : 'bg-muted/30 hover:bg-muted/50 border border-transparent'
                         }`}
                       >
@@ -110,7 +111,7 @@ export const PendulumDowsing = () => {
                 <Button
                   onClick={swingPendulum}
                   disabled={isSwinging || !selectedQuestion}
-                  className="w-full bg-gradient-to-r from-accent to-primary hover:shadow-[0_0_30px_hsl(var(--accent)/0.5)] text-lg py-6 transition-all duration-500"
+                  className="w-full bg-gradient-to-r from-mystic-gold to-mystic-purple hover:shadow-divine text-sm sm:text-base md:text-lg py-4 sm:py-5 md:py-6 transition-all duration-500"
                 >
                   {isSwinging ? 'Pendulum Swinging...' : 'Consult Pendulum'}
                 </Button>
@@ -122,10 +123,10 @@ export const PendulumDowsing = () => {
                       initial={{ opacity: 0, scale: 0.8, y: 20 }}
                       animate={{ opacity: 1, scale: 1, y: 0 }}
                       exit={{ opacity: 0, scale: 0.8, y: -20 }}
-                      className={`p-6 bg-gradient-to-br ${answer.color} bg-opacity-20 rounded-xl border border-current/30 text-center shadow-[0_0_30px_currentColor] backdrop-blur-sm`}
+                      className={`p-4 sm:p-5 md:p-6 bg-gradient-to-br ${answer.color} bg-opacity-20 rounded-xl border border-current/30 text-center shadow-[0_0_30px_currentColor] backdrop-blur-sm`}
                     >
-                      <h3 className="font-heading text-3xl mb-2">{answer.text}</h3>
-                      <p className="text-sm text-muted-foreground">Your question: {selectedQuestion}</p>
+                      <h3 className="font-heading text-xl sm:text-2xl md:text-3xl mb-2">{answer.text}</h3>
+                      <p className="text-xs sm:text-sm text-muted-foreground">Your question: {selectedQuestion}</p>
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -138,11 +139,11 @@ export const PendulumDowsing = () => {
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="relative flex items-center justify-center"
+            className="relative flex items-center justify-center order-1 md:order-2"
           >
-            <div className="relative w-full max-w-[380px] h-[480px] md:h-[540px] flex items-center justify-center" style={{ perspective: '1500px' }}>
+            <div className="relative w-full max-w-[280px] sm:max-w-[320px] md:max-w-[360px] lg:max-w-[380px] h-[400px] sm:h-[450px] md:h-[500px] lg:h-[540px] flex items-center justify-center" style={{ perspective: '1500px' }}>
               {/* Professional Sacred Circle Board */}
-              <div className="absolute bottom-8 w-80 h-80 rounded-full border-[3px] border-indigo-400/50 shadow-[0_0_50px_rgba(99,102,241,0.3),inset_0_0_30px_rgba(99,102,241,0.1)]">
+              <div className="absolute bottom-4 sm:bottom-6 md:bottom-8 w-[260px] h-[260px] sm:w-[300px] sm:h-[300px] md:w-[320px] md:h-[320px] rounded-full border-[2px] sm:border-[3px] border-indigo-400/50 shadow-[0_0_40px_rgba(99,102,241,0.3),inset_0_0_25px_rgba(99,102,241,0.1)]">
                 {/* Ambient Glow Aura */}
                 <motion.div
                   animate={{
@@ -150,7 +151,7 @@ export const PendulumDowsing = () => {
                     opacity: [0.25, 0.4, 0.25]
                   }}
                   transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                  className="absolute -inset-3 rounded-full bg-gradient-to-r from-indigo-500/20 via-violet-500/20 to-indigo-500/20 blur-2xl"
+                  className="absolute -inset-2 sm:-inset-3 rounded-full bg-gradient-to-r from-indigo-500/20 via-violet-500/20 to-indigo-500/20 blur-xl sm:blur-2xl"
                 />
                 
                 {/* Directional Markers - Professional Typography */}
@@ -159,16 +160,16 @@ export const PendulumDowsing = () => {
                   transition={{ duration: 2.5, repeat: Infinity }}
                   className="absolute inset-0 rounded-full"
                 >
-                  <div className="absolute top-8 left-1/2 -translate-x-1/2 text-emerald-400 text-lg font-semibold tracking-wide drop-shadow-[0_0_12px_rgba(52,211,153,0.9)]">YES</div>
-                  <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-rose-400 text-lg font-semibold tracking-wide drop-shadow-[0_0_12px_rgba(251,113,133,0.9)]">NO</div>
-                  <div className="absolute top-1/2 left-8 -translate-y-1/2 text-amber-400 text-lg font-semibold tracking-wide drop-shadow-[0_0_12px_rgba(251,191,36,0.9)]">MAYBE</div>
-                  <div className="absolute top-1/2 right-8 -translate-y-1/2 text-purple-400 text-lg font-semibold tracking-wide drop-shadow-[0_0_12px_rgba(192,132,252,0.9)]">ASK AGAIN</div>
+                  <div className="absolute top-4 sm:top-6 md:top-8 left-1/2 -translate-x-1/2 text-emerald-400 text-xs sm:text-sm md:text-base lg:text-lg font-semibold tracking-wide drop-shadow-[0_0_12px_rgba(52,211,153,0.9)]">YES</div>
+                  <div className="absolute bottom-4 sm:bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 text-rose-400 text-xs sm:text-sm md:text-base lg:text-lg font-semibold tracking-wide drop-shadow-[0_0_12px_rgba(251,113,133,0.9)]">NO</div>
+                  <div className="absolute top-1/2 left-4 sm:left-6 md:left-8 -translate-y-1/2 text-amber-400 text-xs sm:text-sm md:text-base lg:text-lg font-semibold tracking-wide drop-shadow-[0_0_12px_rgba(251,191,36,0.9)]">MAYBE</div>
+                  <div className="absolute top-1/2 right-4 sm:right-6 md:right-8 -translate-y-1/2 text-purple-400 text-xs sm:text-sm md:text-base lg:text-lg font-semibold tracking-wide drop-shadow-[0_0_12px_rgba(192,132,252,0.9)]">ASK AGAIN</div>
                 </motion.div>
                 
                 {/* Sacred Geometry - Concentric Circles */}
-                <div className="absolute inset-12 rounded-full border-[2px] border-indigo-400/30 shadow-[inset_0_0_20px_rgba(99,102,241,0.15)]" />
-                <div className="absolute inset-24 rounded-full border-[1.5px] border-indigo-400/20" />
-                <div className="absolute inset-[140px] rounded-full border border-indigo-400/15" />
+                <div className="absolute inset-8 sm:inset-10 md:inset-12 rounded-full border-[1.5px] sm:border-[2px] border-indigo-400/30 shadow-[inset_0_0_15px_rgba(99,102,241,0.15)]" />
+                <div className="absolute inset-16 sm:inset-20 md:inset-24 rounded-full border border-indigo-400/20" />
+                <div className="absolute inset-[100px] sm:inset-[120px] md:inset-[140px] rounded-full border border-indigo-400/15" />
                 
                 {/* Center Sacred Point with Glow */}
                 <motion.div 
@@ -258,9 +259,9 @@ export const PendulumDowsing = () => {
                         transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
                       />
                     )}
-                    
+                     
                     {/* Professional Diamond Crystal */}
-                    <div className="relative w-12 h-16 drop-shadow-[0_8px_25px_rgba(0,0,0,0.5)]">
+                    <div className="relative w-8 h-12 sm:w-10 sm:h-14 md:w-12 md:h-16 drop-shadow-[0_6px_20px_rgba(0,0,0,0.5)]">
                       {/* Main Crystal Body with Realistic Gradient */}
                       <div 
                         className="absolute inset-0 bg-gradient-to-br from-amber-200 via-yellow-500 to-amber-700 shadow-[0_8px_30px_rgba(0,0,0,0.6),inset_0_-10px_20px_rgba(0,0,0,0.3),inset_0_5px_15px_rgba(255,255,255,0.4)]"
@@ -328,20 +329,20 @@ export const PendulumDowsing = () => {
                     y: 0
                   }}
                   transition={{ type: "spring", stiffness: 200, damping: 15, duration: 0.6 }}
-                  className="absolute bottom-12 left-1/2 -translate-x-1/2 z-20"
+                  className="absolute bottom-8 sm:bottom-10 md:bottom-12 left-1/2 -translate-x-1/2 z-20"
                 >
                   <motion.div 
                     animate={{
                       boxShadow: [
-                        '0 0 25px currentColor, 0 0 50px currentColor',
-                        '0 0 35px currentColor, 0 0 70px currentColor',
-                        '0 0 25px currentColor, 0 0 50px currentColor',
+                        '0 0 20px currentColor, 0 0 40px currentColor',
+                        '0 0 30px currentColor, 0 0 60px currentColor',
+                        '0 0 20px currentColor, 0 0 40px currentColor',
                       ]
                     }}
                     transition={{ duration: 2.5, repeat: Infinity }}
-                    className={`px-10 py-5 rounded-full bg-gradient-to-r ${answer.color} backdrop-blur-md border-[3px] border-white/50 shadow-[0_10px_40px_rgba(0,0,0,0.4),inset_0_2px_10px_rgba(255,255,255,0.3)]`}
+                    className={`px-6 py-3 sm:px-8 sm:py-4 md:px-10 md:py-5 rounded-full bg-gradient-to-r ${answer.color} backdrop-blur-md border-[2px] sm:border-[3px] border-white/50 shadow-[0_8px_30px_rgba(0,0,0,0.4),inset_0_2px_8px_rgba(255,255,255,0.3)]`}
                   >
-                    <span className="font-heading text-3xl md:text-4xl text-white drop-shadow-[0_3px_15px_rgba(0,0,0,0.7)] font-bold tracking-wide">
+                    <span className="font-heading text-xl sm:text-2xl md:text-3xl lg:text-4xl text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.7)] font-bold tracking-wide">
                       {answer.text}
                     </span>
                   </motion.div>

@@ -15,6 +15,11 @@ import persianImage from "@/assets/pastlife-persian.jpg";
 import norseImage from "@/assets/pastlife-norse.jpg";
 import tibetanImage from "@/assets/pastlife-tibetan.jpg";
 import greeceImage from "@/assets/pastlife-greece.png";
+import celticImage from "@/assets/pastlife-celtic.jpg";
+import babylonImage from "@/assets/pastlife-babylon.jpg";
+import incaImage from "@/assets/pastlife-inca.jpg";
+import africanImage from "@/assets/pastlife-african.jpg";
+import polynesianImage from "@/assets/pastlife-polynesian.jpg";
 import { MysticalNarrator } from './MysticalNarrator';
 
 // --- Ascendant-based past life astrology with expanded scenarios ---
@@ -225,7 +230,7 @@ export const PastLifePortal = () => {
   };
 
   return (
-    <section id="pastlife" className="py-16 md:py-24 px-2 md:px-4 relative overflow-hidden min-h-screen flex items-center justify-center">
+    <section id="pastlife" className="py-12 sm:py-16 md:py-20 lg:py-24 px-3 sm:px-4 md:px-6 relative overflow-hidden min-h-screen flex items-center justify-center">
       {/* ---- Cosmic Animation Layer ---- */}
       <div
         className={`absolute inset-0 transition-all duration-1000 pointer-events-none ${
@@ -297,45 +302,45 @@ export const PastLifePortal = () => {
       </div>
 
       {/* ---- Portal Content ---- */}
-      <div className="max-w-full md:max-w-4xl mx-auto relative z-10 w-full">
-        <div className="text-center mb-10 md:mb-16 animate-fade-in">
-          <h2 className="font-heading text-3xl md:text-6xl font-bold mb-4 md:mb-6 text-foreground">
+      <div className="max-w-full sm:max-w-xl md:max-w-2xl lg:max-w-4xl mx-auto relative z-10 w-full px-2 sm:px-4">
+        <div className="text-center mb-8 sm:mb-12 md:mb-16 animate-fade-in">
+          <h2 className="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-3 sm:mb-4 md:mb-6 text-foreground">
             Past Life Portal 🔮
           </h2>
-          <p className="font-body text-base md:text-xl text-muted-foreground max-w-md md:max-w-2xl mx-auto">
+          <p className="font-body text-sm sm:text-base md:text-lg lg:text-xl text-muted-foreground max-w-md md:max-w-2xl mx-auto px-4">
             Reveal your past life story through Ascendant, Nakshatra, and 12th
             House Rashi astrology.
           </p>
         </div>
 
-        <Card className="p-4 sm:p-6 md:p-12 bg-card/80 backdrop-blur-sm border-primary/30 shadow-cosmic">
-          <div className="text-center space-y-8">
+        <Card className="p-3 sm:p-4 md:p-6 lg:p-8 xl:p-12 bg-card/80 backdrop-blur-sm border-mystic-gold/30 shadow-mystic">
+          <div className="text-center space-y-6 sm:space-y-8">
             {/* Input, Loading, and Result Sections */}
             {!showMessage && !isExploring && (
-              <div className="space-y-8 animate-fade-in">
+              <div className="space-y-6 sm:space-y-8 animate-fade-in">
                 {/* Inputs */}
                 <div>
-                  <label className="block text-left text-base md:text-lg mb-1 md:mb-2">Your Name</label>
+                  <label className="block text-left text-sm sm:text-base md:text-lg mb-1 md:mb-2">Your Name</label>
                   <input
                     type="text"
                     value={userName}
                     onChange={(e) => setUserName(e.target.value)}
                     placeholder="Enter your name"
-                    className="w-full px-3 py-2 md:px-4 md:py-2 rounded-md border border-primary/20 bg-background/70 text-foreground/80"
+                    className="w-full px-3 py-2 md:px-4 md:py-2 rounded-md border border-mystic-gold/20 bg-background/70 text-foreground/80 text-sm sm:text-base"
                   />
-                  <label className="block mt-4 md:mt-6 text-left text-base md:text-lg mb-1 md:mb-2">Date of Birth</label>
+                  <label className="block mt-3 sm:mt-4 md:mt-6 text-left text-sm sm:text-base md:text-lg mb-1 md:mb-2">Date of Birth</label>
                   <input
                     type="date"
                     value={userDOB}
                     onChange={(e) => setUserDOB(e.target.value)}
-                    className="w-full px-3 py-2 md:px-4 md:py-2 rounded-md border border-primary/20 bg-background/70 text-foreground/80"
+                    className="w-full px-3 py-2 md:px-4 md:py-2 rounded-md border border-mystic-gold/20 bg-background/70 text-foreground/80 text-sm sm:text-base"
                     max={new Date().toISOString().slice(0, 10)}
                   />
-                  <label className="block mt-4 md:mt-6 text-left text-base md:text-lg mb-1 md:mb-2">Ascendant Sign (Lagna)</label>
+                  <label className="block mt-3 sm:mt-4 md:mt-6 text-left text-sm sm:text-base md:text-lg mb-1 md:mb-2">Ascendant Sign (Lagna)</label>
                   <select
                     value={ascendant}
                     onChange={(e) => setAscendant(e.target.value)}
-                    className="w-full px-3 py-2 md:px-4 md:py-2 rounded-md border border-primary/20 bg-background/70 text-foreground/80"
+                    className="w-full px-3 py-2 md:px-4 md:py-2 rounded-md border border-mystic-gold/20 bg-background/70 text-foreground/80 text-sm sm:text-base"
                   >
                     <option value="">Select Ascendant</option>
                     {Object.keys(ascendantData).map((sign) => (
@@ -344,11 +349,11 @@ export const PastLifePortal = () => {
                       </option>
                     ))}
                   </select>
-                  <label className="block mt-4 md:mt-6 text-left text-base md:text-lg mb-1 md:mb-2">Birth Nakshatra</label>
+                  <label className="block mt-3 sm:mt-4 md:mt-6 text-left text-sm sm:text-base md:text-lg mb-1 md:mb-2">Birth Nakshatra</label>
                   <select
                     value={nakshatra}
                     onChange={(e) => setNakshatra(e.target.value)}
-                    className="w-full px-3 py-2 md:px-4 md:py-2 rounded-md border border-primary/20 bg-background/70 text-foreground/80"
+                    className="w-full px-3 py-2 md:px-4 md:py-2 rounded-md border border-mystic-gold/20 bg-background/70 text-foreground/80 text-sm sm:text-base"
                   >
                     <option value="">Select Nakshatra</option>
                     {Object.keys(nakshatraData).map((n) => (
@@ -359,27 +364,27 @@ export const PastLifePortal = () => {
                   </select>
                   {/* 12th House Rashi display removed */}
                 </div>
-                <p className="text-base md:text-lg text-foreground/80 mt-4 md:mt-6">
+                <p className="text-sm sm:text-base md:text-lg text-foreground/80 mt-3 sm:mt-4 md:mt-6">
                   Enter your birth details to unlock the hidden memories of your soul.
                 </p>
               </div>
             )}
 
             {isExploring && (
-              <div className="space-y-6 animate-scale-in">
-                <p className="text-xl md:text-2xl font-semibold animate-pulse-glow">
+              <div className="space-y-4 sm:space-y-6 animate-scale-in">
+                <p className="text-lg sm:text-xl md:text-2xl font-semibold animate-pulse-glow">
                   Accessing Karmic Records...
                 </p>
-                <p className="text-muted-foreground text-base md:text-lg">
+                <p className="text-muted-foreground text-sm sm:text-base md:text-lg">
                   Aligning Nakshatra, Ascendant & 12th House vibrations
                 </p>
               </div>
             )}
 
             {showMessage && (
-              <div className="space-y-8 animate-scale-in">
+              <div className="space-y-6 sm:space-y-8 animate-scale-in">
                 <div className="relative">
-                  <div className="relative w-full rounded-2xl overflow-hidden shadow-cosmic border-4 md:border-8 border-amber-900/30 aspect-[16/9]">
+                  <div className="relative w-full rounded-xl sm:rounded-2xl overflow-hidden shadow-mystic border-2 sm:border-4 md:border-6 lg:border-8 border-mystic-gold/30 aspect-[16/9]">
                     {/* Vintage image layers remain the same */}
                     <img 
                       src={image} 
@@ -398,27 +403,27 @@ export const PastLifePortal = () => {
                 </div>
 
                 <div className="space-y-3">
-                  <h3 className="font-heading text-2xl md:text-3xl font-bold text-primary text-center">
+                  <h3 className="font-heading text-xl sm:text-2xl md:text-3xl font-bold text-mystic-gold text-center">
                     {userName ? `${userName}'s Past Life` : 'Your Past Life Revealed'}
                   </h3>
 
-                  <div className="w-full animate-fade-in space-y-8">
+                  <div className="w-full animate-fade-in space-y-6 sm:space-y-8">
                     <MysticalNarrator 
                       message={message}
                     />
                   </div>
 
-                  <p className="font-body text-xs md:text-sm text-muted-foreground italic text-center">
+                  <p className="font-body text-xs sm:text-sm md:text-sm text-muted-foreground italic text-center px-2">
                     ✨ This wisdom whispers through lifetimes{userDOB ? ` since ${userDOB}` : ''}.
                   </p>
                 </div>
                 {/* Reset Button to start new after one prediction */}
-                <div className="flex justify-center mt-6">
+                <div className="flex justify-center mt-4 sm:mt-6">
                   <Button
                     variant="outline"
                     size="lg"
                     onClick={resetPastLife}
-                    className="shadow-glow border-primary/40 rounded-full px-8 py-3 font-semibold text-primary"
+                    className="shadow-divine border-mystic-gold/40 rounded-full px-6 sm:px-8 py-2.5 sm:py-3 font-semibold text-mystic-gold text-sm sm:text-base"
                   >
                     Start New
                   </Button>

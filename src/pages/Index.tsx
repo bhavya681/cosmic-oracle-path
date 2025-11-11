@@ -33,7 +33,7 @@ const Index = () => {
       <NumerologySection />
       <NakshatraJourney />
       <MysticExperience />
-      <Palmistry />
+     
       <ChineseAstrology />
       <IChing />
       <PendulumDowsing />
@@ -46,6 +46,7 @@ const Index = () => {
       <ElementalAlchemy />
        <ServicesSection />  
        <TestimonialsSection /> */}
+        <Palmistry />
       <ContactUs />
       <Footer />
     </div>

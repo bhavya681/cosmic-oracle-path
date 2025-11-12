@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -101,8 +101,53 @@ const illusionaryVariants = {
 
 const facets = Array.from({ length: 14 });
 
+/**
+ * Little crystalizing sound effect util.
+ * Can call this anywhere for crystalize SFX.
+ */
+function playCrystalizingSound() {
+  try {
+    // Simple synthesized crystalline "chime" effect using Web Audio API
+    const ctx = new (window.AudioContext || (window as any).webkitAudioContext)();
+    const now = ctx.currentTime;
+    const o = ctx.createOscillator();
+    const g = ctx.createGain();
+
+    o.type = 'triangle';
+    o.frequency.setValueAtTime(840, now);   // starts high
+    o.frequency.linearRampToValueAtTime(480, now + 0.4); // sweep down
+    o.frequency.linearRampToValueAtTime(1760, now + 0.7); // then up fast
+    o.frequency.linearRampToValueAtTime(0, now + 1.05); // fade out
+
+    g.gain.setValueAtTime(0.19, now);
+    g.gain.linearRampToValueAtTime(0.06, now + 0.6);
+    g.gain.linearRampToValueAtTime(0, now + 1.1);
+
+    o.connect(g).connect(ctx.destination);
+    o.start(now);
+    o.stop(now + 1.12);
+
+    o.onended = () => ctx.close?.();
+  } catch (e) {
+    // ignore if not supported or fast tab switching
+  }
+}
+
 function CrystalizingEffect({ active }: { active: boolean }) {
   // Add comet tails and rotating magical sigil!
+  // Play crystalizing sound at the onset of effect.
+  const playedSoundRef = useRef(false);
+
+  useEffect(() => {
+    if (active && !playedSoundRef.current) {
+      playCrystalizingSound();
+      playedSoundRef.current = true;
+    }
+    if (!active) {
+      playedSoundRef.current = false;
+    }
+  }, [active]);
+
   return (
     <AnimatePresence>
       {active && (

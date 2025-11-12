@@ -26,6 +26,7 @@ const answers = [
 const DOWSING_LOOP_AUDIO = "/assets/pendulum_dowsing_loop.mp3";
 const SWOOSH_AUDIO = "/assets/pendulum_swing.mp3";
 const TINK_AUDIO = "/assets/pendulum_tink.mp3";
+const SWINGING_SOUND_AUDIO = "/assets/pendulum_swinging.mp3"; // <--- swinging sound effect
 
 /**
  * RubyPendulumJointed - professional simple/realistic pendulum swing (damped oscillation)
@@ -37,6 +38,7 @@ const RubyPendulumJointed = ({
   swingDuration = 1.55,
   threadLength = 210,
   onDowsingSoundState,
+  onSwingingState,
 }: {
   isSwinging: boolean;
   angle?: number;
@@ -44,6 +46,7 @@ const RubyPendulumJointed = ({
   swingDuration?: number;
   threadLength?: number;
   onDowsingSoundState?: (playing: boolean) => void;
+  onSwingingState?: (playing: boolean) => void;
 }) => {
   // To sync with sound
   const [lastSwinging, setLastSwinging] = useState(false);
@@ -51,8 +54,11 @@ const RubyPendulumJointed = ({
     if (onDowsingSoundState) {
       onDowsingSoundState(isSwinging);
     }
+    if (onSwingingState) {
+      onSwingingState(isSwinging);
+    }
     setLastSwinging(isSwinging);
-  }, [isSwinging, onDowsingSoundState]);
+  }, [isSwinging, onDowsingSoundState, onSwingingState]);
 
   /**
    * Professional pendulum physics swing (damped oscillation)
@@ -87,7 +93,6 @@ const RubyPendulumJointed = ({
         rotate: frameAngles,
         transition: {
           duration,
-          // This should be an easing function, not a string, for type safety (lint): 
           ease: (t: number) => t,
           times: frameAngles.map((_, idx) => idx / (frameAngles.length - 1)),
         },
@@ -364,6 +369,22 @@ function playLoopAudio(ref: React.RefObject<HTMLAudioElement>, shouldPlay: boole
   }
 }
 
+// --- Swinging sound effect handler ---
+// This will keep a reference to an <audio> element for swinging effect
+function playSwingingSound(ref: React.RefObject<HTMLAudioElement>, shouldPlay: boolean) {
+  // Only plays when shouldPlay is true, and pauses/stops when false
+  if (!ref.current) return;
+  if (shouldPlay) {
+    ref.current.currentTime = 0;
+    ref.current.volume = 0.12;
+    ref.current.loop = true;
+    void ref.current.play();
+  } else {
+    ref.current.pause();
+    ref.current.currentTime = 0;
+  }
+}
+
 // ---- NEW FUNCTION: Decide answer by left/right/center ----
 /**
  * If pendulum goes to right side then Yes, if goes to left side then No, else as it is ("Maybe").
@@ -387,6 +408,8 @@ export const PendulumDowsing = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   // Sound for dowsing loop
   const dowsingLoopRef = useRef<HTMLAudioElement>(null);
+  // Sound effect for swinging
+  const swingingSoundRef = useRef<HTMLAudioElement>(null);
 
   // Responsive
   let circlePx = 350;
@@ -418,6 +441,12 @@ export const PendulumDowsing = () => {
     playLoopAudio(dowsingLoopRef, isDowsingAudioPlaying);
   }, [isDowsingAudioPlaying]);
 
+  // Control swinging sound effect (subtle real pendulum sound)
+  const [isSwingingSoundPlaying, setIsSwingingSoundPlaying] = useState(false);
+  useEffect(() => {
+    playSwingingSound(swingingSoundRef, isSwingingSoundPlaying);
+  }, [isSwingingSoundPlaying]);
+
   // New: Use left/right for No/Yes, but center/near-zero is Maybe
   const swingPendulum = async () => {
     if (!currentQuestion) {
@@ -429,6 +458,7 @@ export const PendulumDowsing = () => {
     setIsSwinging(true);
     setAnswer(null);
     setIsDowsingAudioPlaying(true);
+    setIsSwingingSoundPlaying(true);
 
     playSound(SWOOSH_AUDIO, 0.17);
 
@@ -460,7 +490,10 @@ export const PendulumDowsing = () => {
     }, 330);
 
     setIsSwinging(false);
-    setTimeout(() => setIsDowsingAudioPlaying(false), 350);
+    setTimeout(() => {
+      setIsDowsingAudioPlaying(false);
+      setIsSwingingSoundPlaying(false);
+    }, 350);
   };
 
   return (
@@ -761,6 +794,7 @@ export const PendulumDowsing = () => {
                   swingDuration={swingDuration}
                   threadLength={threadLength}
                   onDowsingSoundState={setIsDowsingAudioPlaying}
+                  onSwingingState={setIsSwingingSoundPlaying}
                 />
               </div>
               {/* Answer Reveal */}
@@ -806,6 +840,8 @@ export const PendulumDowsing = () => {
       <audio src={TINK_AUDIO} preload="auto" style={{ display: "none" }} />
       {/* Dowsing pendulum ambient sound (looped while swinging) */}
       <audio ref={dowsingLoopRef} src={DOWSING_LOOP_AUDIO} preload="auto" style={{ display: "none" }} />
+      {/* Realistic pendulum swinging sound effect (looped while swinging) */}
+      <audio ref={swingingSoundRef} src={SWINGING_SOUND_AUDIO} preload="auto" style={{ display: "none" }} />
     </section>
   );
 };

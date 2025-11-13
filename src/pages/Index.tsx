@@ -38,6 +38,7 @@ const Index = () => {
       <IChing />
       <PendulumDowsing />
       <AngelCards />
+      
       <CrystalBallScrying />
       <FengShui />
       <KabbalahDivination />

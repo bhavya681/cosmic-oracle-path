@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Eye, Sparkles } from 'lucide-react';
-
+import witch from "../assets/witch.png";
 // For animated stars (magical orbs) in the crystal
 const magicStarPositions = [
   { top: '27%', left: '37%', size: 18, color: '#fffbe5', delay: 0 },
@@ -376,12 +376,33 @@ function CrystalizingEffect({ active }: { active: boolean }) {
   );
 }
 
+// Custom hook to determine if the screen is small (<= 425px x 642px)
+function useMobileWitchHidden() {
+  const [hide, setHide] = useState(false);
+  useEffect(() => {
+    function checkSize() {
+      // If the viewport is <= 425px wide and <= 642px tall, hide the witch
+      if (window.innerWidth <= 455 && window.innerHeight <= 642) {
+        setHide(true);
+      } else {
+        setHide(false);
+      }
+    }
+    checkSize();
+    window.addEventListener("resize", checkSize);
+    return () => window.removeEventListener("resize", checkSize);
+  }, []);
+  return hide;
+}
 
 export const CrystalBallScrying = () => {
   const [vision, setVision] = useState<typeof visions[0] | null>(null);
   const [isScrying, setIsScrying] = useState(false);
   const [isCrystalizing, setIsCrystalizing] = useState(false);
   const crystalTimerRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Hide witch woman image on small screens (<= 425x642)
+  const hideWitchWOMobile = useMobileWitchHidden();
 
   // Add magical "aurora" color waves
   function AuroraBands() {
@@ -525,10 +546,20 @@ export const CrystalBallScrying = () => {
                 initial={{ opacity: 0, scale: 0.8 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
-                className="relative flex items-center justify-center min-h-[300px] sm:min-h-[350px] md:min-h-[400px] lg:min-h-[500px]"
+                className="relative flex items-center justify-center min-h-[300px] sm:min-h-[350px] md:min-h-[400px] lg:min-h-[500px] mt-8"
               >
+                {/* Witch Woman Background - holding crystal ball */}
+                {!hideWitchWOMobile && (
+                  <img
+                    src={witch}
+                    alt="Mystical witch holding the crystal ball"
+                    className="absolute inset-0 w-full h-full mt-30 object-contain md:object-cover z-[5] pointer-events-none select-none"
+                  />
+                )}
+
+                {/* Crystal Ball Container */}
                 <div
-                  className="relative w-full max-w-[260px] sm:max-w-[300px] md:max-w-[340px] lg:max-w-[380px] aspect-square cursor-pointer group"
+                  className="relative w-full max-w-[260px] sm:max-w-[300px] md:max-w-[340px] lg:max-w-[380px] aspect-square cursor-pointer group z-[20]"
                   style={{ perspective: '1200px' }}
                   onClick={onCrystalClick}
                   tabIndex={0}
@@ -746,8 +777,32 @@ export const CrystalBallScrying = () => {
                   </div>
 
                   {/* Stand Base - now positioned BELOW the glass */}
-                  <div className="absolute bottom-[8%] left-1/2 -translate-x-1/2 w-[45%] h-[12%] bg-gradient-to-b from-amber-900/80 to-amber-950/90 rounded-[50%] shadow-[0_15px_35px_rgba(0,0,0,0.7)] border-t-2 border-amber-800/40 z-[5]" />
-                  <div className="absolute bottom-[6%] left-1/2 -translate-x-1/2 w-[52%] h-[8%] bg-gradient-to-b from-stone-800 to-stone-900 rounded-[50%] shadow-[0_20px_40px_rgba(0,0,0,0.8)] z-[4]" style={{ background: 'linear-gradient(to bottom, #1c1917, #0c0a09)' }} />
+                  <div
+                    className="absolute bottom-[7%] left-1/2 -translate-x-1/2 w-[49%] h-[14%] rounded-[50%] shadow-[0_18px_48px_rgba(35,0,70,0.87)] z-[6] border-t-2 border-white/50"
+                    style={{
+                      background:
+                        "radial-gradient(ellipse at 60% 80%, #e9e7fd 40%, #ebeaff 74%, #bfaeff 94%, #6a4e9e 100%)",
+                      boxShadow:
+                        "0 40px 78px 0 rgba(200,200,255,0.44), 0 8px 48px 0 rgba(230,230,255,0.32)",
+                    }}
+                  />
+
+                  <div
+                    className="absolute bottom-[3.5%] left-1/2 -translate-x-1/2 w-[58%] h-[8%] rounded-[50%] z-[5]"
+                    style={{
+                      background:
+                        "linear-gradient(180deg, #e2e2fc 13%, #b1a7e7 60%, #8378c5 100%)",
+                      boxShadow: "0 22px 48px 17px rgba(200,200,255,0.23)",
+                    }}
+                  />
+
+                  <div
+                    className="absolute bottom-[2.6%] left-1/2 -translate-x-1/2 w-[60%] h-[4.7%] rounded-[50%] z-[4] pointer-events-none"
+                    style={{
+                      background:
+                        "radial-gradient(ellipse at 49% 62%, rgba(255,255,255,0.13) 0%, rgba(220,215,250,0.10) 85%, rgba(200,200,240,0.09) 100%)",
+                    }}
+                  />
 
                 </div>
               </motion.div>
